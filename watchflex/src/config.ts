@@ -1,5 +1,3 @@
-export const MAX_CART_QTY = 99;
-
 /** OWNER TO CONFIRM: the MVP showed "$" prices next to Pakistan-wide COD. Prices were NOT converted. */
 export const currency = { code: 'USD', locale: 'en-US' };
 export const money = (n: number) =>

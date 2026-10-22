@@ -28,7 +28,7 @@ export async function submitOrder(order: OrderRequest): Promise<OrderResult> {
     const res = await fetch(orderEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(order) });
     if (!res.ok) return { status: 'failed', reason: `The order service responded with an error (${res.status}).` };
     const data = await res.json().catch(() => null);
-    if (data && typeof data.reference === 'string' && data.reference.trim().length > 0) return { status: 'accepted', reference: data.reference.trim() };
+    if (data && typeof data.reference === 'string') return { status: 'accepted', reference: data.reference };
     return { status: 'failed', reason: 'The order service did not confirm the order.' };
   } catch {
     return { status: 'failed', reason: 'Could not reach the order service.' };

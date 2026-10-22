@@ -11,17 +11,9 @@
   :focus-visible { outline: 2px solid #e60000; outline-offset: 3px; }
 }
 html { scroll-behavior: smooth; scrollbar-gutter: stable; }
-body { min-height: 100vh; font-family: 'Inter', sans-serif; transition: background-color .4s ease, color .4s ease; }
-img { max-width: 100%; }
-button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
-@media (prefers-reduced-motion: reduce) {
-  html, *, *::before, *::after { scroll-behavior: auto !important; }
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
+body { overflow-x: clip; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { font-family: 'Inter', sans-serif; transition: background-color .4s ease, color .4s ease; }
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #e60000; border-radius: 3px; }
