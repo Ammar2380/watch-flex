@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WATCH FLEX PK</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&display=swap">
+<style>
+:root{--bg:#000;--fg:#ebe5dd;--mut:#6a6864;--navy:#0a1f44;--pad:1.8vw;box-sizing:border-box;color-scheme:dark}
+:root[data-theme=cream]{--bg:#ece5dc;--fg:#000;--mut:#8f8a84;color-scheme:light}
+:root[data-theme=navy]{--bg:#ece5dc;--fg:var(--navy);--mut:#8f9ab3;color-scheme:light}
+*,*::before,*::after{box-sizing:inherit}
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}.lenis.lenis-stopped{overflow:hidden}
+body{margin:0;background:var(--bg);color:var(--fg);font:500 clamp(11px,1vw,20px)/1.2 "Inter Tight","Helvetica Neue",Arial,sans-serif;overflow-x:hidden;transition:background .45s,color .45s}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+header{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:calc(1.5vw + env(safe-area-inset-top,0px)) var(--pad) 0;font-size:clamp(15px,2vw,40px);pointer-events:none}
+:root[data-theme=black] header{mix-blend-mode:difference;color:#fff}
+header>*{pointer-events:auto}
+.mk{display:flex;gap:.28vw;font-size:max(14px,1.35vw)}
+.mk i{position:relative;display:block;width:1em;height:1em}
+.mk i::before,.mk i::after{content:"";position:absolute;background:currentColor}
+.mk i::before{left:34%;right:34%;top:0;bottom:0}.mk i::after{top:34%;bottom:34%;left:0;right:0}
+.rt{display:flex;align-items:center;gap:2.4vw}
+nav{display:flex;gap:2.4vw}
+nav a{text-decoration:underline;text-decoration-color:transparent;text-underline-offset:.25em;text-decoration-thickness:2px;transition:text-decoration-color .2s}
+nav a:hover,nav a[aria-current=page]{text-decoration-color:currentColor}
+.dots{display:flex;gap:.45vw}
+.dot{position:relative;width:max(14px,1.4vw);aspect-ratio:1;border-radius:50%;border:1px solid var(--fg);padding:0;cursor:pointer}
+.dot[aria-pressed=true]::after{content:"";position:absolute;inset:30%;border-radius:50%;background:var(--ci)}
+main{padding-top:calc(4.2vw + env(safe-area-inset-top,0px))}
+.wm{position:relative;margin:0 var(--pad);font:800 100px/.8 "Inter Tight",Arial,sans-serif;letter-spacing:-.04em;text-transform:uppercase}
+.fit{display:inline-block;white-space:nowrap}
+.sub .fit{letter-spacing:-.045em}
+.wm .fit{letter-spacing:-.04em;overflow:hidden;vertical-align:top;padding:.16em .08em .08em 0;margin:-.16em 0 -.08em}
+.ch{display:inline-block;will-change:transform}
+.wm sup{position:absolute;right:0;bottom:.4vw;display:grid;place-items:center;width:2.6vw;aspect-ratio:1;border:.32vw solid currentColor;border-radius:50%;font:800 1.4vw/1 "Inter Tight",sans-serif;letter-spacing:0}
+.rule{height:max(3px,.27vw);background:currentColor;margin:1.2vw var(--pad) 0;transform-origin:left}
+.info{display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--pad);row-gap:.9vw;padding:1.4vw var(--pad) 8vw;font-weight:600;text-transform:uppercase;font-size:clamp(10px,.85vw,18px)}
+.info .w{grid-column:4/9}.info .v{grid-column:10/12}.info .y{grid-column:12;text-align:right}
+.info p{grid-column:4/8;grid-row:2;margin:0;text-transform:none;font-size:clamp(11px,1.02vw,21px);line-height:1.1}
+.info .sr{grid-column:10/13;grid-row:2;align-self:end}
+.shop{padding-bottom:6vw}
+.row{position:relative;height:calc(var(--rh)*1vw + 5vw);margin-bottom:11vw}
+.tile{position:absolute;top:0;left:calc(var(--l)*1%);width:calc(var(--w)*1%);display:block}
+.im{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:var(--ar);background:#cdcdcb}
+.im img{position:absolute;left:0;top:-8%;width:100%;height:116%;object-fit:cover;display:block;will-change:transform}
+.im .alt{position:absolute;inset:0;background:var(--navy);clip-path:inset(0 100% 0 0);pointer-events:none}
+.im .alt img{filter:grayscale(1) contrast(1.15);mix-blend-mode:multiply}
+.view{position:absolute;left:0;top:0;width:max(70px,6vw);aspect-ratio:1;margin:calc(max(70px,6vw)/-2) 0 0 calc(max(70px,6vw)/-2);border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font:600 max(8px,.6vw)/1 "Inter Tight",sans-serif;text-transform:uppercase;font-style:normal;transform:scale(0);pointer-events:none;z-index:2}
+.meta{display:flex;justify-content:space-between;gap:.6vw;margin-top:.6vw;font-size:clamp(10px,.98vw,20px)}
+.cat{display:flex;align-items:center;gap:.3vw;margin-top:.3vw;font-size:max(7px,.55vw);font-weight:600;text-transform:uppercase}
+.cat i{width:.4vw;min-width:4px;aspect-ratio:1;border-radius:50%;background:currentColor}
+footer{background:var(--bg);color:var(--fg);padding:0 var(--pad) 2vw}
+.ln{height:2px;background:currentColor;margin-bottom:.8vw}
+.fh{display:flex;justify-content:space-between;align-items:flex-start}
+.big{margin:0;font:700 5.8vw/.92 "Inter Tight",sans-serif;letter-spacing:-.045em}
+.big span{color:var(--mut)}
+.c26{font:700 13vw/.8 "Inter Tight",sans-serif;letter-spacing:-.05em}
+.fp{margin:14vw 0 1.4vw;max-width:62vw;font-size:clamp(14px,1.55vw,34px);line-height:1.12;letter-spacing:-.01em}
+.ln1{height:1px;background:currentColor}
+.fb{display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--pad);padding-top:1vw;font-size:clamp(10px,.8vw,17px);line-height:1.5}
+.fb>:nth-child(1){grid-column:1/4}.fb>:nth-child(2){grid-column:4/7}.fb>:nth-child(3){grid-column:7/9}.fb>:nth-child(4){grid-column:10/11}.fb>:nth-child(5){grid-column:11/12}.fb>:nth-child(6){grid-column:12/13;text-align:right}
+.pd{display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--pad);padding:0 var(--pad) 8vw}
+.pd .im{grid-column:1/7}
+.pd .inf{grid-column:8/13;display:flex;flex-direction:column;gap:1.4vw;align-items:flex-start}
+.pd h1{margin:0;font:700 clamp(32px,5vw,100px)/.9 "Inter Tight",sans-serif;letter-spacing:-.04em}
+.btn{padding:.9vw 2.2vw;border:1px solid currentColor;border-radius:99px;background:none;font-weight:600;text-transform:uppercase;cursor:pointer;font-size:clamp(11px,.9vw,18px);transition:background .2s,color .2s;display:inline-block;line-height:1.2;text-align:center;vertical-align:middle}
+.btn:hover{background:var(--fg);color:var(--bg)}
+.bw{position:relative;overflow:hidden}
+.sub{margin:3vw var(--pad) 3vw;font:700 100px/.92 "Inter Tight",sans-serif;letter-spacing:-.045em}
+.pal{position:absolute;top:3vw;left:0;width:9.5vw;pointer-events:none;display:block}
+.lines{padding:2vw var(--pad)}
+.ln2{display:grid;grid-template-columns:7vw 1fr auto auto;gap:2vw;align-items:center;padding:1vw 0;border-top:1px solid currentColor;font-size:clamp(12px,1.2vw,24px)}
+.ln2 .im{cursor:default}
+.q{display:flex;align-items:center;gap:.8vw}.q button{border:1px solid currentColor;background:none;border-radius:99px;min-width:1.8vw;height:1.8vw;cursor:pointer;padding:0;line-height:1}
+.rm{padding:.55vw 1.3vw;margin-left:.8vw}
+.sumr{display:flex;justify-content:space-between;align-items:center;gap:2vw;padding:1.5vw var(--pad) 6vw;font-size:clamp(14px,1.8vw,36px);font-weight:700}
+.pg{padding:2vw var(--pad) 8vw}.pg h1{margin:0 0 2vw;font:700 clamp(32px,6vw,120px)/.9 "Inter Tight",sans-serif;letter-spacing:-.04em}.pg p{max-width:60ch;font-size:clamp(14px,1.3vw,26px)}
+#tr{position:fixed;inset:0;z-index:25;background:var(--navy);color:#ebe5dd;display:grid;place-items:center;font:700 3vw "Inter Tight",sans-serif;letter-spacing:-.03em;transform:translateY(100%);pointer-events:none}
+#intro{position:fixed;inset:0;z-index:30;background:#ece5dc;color:var(--navy);display:grid;place-items:center;overflow:hidden}
+.iw{position:relative;z-index:2;font:800 7vw/1 "Inter Tight",sans-serif;letter-spacing:-.045em;display:flex;overflow:hidden;padding:0 .05em}
+.iw sup{font-size:.22em;line-height:1.2;align-self:flex-end;margin-bottom:.35em;letter-spacing:0}
+.ic{position:absolute;left:calc(50% + 15vw);top:calc(50% - 6vw);font-weight:600;z-index:3;font-variant-numeric:tabular-nums}
+.cards{position:absolute;left:50%;top:50%;width:0;height:0;z-index:3}
+.cards img{position:absolute;width:8.5vw;aspect-ratio:3/4;object-fit:cover;left:-4.25vw;top:-5.6vw;border:.35vw solid var(--navy);background:var(--navy)}
+.cur{position:fixed;left:0;top:0;width:max(6px,.5vw);aspect-ratio:1;margin:-.25vw 0 0 -.25vw;border-radius:50%;background:var(--navy);z-index:40;pointer-events:none}
+@media(pointer:coarse){.cur{display:none}}
+@media(max-width:760px){.row{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:6vw;margin-bottom:10vw}.tile{position:static;width:auto}.tile.xl{grid-column:span 2}.info{grid-template-columns:1fr 1fr;row-gap:3vw}.info>*{grid-column:auto!important;grid-row:auto!important}.pd{display:block}.pd .inf{margin-top:5vw}.big{font-size:9vw}.c26{font-size:22vw}.fb{display:flex;flex-wrap:wrap;gap:4vw;font-size:12px}.dot{width:16px}.rt{gap:4vw}.ln2{grid-template-columns:18vw 1fr auto}.ln2 .lp{display:none}.view{display:none}.mk{font-size:16px}}
+@media(prefers-reduced-motion:reduce){#intro{display:none}}
+
+:root[data-theme=black] .cur{background:#4a6fd0}
+/* ---------- responsive additions ---------- */
+@media(max-width:1100px){.btn{padding:max(8px,.9vw) max(16px,2.2vw)}.rm{padding:max(6px,.55vw) max(12px,1.3vw)}.q button{min-width:max(24px,1.8vw);height:max(24px,1.8vw)}.cat{font-size:max(9px,.55vw)}.dot{min-width:14px}}
+@media(max-width:760px){
+:root{--pad:4vw}
+main{padding-top:calc(54px + env(safe-area-inset-top,0px))}
+header{padding-top:calc(12px + env(safe-area-inset-top,0px))}
+.wm sup{width:5vw;border-width:.6vw;font-size:2.6vw;bottom:1vw}
+.meta{font-size:12px;gap:2vw;margin-top:2vw}
+.cat{font-size:9px;gap:1.2vw;margin-top:1vw}.cat i{width:5px}
+.info{font-size:11px;padding:4vw var(--pad) 12vw;column-gap:4vw}
+.info p{font-size:13px;line-height:1.25}
+.pd{padding-bottom:14vw}.pd .inf{gap:4vw}.pd .inf .btn{width:100%;max-width:340px;padding:12px 20px}
+.btn{font-size:12px}
+.fh{flex-wrap:wrap;gap:3vw}.big{font-size:8vw}.c26{font-size:20vw}
+.fp{max-width:100%;margin:12vw 0 4vw;font-size:15px}
+.fb{padding-top:4vw;line-height:1.6;font-size:12px}
+.ln2{gap:3vw;padding:3vw 0;font-size:14px}
+.ln2 .lp{display:flex!important;grid-column:1/-1;align-items:center;justify-content:space-between}
+.q{gap:3vw}.q button{min-width:28px;height:28px}
+.rm{margin-left:0;padding:6px 14px}
+.sumr{flex-direction:column;align-items:flex-start;gap:4vw;padding-bottom:14vw;font-size:18px}
+.sumr>span:last-child{display:flex;flex-wrap:wrap;gap:10px}
+.pg h1{font-size:clamp(32px,11vw,60px)}.pg p{font-size:15px}
+.pal{width:20vw}
+#tr{font-size:7vw}
+.iw{font-size:10.5vw}.ic{left:calc(50% + 24vw);top:calc(50% - 11vw);font-size:12px}
+.cards img{width:24vw;left:-12vw;top:-16vw;border-width:1vw}
+.dots{gap:6px}
+}
+@media(max-width:380px){.rt{gap:3vw}nav{gap:3vw}header{font-size:14px}}
+</style></head>
+<body>
+<div id="intro" aria-hidden="true"><div class="cards" id="cards"></div><div class="iw" id="iw"></div><div class="ic" id="ic">000</div></div>
+<div id="tr" aria-hidden="true">WATCH FLEX PK®</div>
+<div class="cur" id="cur"></div>
+<header>
+<a class="mk" href="#shop" aria-label="Watch Flex home"><i></i><i></i></a>
+<div class="rt"><nav><a href="#shop" data-k="shop">Shop</a><a href="#bag" data-k="bag">Bag (<span id="cnt">0</span>)</a></nav>
+<div class="dots" role="group" aria-label="Theme">
+<button class="dot" data-t="black" style="background:#000;--ci:#ebe5dd" aria-label="Black theme"></button>
+<button class="dot" data-t="cream" style="background:#ece5dc;--ci:#000" aria-label="Cream theme"></button>
+<button class="dot" data-t="navy" style="background:#0a1f44;--ci:#ebe5dd" aria-label="Navy theme"></button></div></div>
+</header>
+<main id="app"></main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+<script>
+const IMG={"off": "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1800&q=90", "kerned": "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=1800&q=90", "spec": "https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&w=1800&q=90", "grid": "https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=1800&q=90", "neutral": "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=1800&q=90", "reddot": "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=1800&q=90", "gridlocked": "https://images.unsplash.com/photo-1539874754764-5a96559165b0?auto=format&fit=crop&w=1800&q=90", "hw1": "https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?auto=format&fit=crop&w=1800&q=90", "hw2": "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?auto=format&fit=crop&w=1800&q=90", "mono": "https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&w=1800&q=90", "pos": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1800&q=90", "white": "https://images.unsplash.com/photo-1619134778706-7015533a6150?auto=format&fit=crop&w=1800&q=90", "cmdk": "https://images.unsplash.com/photo-1548171915-e79a380a2a4b?auto=format&fit=crop&w=1800&q=90", "peng": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=85"};
+// [id,name,price,img,aspect,row,left%,width%,extra class]
+const RH=[30.06,46.98,24.54,35];
+const P=[
+['off-by-design','Off by Design',36.5,'off','429/572',0,1.79,22.54],['kerned-confidence','Kerned Confidence',25,'kerned','429/572',0,26.22,22.54],
+['specimen-no-hh01','Specimen No. HH01',30,'spec','429/572',0,50.71,22.54],['grid-system-go','Grid System Go',30,'grid','429/572',0,75.15,22.54],
+['neutral-grotesk','Neutral Grotesk',30,'neutral','313/465',1,1.79,16.45],['red-dot-not-award','Red Dot Not Award',20,'reddot','1/1',1,20.13,16.45],
+['gridlocked','Gridlocked',25,'gridlocked','1/1',1,50.71,46.98,'xl'],
+['hello-week-001','Hello Week 001',30,'hw1','1/1',2,1.79,16.45],['hello-week-002','Hello Week 002',30,'hw2','313/467',2,32.37,16.45],
+['monochrome-manifest','Monochrome Manifest',30,'mono','1/1',2,50.71,16.45],
+['positive-space','Positive Space',30,'pos','545/666',3,1.79,28.64],['whitespace-matters','Whitespace Matters',33,'white','1/1',3,62.9,16.45],
+['command-k','Command + K',15,'cmdk','313/467',3,81.19,16.45]];
+const $=s=>document.querySelector(s),$$a=s=>[...document.querySelectorAll(s)];
+const sv=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}},ld=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+let cart={};try{cart=JSON.parse(ld('of-cart')||'{}')||{}}catch(e){}
+const WA='923123802930';
+const waLink=items=>{const t=items.reduce((a,[p,q])=>a+p[2]*q,0);const m='Hello Watch Flex! I would like to place an order:\n\n'+items.map(([p,q],i)=>`${i+1}. ${p[1]} x${q} - $${(p[2]*q).toFixed(2)}`).join('\n')+`\n\nTotal: $${t.toFixed(2)}\n\nPlease confirm availability and delivery details.`;return 'https://wa.me/'+WA+'?text='+encodeURIComponent(m)};
+const $$=n=>'$'+n.toFixed(2),cnt=()=>Object.values(cart).reduce((a,b)=>a+b,0);
+const save=()=>{sv('of-cart',JSON.stringify(cart));$('#cnt').textContent=cnt()};
+function theme(t){document.documentElement.dataset.theme=t;sv('of-theme',t);$$a('.dot').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.t===t)))}
+theme((ld('of-theme')==='red'?'navy':ld('of-theme'))||'black');
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const split=t=>[...t].map(c=>`<span class="ch">${c===' '?'&nbsp;':c}</span>`).join('');
+const im=(p,hov=true)=>`<div class="im" role="img" aria-label="${p[1]}" style="--ar:${p[4]}"><img src="${IMG[p[3]]}" alt="" draggable="false">${hov?`<div class="alt"><img src="${IMG[p[3]]}" alt="" draggable="false"></div><i class="view">View more</i>`:''}</div>`;
+const meta=p=>`<div class="meta"><span>${p[1]}</span><span>${$$(p[2])}</span></div><div class="cat"><i></i>Apparel</div>`;
+const mark=()=>`<div class="rule"></div><div class="info"><span>WATCH FLEX PK</span><span class="w">WHY</span><a class="v" href="https://www.hellohello.is/" target="_blank" rel="noopener">VISIT ++ WEBSITE</a><span class="y">© 2026</span><p>Explore the collection. Find your favourite. Make it yours.</p><a class="sr" href="#shipping">SHIPPING &amp; RETURNS</a></div>`;
+const wm=t=>`<h1 class="wm"><span class="fit"><span class="ch">${t}</span></span>${t==='WATCH FLEX'?'<sup>R</sup>':''}</h1>`;
+const shop=()=>wm('WATCH FLEX')+mark()+`<section class="shop">${RH.map((h,r)=>`<div class="row" style="--rh:${h}">${P.filter(p=>p[5]===r).map(p=>`<a class="tile ${p[8]||''}" style="--l:${p[6]};--w:${p[7]}" href="#p-${p[0]}" aria-label="${p[1]}, ${$$(p[2])}">${im(p)}${meta(p)}</a>`).join('')}</div>`).join('')}</section>`;
+const prod=p=>`<section class="pd">${im(p)}<div class="inf"><a href="#shop">Back to shop</a><h1>${p[1]}</h1><div>${$$(p[2])}</div><div class="cat"><i></i>Apparel</div><button class="btn" data-a="add" data-id="${p[0]}">Add to bag</button><a class="btn" href="${waLink([[p,1]])}" target="_blank" rel="noopener">Order on WhatsApp</a></div></section>`;
+let note='';
+const bag=()=>{const rows=Object.entries(cart).map(([id,q])=>[P.find(p=>p[0]===id),q]).filter(r=>r[0]),sub=rows.reduce((a,[p,q])=>a+p[2]*q,0);
+return `<div class="bw">${wm('YOUR BAG')}<div class="rule"></div>`+(rows.length?'':`<img class="pal" src="${IMG.peng}" alt="" draggable="false"><p class="sub"><span class="fit">${note||'Not even one thing?<br>That’s sad.'}</span></p>`)+`</div>`+(rows.length?`<div class="lines">${rows.map(([p,q])=>`<div class="ln2">${im(p,false)}<div>${p[1]}</div><div class="q"><button data-a="dec" data-id="${p[0]}" aria-label="Fewer">−</button>${q}<button data-a="inc" data-id="${p[0]}" aria-label="More">+</button></div><div class="lp">${$$(p[2]*q)} <button class="rm btn" data-a="rm" data-id="${p[0]}">Remove</button></div></div>`).join('')}</div><div class="sumr"><span>Subtotal ${$$(sub)}</span><span><a class="btn" href="#shop">Back to shop</a> <a class="btn" href="${waLink(rows)}" target="_blank" rel="noopener">Order on WhatsApp</a></span></div>`:`<div class="pg"><a class="btn" href="#shop">Back to shop</a></div>`)};
+const info=t=>`<section class="pg"><h1>${t}</h1><p>Placeholder copy. This is a demo store: checkout is simulated and no payment is taken.</p><a class="btn" href="#shop">Back to shop</a></section>`;
+const foot=()=>`<footer><div class="ln"></div><div class="fh"><p class="big">Your Style. Your Time.<br><span>Your Flex.</span></p><div class="c26" aria-hidden="true">©26</div></div><p class="fp">Explore the collection. Find your favourite. Make it yours.</p><div class="ln1"></div><div class="fb"><div><b>Watch Flex PK</b><br>All rights reserved © 2026</div><div>Libertad 2529<br>Office 102<br>Montevideo, Uruguay</div><a href="#privacy">Privacy Policy</a><div>Dribbble<br>Instagram<br>LinkedIn<br>Twitter (X)</div><div>Work<br>Services<br>About<br>Careers</div><a href="https://wa.me/${WA}" target="_blank" rel="noopener">Let’s talk</a></div></footer>`;
+function fitAll(){$$a('.fit').forEach(el=>{el.style.fontSize='100px';const w=el.parentElement.clientWidth;const f=100*w/el.getBoundingClientRect().width;el.style.fontSize=f+'px';if(el.closest('.sub'))el.parentElement.style.lineHeight='.92'})}
+
+/* ---------- smooth scroll (Lenis) + GSAP ---------- */
+gsap.registerPlugin(ScrollTrigger);
+const lenis=new Lenis({duration:1.25,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothWheel:true});
+lenis.on('scroll',ScrollTrigger.update);
+gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);
+
+let pal=null;
+function anim(first){
+  ScrollTrigger.getAll().forEach(s=>s.kill());if(pal){pal.kill();pal=null}
+  const fine=matchMedia('(hover:hover)').matches;
+  if(!RM){
+    // parallax: image drifts inside its frame while the tile crosses the viewport
+    $$a('.tile .im:not(.alt) > img, .pd .im > img').forEach(img=>{
+      gsap.fromTo(img,{yPercent:-5},{yPercent:5,ease:'none',scrollTrigger:{trigger:img.parentElement,start:'top bottom',end:'bottom top',scrub:true}})});
+    // tile reveal: frame wipes open from the bottom, image settles from a slight zoom
+    $$a('.tile .im,.pd .im').forEach(el=>{
+      gsap.fromTo(el,{clipPath:'inset(100% 0 0 0)'},{clipPath:'inset(0% 0 0 0)',duration:1.1,ease:'power4.out',scrollTrigger:{trigger:el,start:'top 92%',once:true}});
+      gsap.from(el.querySelector('img'),{scale:1.25,duration:1.6,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 92%',once:true}})});
+    $$a('.tile .meta,.tile .cat').forEach(el=>gsap.from(el,{opacity:0,y:14,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 98%',once:true}}));
+    gsap.from('.rule',{scaleX:0,duration:1.2,ease:'power4.inOut'});
+    gsap.from('.wm .ch',{yPercent:112,duration:1.2,ease:'power4.out',delay:first?0:.05});
+    gsap.from('.sub .fit',{yPercent:30,opacity:0,duration:.9,ease:'power3.out',delay:.3});
+    gsap.from('.big,.c26',{yPercent:20,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'footer',start:'top 80%',once:true}});
+    const pe=$('.pal');if(pe){const W=innerWidth,tl=gsap.timeline({repeat:-1,yoyo:true});
+      tl.fromTo(pe,{x:W*.04,y:0,rotate:-6},{x:W*.48,y:W*.14,rotate:6,duration:7,ease:'sine.inOut'}).to(pe,{x:W*.84,y:W*.02,rotate:-4,duration:7,ease:'sine.inOut'});pal=tl}
+  }
+  // hover: navy wipe reveal + "View more" bubble that follows the cursor
+  if(fine)$$a('.tile .im').forEach(el=>{
+    const alt=el.querySelector('.alt'),v=el.querySelector('.view');if(!alt)return;
+    const qx=gsap.quickTo(v,'x',{duration:.45,ease:'power3'}),qy=gsap.quickTo(v,'y',{duration:.45,ease:'power3'});
+    el.addEventListener('mouseenter',e=>{const r=el.getBoundingClientRect();gsap.set(v,{x:e.clientX-r.left,y:e.clientY-r.top});
+      gsap.killTweensOf(alt);gsap.fromTo(alt,{clipPath:'inset(0 100% 0 0)'},{clipPath:'inset(0 0% 0 0)',duration:.55,ease:'power4.out'});
+      gsap.to(v,{scale:1,duration:.5,ease:'back.out(1.8)'})});
+    el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();qx(e.clientX-r.left);qy(e.clientY-r.top)});
+    el.addEventListener('mouseleave',()=>{gsap.killTweensOf(alt);gsap.to(alt,{clipPath:'inset(0 0 0 100%)',duration:.5,ease:'power4.inOut'});gsap.to(v,{scale:0,duration:.3,ease:'power2.in'})})});
+  ScrollTrigger.refresh();
+}
+function route(keep,first){const h=location.hash.slice(1)||'shop',p=P.find(x=>'p-'+x[0]===h);
+$('#app').innerHTML=(h==='bag'?bag():p?prod(p):h==='shipping'?info('Shipping &amp; returns'):h==='privacy'?info('Privacy policy'):shop())+foot();
+$$a('nav a').forEach(a=>a.dataset.k===(h==='bag'?'bag':'shop')?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current'));
+if(h!=='bag')note='';if(keep!==true)lenis.scrollTo(0,{immediate:true,force:true});fitAll();anim(first)}
+
+/* page transition: navy panel wipes up, swaps the page, keeps going */
+let busy=false;
+function go(h){if(busy||('#'+(location.hash.slice(1)||'shop'))===h)return;
+  if(RM){location.hash=h;return}busy=true;lenis.stop();
+  gsap.timeline({onComplete:()=>{busy=false;lenis.start()}})
+   .set('#tr',{yPercent:0,y:'100%'}).to('#tr',{y:'0%',duration:.7,ease:'power4.inOut'})
+   .add(()=>{location.hash=h})
+   .to('#tr',{y:'-100%',duration:.7,ease:'power4.inOut',delay:.15})}
+document.addEventListener('click',e=>{
+const d=e.target.closest('.dot');if(d)return theme(d.dataset.t);
+const a=e.target.closest('a[href^="#"]');if(a&&!e.metaKey&&!e.ctrlKey){e.preventDefault();return go(a.getAttribute('href'))}
+const b=e.target.closest('[data-a]');if(!b)return;const k=b.dataset.a,id=b.dataset.id;
+if(k==='add'){cart[id]=(cart[id]||0)+1;save();b.textContent='Added — add another';return}
+if(k==='inc')cart[id]++;if(k==='dec'&&--cart[id]<1)delete cart[id];if(k==='rm')delete cart[id];
+if(k==='buy'){cart={};note='Simulated checkout done.<br>No payment taken.'}
+save();route(true)});
+addEventListener('hashchange',()=>route());
+addEventListener('resize',()=>{fitAll();ScrollTrigger.refresh()});
+
+/* navy dot cursor */
+if(matchMedia('(hover:hover)').matches){const c=$('#cur'),cx=gsap.quickTo(c,'x',{duration:.18,ease:'power3'}),cy=gsap.quickTo(c,'y',{duration:.18,ease:'power3'});addEventListener('mousemove',e=>{cx(e.clientX);cy(e.clientY)})}
+
+/* intro: letters rise, photo cards stack up while the counter runs, curtain lifts */
+function intro(done){
+  const it=$('#intro');if(RM){it.remove();return done()}
+  $('#iw').innerHTML=[...'WATCH FLEX'].map(c=>`<span class="ch">${c===' '?'&nbsp;':c}</span>`).join('')+'<sup>®</sup>';
+  lenis.stop();
+  const order=['reddot','hw2','neutral','white','mono','kerned','spec','off','cmdk','pos'],cards=$('#cards'),o={n:0};let made=0;
+  const add=()=>{const im=new Image();im.src=IMG[order[made%order.length]];cards.appendChild(im);made++;
+    gsap.fromTo(im,{scale:.55,opacity:0,rotate:gsap.utils.random(-18,18),y:30},{scale:1,opacity:1,rotate:gsap.utils.random(-9,9),y:0,duration:.45,ease:'back.out(1.6)'})};
+  gsap.set('.iw .ch',{yPercent:115});
+  const tl=gsap.timeline({onComplete:()=>{it.remove();lenis.start();done&&done()}});
+  tl.to('.iw .ch',{yPercent:0,duration:.9,ease:'power4.out',stagger:.07})
+    .to(o,{n:100,duration:2.6,ease:'power2.inOut',onUpdate:()=>{const n=Math.round(o.n);$('#ic').textContent=String(n).padStart(3,'0');while(made<Math.min(10,Math.floor(n/9)+1))add()}},0)
+    .to('#cards img',{y:-60,opacity:0,rotate:'+=8',duration:.5,ease:'power3.in',stagger:.03},'>+.1')
+    .to('.iw .ch',{yPercent:-115,duration:.6,ease:'power3.in',stagger:.04},'<')
+    .to('#intro',{yPercent:-100,duration:1,ease:'power4.inOut'},'>-.05')
+    .add(()=>route(true,true),'<+.15');
+}
+save();
+// render page once fonts are ready so the wordmark fits correctly
+(document.fonts?document.fonts.ready:Promise.resolve()).then(()=>{if(RM){route(false,true);$('#intro')&&$('#intro').remove()}else{window.scrollTo(0,0);intro()}});
+</script></body></html>
