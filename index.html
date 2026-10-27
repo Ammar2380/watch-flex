@@ -118,6 +118,66 @@ header{padding-top:calc(12px + env(safe-area-inset-top,0px))}
 .dots{gap:6px}
 }
 @media(max-width:380px){.rt{gap:3vw}nav{gap:3vw}header{font-size:14px}}
+
+/* ---------- screenshot-inspired sections (added) ---------- */
+.fx{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.fx.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.fx{opacity:1;transform:none;transition:none}}
+.sec{padding:0 var(--pad) 7vw}
+.eyebrow{font-size:clamp(10px,.85vw,18px);font-weight:600;text-transform:uppercase;letter-spacing:.04em;opacity:.6}
+.sh{display:flex;justify-content:space-between;align-items:flex-end;gap:2vw;margin:0 0 2.2vw}
+.sh h2,.why h2{margin:.5vw 0 0;font:700 clamp(28px,3.6vw,76px)/.95 "Inter Tight",sans-serif;letter-spacing:-.04em}
+.sh.c{justify-content:center;text-align:center}
+.chips{display:flex;flex-wrap:wrap;gap:.6vw}
+.chip{border:1px solid currentColor;background:none;border-radius:99px;padding:.55vw 1.3vw;font-weight:600;font-size:clamp(11px,.92vw,17px);cursor:pointer;transition:background .2s,color .2s}
+.chip:hover{background:color-mix(in srgb,var(--fg) 12%,transparent)}
+.chip[aria-pressed=true]{background:var(--fg);color:var(--bg)}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:3.4vw var(--pad)}
+.pgrid[data-f=best] .pc:not([data-best]){display:none}
+.pc{display:flex;flex-direction:column;gap:.7vw}
+.pimg{position:relative;display:block;aspect-ratio:4/5;overflow:hidden;background:color-mix(in srgb,var(--fg) 9%,var(--bg))}
+.pimg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.pc:hover .pimg img{transform:scale(1.05)}
+.badge{position:absolute;left:.8vw;top:.8vw;background:var(--navy);color:#fff;border-radius:99px;padding:.3vw .85vw;font-size:clamp(9px,.7vw,13px);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.pm{display:flex;justify-content:space-between;align-items:baseline;gap:1vw;margin-top:.3vw}
+.pn{font-weight:700;font-size:clamp(13px,1.12vw,22px);letter-spacing:-.01em}
+.pp{font-weight:700;white-space:nowrap;font-size:clamp(13px,1.05vw,21px)}
+.ps{margin-top:-.4vw;font-size:clamp(11px,.85vw,16px);opacity:.6}
+.pa{display:flex;gap:.6vw;margin-top:.3vw}
+.cta{flex:1;border:0;border-radius:99px;background:var(--fg);color:var(--bg);padding:.8vw 1vw;font-weight:700;font-size:clamp(11px,.92vw,17px);cursor:pointer;transition:opacity .2s}
+.cta:hover{opacity:.85}
+.wab{display:grid;place-items:center;flex:none;width:clamp(36px,2.9vw,56px);aspect-ratio:1;border:1px solid currentColor;border-radius:50%;transition:background .2s,border-color .2s,color .2s}
+.wab:hover{background:#25d366;border-color:#25d366;color:#fff}.wab svg{width:52%;height:52%}
+.why{background:var(--navy);color:#ebe5dd;padding:4vw var(--pad);margin-bottom:7vw}
+.why .eyebrow{color:#8fc9ff;opacity:1}
+.wg{display:grid;grid-template-columns:repeat(4,1fr);margin-top:3vw}
+.wi{display:flex;flex-direction:column;gap:.4vw;padding:0 1.6vw;border-left:1px solid rgba(235,229,221,.2)}.wi:first-child{padding-left:0;border-left:0}
+.wi svg{color:#8fc9ff;margin-bottom:.6vw}.wi b{font-size:clamp(13px,1.2vw,24px)}.wi span{font-size:clamp(10px,.9vw,18px);color:#8fc9ff}
+.revs{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--pad)}
+.rev{border:1px solid color-mix(in srgb,var(--fg) 22%,transparent);padding:1.6vw;display:flex;flex-direction:column;gap:.8vw}
+.stars{color:#f5a623;letter-spacing:.1em;font-size:clamp(12px,1.1vw,22px)}
+.rev p{margin:0;font-size:clamp(12px,1.05vw,21px);line-height:1.3}
+.who{display:flex;align-items:center;gap:.9vw;font-size:clamp(11px,.9vw,18px);margin-top:.4vw}.who em{font-style:normal;opacity:.6}
+.av{display:grid;place-items:center;width:max(34px,2.8vw);aspect-ratio:1;border-radius:50%;background:var(--navy);color:#ebe5dd;font-weight:700}
+.fl{background:var(--navy);color:#ebe5dd;padding:4vw var(--pad) 1.6vw}
+.flg{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:var(--pad)}
+.flg>div{display:flex;flex-direction:column;gap:.5vw;font-size:clamp(11px,.95vw,19px)}
+.flg b{margin-bottom:.4vw}.flg a,.flg span{opacity:.75}.flg a:hover{opacity:1}
+.flb{font:800 clamp(18px,2vw,40px)/1 "Inter Tight",sans-serif;letter-spacing:-.02em}.flg p{margin:.4vw 0 0;opacity:.75}
+.flr{display:flex;justify-content:space-between;gap:2vw;margin-top:3vw;padding-top:1.2vw;border-top:1px solid rgba(235,229,221,.2);font-size:clamp(10px,.8vw,16px);opacity:.7}
+@media(max-width:1100px){.pgrid{grid-template-columns:repeat(3,1fr)}.wg{grid-template-columns:repeat(2,1fr);row-gap:5vw}.wi:nth-child(3){padding-left:0;border-left:0}.chip{padding:max(7px,.55vw) max(14px,1.3vw)}.cta{padding:max(10px,.8vw) 1vw}}
+@media(max-width:760px){
+.sec{padding-bottom:12vw}.sh{flex-direction:column;align-items:flex-start;gap:4vw;margin-bottom:5vw}.sh.c{align-items:center}
+.chips{gap:8px}.chip{padding:8px 16px;font-size:13px}
+.pgrid{grid-template-columns:repeat(2,1fr);gap:8vw 3.5vw}.pc{gap:6px}
+.pimg{aspect-ratio:1/1.1}.badge{left:8px;top:8px;padding:4px 10px;font-size:9px}
+.pm{flex-direction:column;gap:2px;margin-top:4px}.pn{font-size:14px}.pp{font-size:14px;opacity:.85}.ps{margin-top:0;font-size:12px}
+.pa{gap:8px;margin-top:6px}.cta{padding:11px 8px;font-size:13px}.wab{width:42px}
+.why{padding:10vw var(--pad);margin-bottom:12vw}.wg{margin-top:7vw;row-gap:8vw}.wi{padding:0 3vw;gap:1.2vw}.wi:nth-child(odd){padding-left:0;border-left:0}.wi svg{margin-bottom:1.5vw}
+.revs{grid-template-columns:1fr;gap:3vw}.rev{padding:5vw;gap:2.5vw}.who{gap:3vw}
+.fl{padding:10vw var(--pad) 5vw}.flg{grid-template-columns:1fr 1fr;gap:7vw 4vw}.flg>div{gap:2vw}.flg>div:first-child{grid-column:1/-1}
+.flr{flex-direction:column;gap:2vw;margin-top:8vw;padding-top:4vw}
+}
 </style></head>
 <body>
 <div id="intro" aria-hidden="true"><div class="cards" id="cards"></div><div class="iw" id="iw"></div><div class="ic" id="ic">000</div></div>
@@ -148,11 +208,23 @@ const P=[
 ['monochrome-manifest','Monochrome Manifest',30,'mono','1/1',2,50.71,16.45],
 ['positive-space','Positive Space',30,'pos','545/666',3,1.79,28.64],['whitespace-matters','Whitespace Matters',33,'white','1/1',3,62.9,16.45],
 ['command-k','Command + K',15,'cmdk','313/467',3,81.19,16.45]];
+// featured collection (PKR). [id,name,price,img,aspect,row,left,width,extra,'pkr',spec]
+const F=[['f-seiko-presage','Seiko Presage',64999,'hw1','4/5',-1,0,0,'','pkr','Automatic | Blue Dial'],
+['f-casio-enticer','Casio Enticer',32999,'hw2','4/5',-1,0,0,'','pkr','Analog | Leather Strap'],
+['f-citizen-eco-drive','Citizen Eco-Drive',89999,'neutral','4/5',-1,0,0,'','pkr','Solar | Stainless Steel'],
+['f-tissot-gentleman','Tissot Gentleman',144999,'off','4/5',-1,0,0,'','pkr','Automatic | Sapphire Glass']];
+const ALL=()=>P.concat(F);
+const sm=u=>u.replace('w=1800','w=900').replace('q=90','q=80');
+const PHW='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect width="400" height="500" fill="#1a1d24"/><rect x="165" y="0" width="70" height="500" fill="#8f9ab3" opacity=".35"/><circle cx="200" cy="250" r="110" fill="#8f9ab3"/><circle cx="200" cy="250" r="96" fill="#0a1f44"/><path d="M200 250V192M200 250l36 20" stroke="#ebe5dd" stroke-width="5" stroke-linecap="round"/><circle cx="200" cy="250" r="6" fill="#ebe5dd"/></svg>');
+const LIST=(()=>{const seen=new Set(),a=[],b=[];F.concat(P).forEach(p=>{const u=IMG[p[3]];seen.has(u)?b.push(p):(seen.add(u),a.push(p))});return a.concat(b)})();
+const WAI='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-1.5-.7-2.5-1.3-3.5-2.9-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.2.7 3 .6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>';
 const $=s=>document.querySelector(s),$$a=s=>[...document.querySelectorAll(s)];
 const sv=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}},ld=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
 let cart={};try{cart=JSON.parse(ld('of-cart')||'{}')||{}}catch(e){}
+const mny=(p,q=1)=>p[9]==='pkr'?'PKR '+Math.round(p[2]*q).toLocaleString('en-US'):'$'+(p[2]*q).toFixed(2);
+const tot=rows=>{let u=0,k=0;rows.forEach(([p,q])=>{p[9]==='pkr'?k+=p[2]*q:u+=p[2]*q});const a=[];if(k)a.push('PKR '+Math.round(k).toLocaleString('en-US'));if(u||!k)a.push('$'+u.toFixed(2));return a.join(' + ')};
 const WA='923123802930';
-const waLink=items=>{const t=items.reduce((a,[p,q])=>a+p[2]*q,0);const m='Hello Watch Flex! I would like to place an order:\n\n'+items.map(([p,q],i)=>`${i+1}. ${p[1]} x${q} - $${(p[2]*q).toFixed(2)}`).join('\n')+`\n\nTotal: $${t.toFixed(2)}\n\nPlease confirm availability and delivery details.`;return 'https://wa.me/'+WA+'?text='+encodeURIComponent(m)};
+const waLink=items=>{const t=items.reduce((a,[p,q])=>a+p[2]*q,0);const m='Hello Watch Flex! I would like to place an order:\n\n'+items.map(([p,q],i)=>`${i+1}. ${p[1]} x${q} - ${mny(p,q)}`).join('\n')+`\n\nTotal: ${tot(items)}\n\nPlease confirm availability and delivery details.`;return 'https://wa.me/'+WA+'?text='+encodeURIComponent(m)};
 const $$=n=>'$'+n.toFixed(2),cnt=()=>Object.values(cart).reduce((a,b)=>a+b,0);
 const save=()=>{sv('of-cart',JSON.stringify(cart));$('#cnt').textContent=cnt()};
 function theme(t){document.documentElement.dataset.theme=t;sv('of-theme',t);$$a('.dot').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.t===t)))}
@@ -163,11 +235,31 @@ const im=(p,hov=true)=>`<div class="im" role="img" aria-label="${p[1]}" style="-
 const meta=p=>`<div class="meta"><span>${p[1]}</span><span>${$$(p[2])}</span></div><div class="cat"><i></i>Apparel</div>`;
 const mark=()=>`<div class="rule"></div><div class="info"><span>WATCH FLEX PK</span><span class="w">WHY</span><a class="v" href="https://www.hellohello.is/" target="_blank" rel="noopener">VISIT ++ WEBSITE</a><span class="y">© 2026</span><p>Explore the collection. Find your favourite. Make it yours.</p><a class="sr" href="#shipping">SHIPPING &amp; RETURNS</a></div>`;
 const wm=t=>`<h1 class="wm"><span class="fit"><span class="ch">${t}</span></span>${t==='WATCH FLEX'?'<sup>R</sup>':''}</h1>`;
-const shop=()=>wm('WATCH FLEX')+mark()+`<section class="shop">${RH.map((h,r)=>`<div class="row" style="--rh:${h}">${P.filter(p=>p[5]===r).map(p=>`<a class="tile ${p[8]||''}" style="--l:${p[6]};--w:${p[7]}" href="#p-${p[0]}" aria-label="${p[1]}, ${$$(p[2])}">${im(p)}${meta(p)}</a>`).join('')}</div>`).join('')}</section>`;
-const prod=p=>`<section class="pd">${im(p)}<div class="inf"><a href="#shop">Back to shop</a><h1>${p[1]}</h1><div>${$$(p[2])}</div><div class="cat"><i></i>Apparel</div><button class="btn" data-a="add" data-id="${p[0]}">Add to bag</button><a class="btn" href="${waLink([[p,1]])}" target="_blank" rel="noopener">Order on WhatsApp</a></div></section>`;
+
+const ico={
+q:'<svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M9 3l3 6 3-6M12 21 9 9m3 12 3-12"/></svg>',
+c:'<svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9 8 11 4.6-2 8-6 8-11V5z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>',
+d:'<svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M2 6h12v10H2zM14 9h4l4 3v4h-8"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>',
+s:'<svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/><path d="M19 20c0 1.5-2 2-5 2"/></svg>'};
+const REV=[['Ali Raza','Karachi','Amazing quality and super fast delivery. Definitely ordering again!'],['Hamza Khan','Lahore','The watch looks even better in real life. Highly recommended!'],['Usman Tariq','Islamabad','Great experience! Original product and excellent customer service.']];
+const extras=()=>`
+<section class="sec" id="shopgrid"><div class="sh"><div><div class="eyebrow">The collection</div><h2>Shop Watches</h2></div>
+<div class="chips" role="group" aria-label="Filter products"><button class="chip" data-chip="all" aria-pressed="true">All (${LIST.length})</button><button class="chip" data-chip="best" aria-pressed="false">Best sellers (${F.length})</button></div></div>
+<div class="pgrid" id="pgrid" data-f="all">${LIST.map(p=>`<article class="pc fx"${p[9]?' data-best':''}><a class="pimg" href="#p-${p[0]}" aria-label="${p[1]}"><img src="${sm(IMG[p[3]])}" alt="${p[1]}" decoding="async" draggable="false" onerror="this.onerror=null;this.src=PHW">${p[9]?'<span class="badge">Best seller</span>':''}</a><div class="pm"><a class="pn" href="#p-${p[0]}">${p[1]}</a><span class="pp">${mny(p)}</span></div>${p[10]?`<div class="ps">${p[10]}</div>`:''}<div class="pa"><button class="cta" data-a="add" data-id="${p[0]}">Add to cart</button><a class="wab" href="${waLink([[p,1]])}" target="_blank" rel="noopener" aria-label="Order ${p[1]} on WhatsApp">${WAI}</a></div></article>`).join('')}</div></section>
+<section class="why"><div class="eyebrow">Why Watch Flex</div><h2>More Than Just a Watch</h2>
+<div class="wg">${[[ico.q,'Premium Quality','Carefully selected watches'],[ico.c,'Cash on Delivery','All over Pakistan'],[ico.d,'Fast Delivery','3–5 days delivery time'],[ico.s,'Dedicated Support','We’re here to help on WhatsApp']].map(w=>`<div class="wi fx">${w[0]}<b>${w[1]}</b><span>${w[2]}</span></div>`).join('')}</div></section>
+<section class="sec"><div class="sh c"><div><div class="eyebrow">Customer reviews</div><h2>What Our Customers Say</h2></div></div>
+<div class="revs">${REV.map(r=>`<div class="rev fx"><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><p>“${r[2]}”</p><div class="who"><span class="av">${r[0][0]}</span><span><b>${r[0]}</b><br><em>${r[1]}</em></span></div></div>`).join('')}</div></section>
+<section class="fl"><div class="flg"><div><div class="flb">WATCH FLEX PK</div><p>Your Style. Your Time. Your Flex.</p></div>
+<div><b>Quick Links</b><a href="#shop">Shop</a><a href="#bag">Bag</a></div>
+<div><b>Customer Care</b><a href="#shipping">Shipping Policy</a><a href="#privacy">Privacy Policy</a><a href="https://wa.me/${WA}" target="_blank" rel="noopener">Contact on WhatsApp</a></div>
+<div><b>Follow Us</b><a href="https://www.instagram.com/watchflex.pk/" target="_blank" rel="noopener">Instagram</a><a href="https://wa.me/${WA}" target="_blank" rel="noopener">WhatsApp</a><span>@watchflex.pk</span></div></div>
+<div class="flr"><span>© 2026 Watch Flex PK. All rights reserved.</span><span>Style / Time / Flex</span></div></section>`;
+const shop=()=>wm('WATCH FLEX')+mark()+`${extras()}`;
+const prod=p=>`<section class="pd">${im(p)}<div class="inf"><a href="#shop">Back to shop</a><h1>${p[1]}</h1><div>${mny(p)}</div><div class="cat"><i></i>${p[10]||'Apparel'}</div><button class="btn" data-a="add" data-id="${p[0]}">Add to bag</button><a class="btn" href="${waLink([[p,1]])}" target="_blank" rel="noopener">Order on WhatsApp</a></div></section>`;
 let note='';
-const bag=()=>{const rows=Object.entries(cart).map(([id,q])=>[P.find(p=>p[0]===id),q]).filter(r=>r[0]),sub=rows.reduce((a,[p,q])=>a+p[2]*q,0);
-return `<div class="bw">${wm('YOUR BAG')}<div class="rule"></div>`+(rows.length?'':`<img class="pal" src="${IMG.peng}" alt="" draggable="false"><p class="sub"><span class="fit">${note||'Not even one thing?<br>That’s sad.'}</span></p>`)+`</div>`+(rows.length?`<div class="lines">${rows.map(([p,q])=>`<div class="ln2">${im(p,false)}<div>${p[1]}</div><div class="q"><button data-a="dec" data-id="${p[0]}" aria-label="Fewer">−</button>${q}<button data-a="inc" data-id="${p[0]}" aria-label="More">+</button></div><div class="lp">${$$(p[2]*q)} <button class="rm btn" data-a="rm" data-id="${p[0]}">Remove</button></div></div>`).join('')}</div><div class="sumr"><span>Subtotal ${$$(sub)}</span><span><a class="btn" href="#shop">Back to shop</a> <a class="btn" href="${waLink(rows)}" target="_blank" rel="noopener">Order on WhatsApp</a></span></div>`:`<div class="pg"><a class="btn" href="#shop">Back to shop</a></div>`)};
+const bag=()=>{const rows=Object.entries(cart).map(([id,q])=>[ALL().find(p=>p[0]===id),q]).filter(r=>r[0]),sub=rows.reduce((a,[p,q])=>a+p[2]*q,0);
+return `<div class="bw">${wm('YOUR BAG')}<div class="rule"></div>`+(rows.length?'':`<img class="pal" src="${IMG.peng}" alt="" draggable="false"><p class="sub"><span class="fit">${note||'Not even one thing?<br>That’s sad.'}</span></p>`)+`</div>`+(rows.length?`<div class="lines">${rows.map(([p,q])=>`<div class="ln2">${im(p,false)}<div>${p[1]}</div><div class="q"><button data-a="dec" data-id="${p[0]}" aria-label="Fewer">−</button>${q}<button data-a="inc" data-id="${p[0]}" aria-label="More">+</button></div><div class="lp">${mny(p,q)} <button class="rm btn" data-a="rm" data-id="${p[0]}">Remove</button></div></div>`).join('')}</div><div class="sumr"><span>Subtotal ${tot(rows)}</span><span><a class="btn" href="#shop">Back to shop</a> <a class="btn" href="${waLink(rows)}" target="_blank" rel="noopener">Order on WhatsApp</a></span></div>`:`<div class="pg"><a class="btn" href="#shop">Back to shop</a></div>`)};
 const info=t=>`<section class="pg"><h1>${t}</h1><p>Placeholder copy. This is a demo store: checkout is simulated and no payment is taken.</p><a class="btn" href="#shop">Back to shop</a></section>`;
 const foot=()=>`<footer><div class="ln"></div><div class="fh"><p class="big">Your Style. Your Time.<br><span>Your Flex.</span></p><div class="c26" aria-hidden="true">©26</div></div><p class="fp">Explore the collection. Find your favourite. Make it yours.</p><div class="ln1"></div><div class="fb"><div><b>Watch Flex PK</b><br>All rights reserved © 2026</div><div>Libertad 2529<br>Office 102<br>Montevideo, Uruguay</div><a href="#privacy">Privacy Policy</a><div>Dribbble<br>Instagram<br>LinkedIn<br>Twitter (X)</div><div>Work<br>Services<br>About<br>Careers</div><a href="https://wa.me/${WA}" target="_blank" rel="noopener">Let’s talk</a></div></footer>`;
 function fitAll(){$$a('.fit').forEach(el=>{el.style.fontSize='100px';const w=el.parentElement.clientWidth;const f=100*w/el.getBoundingClientRect().width;el.style.fontSize=f+'px';if(el.closest('.sub'))el.parentElement.style.lineHeight='.92'})}
@@ -178,8 +270,13 @@ const lenis=new Lenis({duration:1.25,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t
 lenis.on('scroll',ScrollTrigger.update);
 gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);
 
-let pal=null;
+let pal=null,fxIO=null;
 function anim(first){
+  if(fxIO)fxIO.disconnect();
+  const fx=$$a('.fx');
+  if(RM||!('IntersectionObserver' in window)){fx.forEach(e=>e.classList.add('in'))}
+  else{fxIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');fxIO.unobserve(e.target)}}),{rootMargin:'0px 0px -5% 0px'});
+    fx.forEach(e=>fxIO.observe(e));setTimeout(()=>fx.forEach(e=>e.classList.add('in')),3500)}
   ScrollTrigger.getAll().forEach(s=>s.kill());if(pal){pal.kill();pal=null}
   const fine=matchMedia('(hover:hover)').matches;
   if(!RM){
@@ -209,7 +306,7 @@ function anim(first){
     el.addEventListener('mouseleave',()=>{gsap.killTweensOf(alt);gsap.to(alt,{clipPath:'inset(0 0 0 100%)',duration:.5,ease:'power4.inOut'});gsap.to(v,{scale:0,duration:.3,ease:'power2.in'})})});
   ScrollTrigger.refresh();
 }
-function route(keep,first){const h=location.hash.slice(1)||'shop',p=P.find(x=>'p-'+x[0]===h);
+function route(keep,first){const h=location.hash.slice(1)||'shop',p=ALL().find(x=>'p-'+x[0]===h);
 $('#app').innerHTML=(h==='bag'?bag():p?prod(p):h==='shipping'?info('Shipping &amp; returns'):h==='privacy'?info('Privacy policy'):shop())+foot();
 $$a('nav a').forEach(a=>a.dataset.k===(h==='bag'?'bag':'shop')?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current'));
 if(h!=='bag')note='';if(keep!==true)lenis.scrollTo(0,{immediate:true,force:true});fitAll();anim(first)}
@@ -224,9 +321,10 @@ function go(h){if(busy||('#'+(location.hash.slice(1)||'shop'))===h)return;
    .to('#tr',{y:'-100%',duration:.7,ease:'power4.inOut',delay:.15})}
 document.addEventListener('click',e=>{
 const d=e.target.closest('.dot');if(d)return theme(d.dataset.t);
+const ch=e.target.closest('[data-chip]');if(ch){const g=$('#pgrid');g.dataset.f=ch.dataset.chip;$$a('.chip').forEach(c=>c.setAttribute('aria-pressed',String(c===ch)));ScrollTrigger.refresh();return}
 const a=e.target.closest('a[href^="#"]');if(a&&!e.metaKey&&!e.ctrlKey){e.preventDefault();return go(a.getAttribute('href'))}
 const b=e.target.closest('[data-a]');if(!b)return;const k=b.dataset.a,id=b.dataset.id;
-if(k==='add'){cart[id]=(cart[id]||0)+1;save();b.textContent='Added — add another';return}
+if(k==='add'){cart[id]=(cart[id]||0)+1;save();b.textContent=b.classList.contains('cta')?'Added ✓':'Added — add another';return}
 if(k==='inc')cart[id]++;if(k==='dec'&&--cart[id]<1)delete cart[id];if(k==='rm')delete cart[id];
 if(k==='buy'){cart={};note='Simulated checkout done.<br>No payment taken.'}
 save();route(true)});
