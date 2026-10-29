@@ -4,7 +4,6 @@
 <title>WATCH FLEX PK</title>
 <meta name="theme-color" content="#000000">
 <meta name="description" content="Watch Flex PK. Watches with cash on delivery all over Pakistan. Order on WhatsApp.">
-<script>(function(d){try{d.classList.add('js');if(!matchMedia('(prefers-reduced-motion:reduce)').matches&&!sessionStorage.getItem('wf-i'))d.classList.add('intro')}catch(e){}})(document.documentElement)</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&display=swap">
 <style>
@@ -221,13 +220,60 @@ input::placeholder{color:inherit;opacity:.55}
 @media(max-width:900px){.pd .gal{position:relative;top:0;max-width:620px}.fpnl{grid-template-columns:1fr 1fr}}
 @media(max-width:760px){.tgl{display:inline-flex;align-items:center}.fpnl{display:none;grid-template-columns:1fr}.fpnl.open{display:grid}.tb select{flex:1 1 140px}}
 @media(pointer:coarse){.dots{gap:12px}}
+
+/* ---------- v4: navbar marquee, footer colours, checkout form ---------- */
+:root{--sky:#0ea5e9;--err:#b3261e}:root[data-theme=black]{--sky:#38bdf8;--err:#ff7a6e}
+header{flex-wrap:wrap}
+.mk,.rt{min-height:56px}
+.mq{order:-1;flex:0 0 calc(100% + var(--pad)*2);margin:0 calc(var(--pad)*-1);overflow:hidden;background:var(--fg);color:var(--bg);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;height:32px;display:flex;align-items:center;transition:background .45s,color .45s}
+#mqt{display:flex;flex:none;white-space:nowrap;animation:mq 40s linear infinite;will-change:transform}
+.mq:hover #mqt{animation-play-state:paused}
+.mq .g{display:flex;flex:none}.mq span{padding:0 1.4em;position:relative}.mq span::after{content:"•";position:absolute;right:-.25em}
+@keyframes mq{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.mq{height:auto;padding:6px var(--pad);justify-content:center}#mqt{animation:none;white-space:normal;text-align:center}.mq .g:nth-child(2){display:none}.mq .g{flex-wrap:wrap;justify-content:center}.mq .g span:nth-child(n+5){display:none}}
+.pd .gal{top:112px}
+.info .sr{grid-row:1;grid-column:10/12;align-self:auto}.info{padding-bottom:clamp(32px,5vw,80px)}
+.big,.big span{color:var(--sky)}
+.c26{font-weight:800;color:var(--navy)}:root[data-theme=black] .c26{color:#3b5fc4}
+.btn.solid{background:var(--fg);color:var(--bg)}
+@media(hover:hover){.btn.solid:hover{background:transparent;color:var(--fg)}}
+.btn[disabled]{opacity:.55;cursor:wait}
+.co{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:var(--pad) clamp(24px,4vw,80px);padding:clamp(16px,2vw,40px) var(--pad) clamp(48px,8vw,140px);align-items:start}
+.co h2{margin:0 0 16px;font:700 clamp(22px,2.2vw,44px)/1 "Inter Tight",sans-serif;letter-spacing:-.03em}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.ff{display:flex;flex-direction:column;gap:6px;min-width:0}.ff.full{grid-column:1/-1}
+.ff label{font-weight:600;font-size:clamp(12px,.9vw,16px)}
+.ff input,.ff textarea{font:inherit;font-size:max(16px,1vw);color:inherit;background:transparent;border:1px solid currentColor;border-radius:12px;padding:12px 14px;min-height:46px;width:100%;resize:vertical}
+.ff .bad{border-color:var(--err);box-shadow:0 0 0 1px var(--err)}
+.er{color:var(--err);font-weight:600;min-height:1.1em;font-size:13px}
+.ferr{color:var(--err);font-weight:600;margin-top:14px}
+.hp{position:absolute;left:-9999px;opacity:0;pointer-events:none}
+.cobtns{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.hint{display:block;margin-top:14px;opacity:.75;font-size:13px;line-height:1.4;max-width:60ch}
+.os{border:1px solid color-mix(in srgb,var(--fg) 30%,transparent);padding:clamp(16px,1.6vw,28px);position:sticky;top:120px}
+.ol{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid color-mix(in srgb,var(--fg) 18%,transparent);font-size:clamp(14px,1.05vw,19px)}
+.ol.tot{font-weight:700;border-top:2px solid currentColor}.os small{display:block;margin-top:10px;opacity:.7;font-size:12px}
+.co.done p{max-width:46ch;font-size:clamp(15px,1.2vw,22px)}
+@media(max-width:900px){.co{grid-template-columns:1fr}.os{order:-1;position:static}}
+@media(max-width:520px){.fgrid{grid-template-columns:1fr}.cobtns .btn{flex:1 1 100%}}
+#tr{visibility:hidden}
+h1[tabindex="-1"]:focus{outline:none}
+@media(max-width:760px){.info .y{grid-column:2!important;grid-row:1!important;text-align:right}.info .sr{grid-column:1/-1!important;grid-row:2!important}}
+
+/* ---------- v5: transition fix, alignment, tablet/mobile product page ---------- */
+#tr{transform:none;visibility:hidden}
+.mk{align-items:center}
+main:focus{outline:none}
+.skip{position:absolute;left:8px;top:-60px;z-index:50;background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:99px;font-weight:600}
+.skip:focus{top:8px}
+@media(max-width:900px){.pd{display:block}.pd .gal{position:relative;top:0;max-width:620px}.pd .inf{margin-top:24px}}
 </style></head>
 <body>
-<div id="intro" aria-hidden="true"><div class="cards" id="cards"></div><div class="iw" id="iw"></div><div class="ic" id="ic">000</div></div>
 <div id="tr" aria-hidden="true">WATCH FLEX PK®</div>
+<a class="skip" href="#">Skip to content</a>
 <div class="cur" id="cur"></div>
 <div class="vh" id="st" role="status" aria-live="polite"></div>
 <header>
+<div class="mq" role="region" aria-label="Store information"><span class="vh">Cash on delivery all over Pakistan. Delivery in 3–5 days. Order on WhatsApp.</span><div id="mqt" aria-hidden="true"></div></div>
 <a class="mk" href="#shop" aria-label="Watch Flex home"><i></i><i></i></a>
 <div class="rt"><nav><a href="#shop" data-k="shop">Shop</a><a href="#bag" data-k="bag">Bag (<span id="cnt">0</span>)</a></nav>
 <div class="dots" role="group" aria-label="Theme">
@@ -235,7 +281,7 @@ input::placeholder{color:inherit;opacity:.55}
 <button class="dot" data-t="cream" style="background:#ece5dc;--ci:#000" aria-label="Cream theme"></button>
 <button class="dot" data-t="navy" style="background:#0a1f44;--ci:#ebe5dd" aria-label="Navy theme"></button></div></div>
 </header>
-<main id="app"></main>
+<main id="app" tabindex="-1"></main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
@@ -257,6 +303,12 @@ const RAW=[
 /*DATA_END*/
 const REV=[]; // customer reviews: add only real, permitted reviews as [name, city, text]. The section hides while empty.
 const DECOR='https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=85';
+/* ORDER FORM SETUP (one-time, 2 minutes): "Place order" sends the order to your email through Web3Forms (free).
+   1) Go to https://web3forms.com, enter YOUR email, and copy the Access Key they send you.
+   2) Paste it between the quotes below. (This key is designed to be public; it can only send mail to your own address.)
+   Until a key is added, "Place order" shows a message and customers can still use "Contact us on WhatsApp". */
+const ORDER_KEY='';
+const MARQUEE=['Cash on delivery all over Pakistan','Delivery in 3–5 days','Order on WhatsApp','Instagram @watchflex.pk'];
 const WA='923123802930',IG='https://www.instagram.com/watchflex.pk/',STEP=16;
 const PHW='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect width="400" height="500" fill="#1a1d24"/><rect x="165" y="0" width="70" height="500" fill="#8f9ab3" opacity=".35"/><circle cx="200" cy="250" r="110" fill="#8f9ab3"/><circle cx="200" cy="250" r="96" fill="#0a1f44"/><path d="M200 250V192M200 250l36 20" stroke="#ebe5dd" stroke-width="5" stroke-linecap="round"/><circle cx="200" cy="250" r="6" fill="#ebe5dd"/></svg>');
 const WAI='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-1.5-.7-2.5-1.3-3.5-2.9-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.2.7 3 .6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>';
@@ -295,7 +347,10 @@ let cart={};try{const c=JSON.parse(ld('wf-cart')||ld('of-cart')||'{}')||{};for(c
 const cnt=()=>Object.values(cart).reduce((a,b)=>a+b,0),rowsOf=()=>Object.entries(cart).map(([id,q])=>[MAP.get(id),q]).filter(r=>r[0]),okRows=()=>rowsOf().filter(r=>r[0].stock!=='out');
 const sum=rows=>rows.reduce((a,[p,q])=>a+p.price*q,0);
 const save=()=>{sv('wf-cart',JSON.stringify(cart));$('#cnt').textContent=cnt()};
-const waLink=items=>'https://wa.me/'+WA+'?text='+encodeURIComponent('Hello Watch Flex! I would like to place an order:\n\n'+items.map(([p,q],i)=>`${i+1}. ${p.name}${p.model?' ('+p.model+')':''} x${q} - ${pkr(p.price*q)}`).join('\n')+`\n\nTotal: ${pkr(sum(items))}\n\nPlease confirm availability and delivery details.`);
+const lines=items=>items.map(([p,q],i)=>`${i+1}. ${p.name}${p.model?' ('+p.model+')':''} x${q} - ${pkr(p.price*q)}`).join('\n');
+const waOrder=(items,d={})=>{const c=[['Name',d.name],['Phone',d.phone],['Email',d.email],['City',d.city],['Postal code',d.postal],['Address',d.address],['Notes',d.notes]].filter(r=>r[1]).map(r=>`${r[0]}: ${r[1]}`).join('\n');
+  return 'https://wa.me/'+WA+'?text='+encodeURIComponent('Hello Watch Flex! I would like to place an order:\n\n'+lines(items)+`\n\nTotal: ${pkr(sum(items))}`+(c?'\n\nMy details:\n'+c:'')+'\n\nPlease confirm availability and delivery details.')};
+const waLink=items=>waOrder(items);
 const TC={black:'#000000',cream:'#ece5dc',navy:'#ece5dc'};
 function theme(t){if(!TC[t])t='black';document.documentElement.dataset.theme=t;sv('of-theme',t);$('meta[name=theme-color]').content=TC[t];$$a('.dot').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.t===t)))}
 theme(ld('of-theme')==='red'?'navy':ld('of-theme')||'black');
@@ -305,9 +360,9 @@ const L=!!(window.gsap&&window.ScrollTrigger&&window.Lenis);
 /* ---- templates ---- */
 const imgBox=(p,ar='4/5')=>`<div class="im" role="img" aria-label="${esc(p.name)}" style="--ar:${ar}"><img src="${p.images[0]||PHW}" alt="" draggable="false" onerror="this.onerror=null;this.src=PHW"></div>`;
 const wm=t=>`<h1 class="wm"><span class="fit"><span class="ch">${t}</span></span>${t==='WATCH FLEX'?'<sup aria-hidden="true">R</sup>':''}</h1>`;
-const mark=()=>`<div class="rule"></div><div class="info"><span>WATCH FLEX PK</span><span class="w">WHY WATCH FLEX</span><a class="v" href="${IG}" target="_blank" rel="noopener">INSTAGRAM</a><span class="y">© 2026</span><p>Cash on delivery all over Pakistan. Delivery in 3–5 days. Order on WhatsApp.</p><a class="sr" href="#shipping">SHIPPING &amp; RETURNS</a></div>`;
+const mark=()=>`<div class="rule"></div><div class="info"><span>WATCH FLEX PK</span><a class="sr" href="#shipping">SHIPPING &amp; RETURNS</a><span class="y">© 2026</span></div>`;
 const card=p=>{const out=p.stock==='out',img=p.images[0],tag=out?'Out of stock':p.featured?'Featured':p.isNew?'New':'',h='#p-'+esc(p.id);
-  return `<article class="pc"><a class="pimg" href="${h}" aria-label="${esc(p.name)}"><img src="${img?sm(img):PHW}" alt="${esc(p.name)}" loading="lazy" decoding="async" draggable="false" onerror="this.onerror=null;this.src=PHW">${tag?`<span class="badge">${tag}</span>`:''}</a><div class="pm"><a class="pn" href="${h}">${esc(p.name)}</a><span class="pp">${pkr(p.price)}</span></div>${p.specs.length?`<div class="ps">${esc(p.specs.join(' | '))}</div>`:''}<div class="pa">${out?'<button class="cta" disabled>Out of stock</button>':`<button class="cta" data-a="add" data-id="${esc(p.id)}">Add to cart</button><a class="wab" href="${waLink([[p,1]])}" target="_blank" rel="noopener" aria-label="Order ${esc(p.name)} on WhatsApp">${WAI}</a>`}</div></article>`};
+  return `<article class="pc"><a class="pimg" href="${h}" aria-label="${esc(p.name)}"><img src="${img?sm(img):PHW}" alt="${esc(p.name)}" loading="lazy" decoding="async" draggable="false" onerror="this.onerror=null;this.src=PHW">${tag?`<span class="badge">${tag}</span>`:''}</a><div class="pm"><a class="pn" href="${h}">${esc(p.name)}</a><span class="pp">${pkr(p.price)}</span></div>${p.specs.length?`<div class="ps">${esc(p.specs.join(' | '))}</div>`:''}<div class="pa">${out?'<button class="cta" disabled>Out of stock</button>':`<button class="cta" data-a="add" data-id="${esc(p.id)}">Add to cart</button>`}</div></article>`};
 const catUI=()=>`<section class="sec" id="shopgrid"><div class="sh"><div><div class="eyebrow">The collection</div><h2>Shop Watches</h2></div><p class="rc" id="rc" role="status" aria-live="polite"></p></div>
 <div class="tb"><label class="vh" for="q">Search watches</label><input id="q" type="search" placeholder="Search name, brand, model or spec" autocomplete="off"><label class="vh" for="so">Sort by</label><select id="so"><option value="featured">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option><option value="name">Name: A to Z</option></select><button class="chip tgl" id="ft" aria-expanded="false" aria-controls="fpnl">Filters</button></div>
 <div class="fpnl" id="fpnl"><div class="fg"><b>Brand</b><div class="chips bs" id="bc"></div></div><div class="fg"><b>Price (PKR)</b><div class="pr"><label class="vh" for="mn">Minimum price</label><input id="mn" type="number" min="0" step="500" inputmode="numeric" placeholder="Min"><span>–</span><label class="vh" for="mx">Maximum price</label><input id="mx" type="number" min="0" step="500" inputmode="numeric" placeholder="Max"></div><small id="pn"></small></div><div class="fg" id="bdg"><b>Shop by budget</b><div class="chips" id="bd"></div></div><button class="chip" id="cl" data-clear hidden>Clear filters</button></div>
@@ -318,7 +373,7 @@ const shop=()=>wm('WATCH FLEX')+mark()+catUI()+why()+revs();
 const prod=p=>{const out=p.stock==='out',dl=[['Brand',p.brand],['Model',p.model],['Category',p.category]].filter(r=>r[1]);
   return `<section class="pd"><div class="gal">${imgBox(p)}${p.images.length>1?`<div class="th">${p.images.map((u,i)=>`<button data-img="${esc(u)}" aria-label="Show photo ${i+1}"><img src="${esc(u)}" alt=""></button>`).join('')}</div>`:''}</div><div class="inf"><a href="#shop">← Back to shop</a><h1>${esc(p.name)}</h1><div class="price">${pkr(p.price)}</div>${dl.length?`<dl>${dl.map(r=>`<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join('')}</dl>`:''}${p.specs.length?`<ul class="sp">${p.specs.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`:''}<div class="st">${out?'Out of stock':p.stock==='in'?'In stock':'Availability confirmed on WhatsApp'}</div>${out?'':`<button class="btn" data-a="add" data-id="${esc(p.id)}">Add to bag</button><a class="btn" href="${waLink([[p,1]])}" target="_blank" rel="noopener">Order on WhatsApp</a><a class="btn" id="goBag" href="#bag" hidden>Go to bag</a>`}</div></section>`};
 const bag=()=>{const rows=rowsOf(),ok=okRows();
-  return `<div class="bw">${wm('YOUR BAG')}<div class="rule"></div>`+(rows.length?'':`<img class="pal" src="${DECOR}" alt="" draggable="false" onerror="this.remove()"><p class="sub"><span class="fit">No watch yet?<br>Time is ticking.</span></p>`)+`</div>`+(rows.length?`<div class="lines">${rows.map(([p,q])=>`<div class="ln2">${imgBox(p)}<div><a href="#p-${esc(p.id)}">${esc(p.name)}</a>${p.stock==='out'?'<br><small>Currently unavailable. Remove it to order.</small>':''}</div><div class="q"><button data-a="dec" data-id="${esc(p.id)}" aria-label="Fewer ${esc(p.name)}">−</button><span aria-label="Quantity">${q}</span><button data-a="inc" data-id="${esc(p.id)}" aria-label="More ${esc(p.name)}">+</button></div><div class="lp">${pkr(p.price*q)} <button class="rm btn" data-a="rm" data-id="${esc(p.id)}" aria-label="Remove ${esc(p.name)}">Remove</button></div></div>`).join('')}</div><div class="sumr"><span>Subtotal ${pkr(sum(ok))}<br><small>Delivery and availability are confirmed on WhatsApp.</small></span><span><a class="btn" href="#shop">Back to shop</a>${ok.length?` <a class="btn" href="${waLink(ok)}" target="_blank" rel="noopener">Order on WhatsApp</a>`:''}</span></div>`:`<div class="pg"><a class="btn" href="#shop">Back to shop</a></div>`)};
+  return `<div class="bw">${wm('YOUR BAG')}<div class="rule"></div>`+(rows.length?'':`<img class="pal" src="${DECOR}" alt="" draggable="false" onerror="this.remove()"><p class="sub"><span class="fit">No watch yet?<br>Time is ticking.</span></p>`)+`</div>`+(rows.length?`<div class="lines">${rows.map(([p,q])=>`<div class="ln2">${imgBox(p)}<div><a href="#p-${esc(p.id)}">${esc(p.name)}</a>${p.stock==='out'?'<br><small>Currently unavailable. Remove it to order.</small>':''}</div><div class="q"><button data-a="dec" data-id="${esc(p.id)}" aria-label="Fewer ${esc(p.name)}">−</button><span aria-label="Quantity">${q}</span><button data-a="inc" data-id="${esc(p.id)}" aria-label="More ${esc(p.name)}">+</button></div><div class="lp">${pkr(p.price*q)} <button class="rm btn" data-a="rm" data-id="${esc(p.id)}" aria-label="Remove ${esc(p.name)}">Remove</button></div></div>`).join('')}</div><div class="sumr"><span>Subtotal ${pkr(sum(ok))}<br><small>Delivery and availability are confirmed by us after you order.</small></span><span><a class="btn" href="#shop">Back to shop</a>${ok.length?' <a class="btn solid" href="#checkout">Checkout</a>':''}</span></div>`:`<div class="pg"><a class="btn" href="#shop">Back to shop</a></div>`)};
 const info=(t,body)=>`<section class="pg"><h1>${t}</h1>${body}<a class="btn" href="#shop">Back to shop</a></section>`;
 const SHIP='<p>Cash on delivery all over Pakistan. Delivery time: 3–5 days. Confirm availability and delivery details with us on WhatsApp before you order.</p>',PRIV='<p>This website keeps your bag on your own device only. When you order, the message you send on WhatsApp is how we receive your details.</p>';
 const foot=()=>`<footer><div class="ln"></div><div class="fh"><p class="big">Your Style. Your Time.<br><span>Your Flex.</span></p><div class="c26" aria-hidden="true">©26</div></div><p class="fp">Cash on delivery all over Pakistan. Delivery in 3–5 days.</p><div class="ln1"></div><div class="fc"><div><b>Watch Flex PK</b>Your Style. Your Time. Your Flex.<br>All rights reserved © 2026</div><div><b>Quick links</b><a href="#shop">Shop</a><a href="#bag">Bag</a></div><div><b>Customer care</b><a href="#shipping">Shipping &amp; returns</a><a href="#privacy">Privacy policy</a><a href="https://wa.me/${WA}" target="_blank" rel="noopener">Contact on WhatsApp</a></div><div><b>Follow us</b><a href="${IG}" target="_blank" rel="noopener">Instagram</a><a href="https://wa.me/${WA}" target="_blank" rel="noopener">WhatsApp</a></div></div></footer>`;
@@ -339,12 +394,51 @@ function cat(more){const g=$('#pgrid');if(!g)return;const r=view(),n=Math.min(S.
   if(!r.length){const f=[S.q.trim()&&`“${esc(S.q.trim())}”`,S.brands.size&&[...S.brands].map(esc).join(', '),(S.min!==''||S.max!=='')&&`${S.min!==''?pkr(+S.min):'any price'} to ${S.max!==''?pkr(+S.max):'any price'}`].filter(Boolean).join(' · ');
     em.innerHTML=ITEMS.length?`<b>No watches found</b><p>Nothing matches ${f||'these filters'}. Try fewer words, another brand or a wider price range.</p><button class="btn" data-clear>Clear filters</button> <a class="btn" href="https://wa.me/${WA}" target="_blank" rel="noopener">Ask us on WhatsApp</a>`:`<b>New watches are on the way</b><p>Message us on WhatsApp for what is available now.</p><a class="btn" href="https://wa.me/${WA}" target="_blank" rel="noopener">Message on WhatsApp</a>`}
   $('#cl').hidden=!(act||S.sort!=='featured');
+  const nf=S.brands.size+(S.min!==''||S.max!==''?1:0),ft=$('#ft');if(ft)ft.textContent=nf?`Filters (${nf})`:'Filters';
   const bad=S.min!==''&&S.max!==''&&+S.min>+S.max;$('#pn').textContent=bad?`Minimum is higher than maximum, so showing ${pkr(+S.max)} to ${pkr(+S.min)}.`:'';
   $$a('[data-brand]').forEach(c=>c.setAttribute('aria-pressed',String(S.brands.has(c.dataset.brand))));
   $$a('[data-lo]').forEach(c=>c.setAttribute('aria-pressed',String(c.dataset.lo===S.min&&c.dataset.hi===S.max)))}
 let dt;const upd=()=>{S.shown=STEP;cat()},dq=()=>{clearTimeout(dt);dt=setTimeout(upd,160)};
-addEventListener('input',e=>{const t=e.target;if(t.id==='q'){S.q=t.value;dq()}else if(t.id==='mn'||t.id==='mx'){S[t.id==='mn'?'min':'max']=t.value;dq()}});
+addEventListener('input',e=>{const t=e.target;if(t.id==='q'){S.q=t.value;dq()}else if(t.id==='mn'||t.id==='mx'){S[t.id==='mn'?'min':'max']=t.value;dq()}else if(t.closest&&t.closest('#of')){if(t.id==='postal')t.value=t.value.replace(/\D/g,'');refreshWA();if(t.classList.contains('bad')){t.classList.remove('bad');const m=$('#e-'+t.id);if(m)m.textContent=''}}});
 addEventListener('change',e=>{if(e.target.id==='so'){S.sort=e.target.value;upd()}});
+
+
+/* ---- checkout: order form ---- */
+let lastOrder=null;
+const FIELDS=[['name','Full name','text','autocomplete="name"'],['phone','Phone number','tel','autocomplete="tel" inputmode="tel" placeholder="03XX XXXXXXX"'],['email','Email','email','autocomplete="email" inputmode="email"'],['city','City','text','autocomplete="address-level2"'],['postal','Postal code','text','autocomplete="postal-code" inputmode="numeric" maxlength="5" placeholder="5 digits"']];
+const ff=f=>`<div class="ff"><label for="${f[0]}">${f[1]}</label><input id="${f[0]}" name="${f[0]}" type="${f[2]}" ${f[3]} aria-describedby="e-${f[0]}" required><small class="er" id="e-${f[0]}"></small></div>`;
+const summary=(rows)=>`<aside class="os"><h2>Your order</h2>${rows.map(([p,q])=>`<div class="ol"><span>${esc(p.name)} × ${q}</span><span>${pkr(p.price*q)}</span></div>`).join('')}<div class="ol tot"><span>Total</span><span>${pkr(sum(rows))}</span></div><small>Payment: cash on delivery. Delivery charges, if any, are confirmed by us.</small></aside>`;
+const checkout=()=>{
+  if(lastOrder){const o=lastOrder;return `<div class="bw">${wm('THANK YOU')}<div class="rule"></div></div><section class="co done"><div><h2>Order ${o.ref} received</h2><p>Thank you, ${esc(o.d.name)}. We will confirm availability and delivery details with you on ${esc(o.d.phone)}. Payment is cash on delivery.</p><div class="cobtns"><a class="btn solid" href="#shop">Back to shop</a><a class="btn" href="${waOrder(o.rows,o.d).replace('Hello%20Watch%20Flex!','Hello%20Watch%20Flex!%20(order%20'+o.ref+')')}" target="_blank" rel="noopener">Message us on WhatsApp</a></div></div>${summary(o.rows)}</section>`}
+  const rows=okRows();
+  if(!rows.length)return `<div class="bw">${wm('CHECKOUT')}<div class="rule"></div></div><div class="pg"><p>Your bag is empty.</p><a class="btn" href="#shop">Back to shop</a></div>`;
+  return `<div class="bw">${wm('CHECKOUT')}<div class="rule"></div></div><section class="co"><form id="of" novalidate><h2>Your details</h2><div class="fgrid">${FIELDS.map(ff).join('')}<div class="ff full"><label for="address">Full delivery address</label><textarea id="address" name="address" rows="2" autocomplete="street-address" aria-describedby="e-address" required></textarea><small class="er" id="e-address"></small></div><div class="ff full"><label for="notes">Order notes (optional)</label><textarea id="notes" name="notes" rows="2"></textarea></div></div><input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true"><div class="ferr" id="ferr" role="alert"></div>
+<div class="cobtns"><button type="submit" class="btn solid" id="po">Place order</button><a class="btn" id="wc" href="${waOrder(rows)}" target="_blank" rel="noopener">Contact us on WhatsApp</a></div><small class="hint"><b>Place order</b> sends your order to us directly and you stay on this page. <b>Contact us</b> opens WhatsApp with your order ready to send.</small></form>${summary(rows)}</section>`};
+const formData=()=>{const f=$('#of'),g=n=>(f.elements[n].value||'').trim();return{name:g('name'),phone:g('phone'),email:g('email'),city:g('city'),postal:g('postal'),address:g('address'),notes:g('notes')}};
+const refreshWA=()=>{const a=$('#wc');if(a&&$('#of'))a.href=waOrder(okRows(),formData())};
+function validate(d){const e={},ph=d.phone.replace(/[\s\-()]/g,'');
+  if(d.name.length<2)e.name='Please enter your full name.';
+  if(!/^\+?\d{10,13}$/.test(ph))e.phone='Enter a valid phone number, e.g. 03XX XXXXXXX.';
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email))e.email='Enter a valid email address.';
+  if(d.city.length<2)e.city='Please enter your city.';
+  if(!/^\d{5}$/.test(d.postal))e.postal='Postal code must be 5 digits.';
+  if(d.address.length<10)e.address='Please enter your full address (house, street, area).';
+  return e}
+function showErrs(e){['name','phone','email','city','postal','address'].forEach(k=>{const i=$('#'+k),m=$('#e-'+k);if(!i||!m)return;m.textContent=e[k]||'';i.classList.toggle('bad',!!e[k]);i.setAttribute('aria-invalid',String(!!e[k]))});
+  const k=Object.keys(e)[0];if(k)$('#'+k).focus()}
+async function submitOrder(){
+  const d=formData(),e=validate(d),fe=$('#ferr');fe.textContent='';showErrs(e);if(Object.keys(e).length)return;
+  if(!ORDER_KEY){fe.textContent='Online ordering is not switched on yet. Please tap “Contact us on WhatsApp” to send your order.';return}
+  const rows=okRows();if(!rows.length)return;const btn=$('#po');btn.disabled=true;btn.textContent='Sending…';
+  const ref='WF-'+Date.now().toString(36).toUpperCase().slice(-6)+Math.random().toString(36).slice(2,4).toUpperCase(),total=sum(rows);
+  const body={access_key:ORDER_KEY,subject:`New order ${ref} – ${d.name} – ${pkr(total)}`,from_name:'Watch Flex website',botcheck:$('#of [name=botcheck]').checked,order_ref:ref,name:d.name,email:d.email,phone:d.phone,city:d.city,postal_code:d.postal,address:d.address,notes:d.notes||'-',payment:'Cash on delivery',order_items:lines(rows),order_total:pkr(total)};
+  const ctl=new AbortController(),to=setTimeout(()=>ctl.abort(),20000);
+  try{const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(body),signal:ctl.signal}),j=await r.json().catch(()=>({}));
+    if(!r.ok||!j.success)throw new Error(j.message||'HTTP '+r.status);
+    lastOrder={ref,d,rows:rows.map(([p,q])=>[p,q])};rows.forEach(([p])=>delete cart[p.id]);save();route(false,false,true)}
+  catch(err){btn.disabled=false;btn.textContent='Place order';fe.textContent='We could not send your order. Please check your connection and try again, or tap “Contact us on WhatsApp”. Your details are still saved on this page.'}
+  finally{clearTimeout(to)}}
+addEventListener('submit',e=>{if(e.target.id==='of'){e.preventDefault();submitOrder()}});
 
 /* ---- smooth scroll (Lenis) + GSAP, only if the libraries loaded ---- */
 let lenis=null,pal=null,fxIO=null;
@@ -359,30 +453,43 @@ function anim(first,still){
   if(!RM){
     $$a('.pd .im > img').forEach(img=>gsap.fromTo(img,{yPercent:-5},{yPercent:5,ease:'none',scrollTrigger:{trigger:img.parentElement,start:'top bottom',end:'bottom top',scrub:true}}));
     if(!still){
-      gsap.from('.rule',{scaleX:0,duration:1.2,ease:'power4.inOut'});
-      gsap.from('.wm .ch',{yPercent:112,duration:1.2,ease:'power4.out',delay:first?0:.05});
+      gsap.from('.rule',{scaleX:0,duration:.8,ease:'power3.inOut'});
+      gsap.from('.wm .ch',{yPercent:112,duration:.8,ease:'power4.out',delay:first?0:.05});
       gsap.from('.sub .fit',{yPercent:30,opacity:0,duration:.9,ease:'power3.out',delay:.3})}
-    gsap.from('.big,.c26',{yPercent:20,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'footer',start:'top 90%',once:true}});
+    const ft=$('footer');if(!still&&ft&&ft.getBoundingClientRect().top>innerHeight)gsap.from('.big,.c26',{yPercent:20,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'footer',start:'top 90%',once:true}});
     const pe=$('.pal');if(pe){const W=Math.max(0,pe.parentElement.clientWidth-pe.offsetWidth),tl=gsap.timeline({repeat:-1,yoyo:true});
       tl.fromTo(pe,{x:W*.04,y:0,rotate:-6},{x:W*.48,y:W*.1,rotate:6,duration:7,ease:'sine.inOut'}).to(pe,{x:W*.96,y:W*.02,rotate:-4,duration:7,ease:'sine.inOut'});pal=tl}
   }
   ScrollTrigger.refresh()}
+let shopY=0,prevH='shop';
 function route(keep,first,still){const h=decodeURIComponent(location.hash.slice(1)||'shop'),isP=h.startsWith('p-'),p=isP&&MAP.get(h.slice(2));
-  $('#app').innerHTML=(h==='bag'?bag():p?prod(p):isP?info('Watch not found','<p>This watch is no longer listed or the link is wrong.</p>'):h==='shipping'?info('Shipping &amp; returns',SHIP):h==='privacy'?info('Privacy policy',PRIV):shop())+foot();
-  document.title=p?p.name+' – Watch Flex PK':h==='bag'?'Bag – Watch Flex PK':'WATCH FLEX PK';
-  $$a('nav a').forEach(a=>a.dataset.k===(h==='bag'?'bag':'shop')?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current'));
-  if(keep!==true){lenis?lenis.scrollTo(0,{immediate:true,force:true}):scrollTo(0,0)}
-  fitAll();if($('#pgrid'))initCat();anim(first,still);
+  $('#app').innerHTML=(h==='bag'?bag():h==='checkout'?checkout():p?prod(p):isP?info('Watch not found','<p>This watch is no longer listed or the link is wrong.</p>'):h==='shipping'?info('Shipping &amp; returns',SHIP):h==='privacy'?info('Privacy policy',PRIV):shop())+foot();
+  if(h!=='checkout')lastOrder=null;
+  document.title=p?p.name+' – Watch Flex PK':h==='bag'?'Bag – Watch Flex PK':h==='checkout'?'Checkout – Watch Flex PK':'WATCH FLEX PK';
+  $$a('nav a').forEach(a=>a.dataset.k===(h==='bag'||h==='checkout'?'bag':'shop')?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current'));
+  const back=h==='shop'&&prevH.startsWith('p-')&&shopY>0;prevH=h;
+  fitAll();if($('#pgrid'))initCat();   // render the grid first so the page is tall enough to scroll
+  if(keep!==true){const y=back?shopY:0;if(lenis){lenis.resize&&lenis.resize();lenis.scrollTo(y,{immediate:true,force:true})}else scrollTo(0,y)}
+  anim(first,still);
   if(!first&&keep!==true){const t=$('#app h1');if(t){t.tabIndex=-1;t.focus({preventScroll:true})}}}
 
-/* page transition: panel wipes up, swaps the page, keeps going */
-let busy=false;
-function go(h){const cur='#'+(location.hash.slice(1)||'shop');
-  if(busy)return;if(cur===h){lenis?lenis.scrollTo(0):scrollTo({top:0,behavior:'smooth'});return}
-  if(!L||RM){location.hash=h;return}busy=true;lenis.stop();
-  gsap.timeline({onComplete:()=>{busy=false;lenis.start()}}).set('#tr',{yPercent:100}).to('#tr',{yPercent:0,duration:.7,ease:'power4.inOut'})
-   .add(()=>{location.hash=h}).to('#tr',{yPercent:-100,duration:.7,ease:'power4.inOut',delay:.15})}
+/* page transition: the panel slides up and fully covers the page, the page is swapped while covered,
+   then the panel slides away. No other animation plays after the swap, so nothing appears "late". */
+let busy=false,skipUntil=0;
+const endTr=()=>{busy=false;lenis&&lenis.start();gsap.set('#tr',{visibility:'hidden',yPercent:100})};
+function go(h){const cur=location.hash.slice(1)||'shop';
+  if(cur==='shop')shopY=scrollY;
+  if(busy)return;if('#'+cur===h){lenis?lenis.scrollTo(0):scrollTo({top:0,behavior:'smooth'});return}
+  if(!L||RM){location.hash=h;return}
+  busy=true;lenis.stop();
+  gsap.timeline({onComplete:endTr,onInterrupt:endTr})
+   .set('#tr',{yPercent:100,visibility:'visible'})
+   .to('#tr',{yPercent:0,duration:.35,ease:'power2.inOut'})
+   .add(()=>{skipUntil=performance.now()+500;location.hash=h;route(false,false,true)})
+   .to('#tr',{yPercent:-100,duration:.35,ease:'power2.inOut',delay:.06})}
 document.addEventListener('click',e=>{const T=e.target,d=T.closest('.dot');if(d)return theme(d.dataset.t);
+  if(T.closest('.skip')){e.preventDefault();$('#app').focus();return}
+  if(T.closest('#wc'))refreshWA();
   const br=T.closest('[data-brand]');if(br){const b=br.dataset.brand;S.brands.has(b)?S.brands.delete(b):S.brands.add(b);return upd()}
   const bg=T.closest('[data-lo]');if(bg){const same=S.min===bg.dataset.lo&&S.max===bg.dataset.hi;S.min=same?'':bg.dataset.lo;S.max=same?'':bg.dataset.hi;$('#mn').value=S.min;$('#mx').value=S.max;return upd()}
   if(T.closest('[data-clear]')){S.q='';S.brands.clear();S.min=S.max='';S.sort='featured';$('#q').value='';$('#mn').value='';$('#mx').value='';$('#so').value='featured';return upd()}
@@ -395,29 +502,13 @@ document.addEventListener('click',e=>{const T=e.target,d=T.closest('.dot');if(d)
     if(b.classList.contains('cta')){b.textContent='Added ✓';setTimeout(()=>{if(b.isConnected)b.textContent='Add to cart'},1500)}else{b.textContent='Added — add another';const g=$('#goBag');if(g)g.hidden=false}return}
   if(k==='inc'&&cart[id]<99)cart[id]++;if(k==='dec'&&--cart[id]<1)delete cart[id];if(k==='rm')delete cart[id];
   save();route(true,false,true)});
-addEventListener('hashchange',()=>route());
+addEventListener('hashchange',()=>{if(performance.now()>=skipUntil)route()});
 let lw=innerWidth;addEventListener('resize',()=>{if(innerWidth===lw)return;lw=innerWidth;requestAnimationFrame(()=>{fitAll();L&&ScrollTrigger.refresh()})});
 /* dot cursor (mouse only, hidden until the mouse moves) */
 if(L&&matchMedia('(hover:hover) and (pointer:fine)').matches){const c=$('#cur'),cx=gsap.quickTo(c,'x',{duration:.18,ease:'power3'}),cy=gsap.quickTo(c,'y',{duration:.18,ease:'power3'});addEventListener('mousemove',e=>{c.style.opacity=1;cx(e.clientX);cy(e.clientY)})}
-/* intro: once per session; click or any key skips */
-function intro(){const it=$('#intro'),IMS=ITEMS.map(p=>p.images[0]).filter(Boolean);
-  lenis.stop();try{sessionStorage.setItem('wf-i','1')}catch(e){}
-  $('#iw').innerHTML=[...'WATCH FLEX'].map(c=>`<span class="ch">${c===' '?'&nbsp;':c}</span>`).join('')+'<sup>®</sup>';
-  const cards=$('#cards'),o={n:0};let made=0;
-  const add=()=>{const m=new Image();m.src=IMS[made%IMS.length];cards.appendChild(m);made++;m.onerror=()=>m.remove();
-    gsap.fromTo(m,{scale:.55,opacity:0,rotate:gsap.utils.random(-18,18),y:30},{scale:1,opacity:1,rotate:gsap.utils.random(-9,9),y:0,duration:.45,ease:'back.out(1.6)'})};
-  gsap.set('.iw .ch',{yPercent:115});
-  const tl=gsap.timeline({onComplete:()=>{document.documentElement.classList.remove('intro');it.remove();lenis.start()}});
-  tl.to('.iw .ch',{yPercent:0,duration:.9,ease:'power4.out',stagger:.07})
-    .to(o,{n:100,duration:2.2,ease:'power2.inOut',onUpdate:()=>{const n=Math.round(o.n);$('#ic').textContent=String(n).padStart(3,'0');while(IMS.length&&made<Math.min(10,Math.floor(n/9)+1))add()}},0)
-    .to('#cards img',{y:-60,opacity:0,rotate:'+=8',duration:.5,ease:'power3.in',stagger:.03},'>+.1')
-    .to('.iw .ch',{yPercent:-115,duration:.6,ease:'power3.in',stagger:.04},'<')
-    .to('#intro',{yPercent:-100,duration:1,ease:'power4.inOut'},'>-.05')
-    .add(()=>route(true,true),'<+.15');
-  const skip=()=>{removeEventListener('keydown',skip);tl.progress(1)};it.addEventListener('click',skip);addEventListener('keydown',skip)}
 save();
-const start=()=>{if(L&&!RM&&document.documentElement.classList.contains('intro')){scrollTo(0,0);intro()}else{document.documentElement.classList.remove('intro');route(true,true);const i=$('#intro');i&&i.remove()}};
-let started=false;const once=()=>{if(!started){started=true;start()}};
-(document.fonts?document.fonts.ready:Promise.resolve()).then(once);setTimeout(once,2500);
-if(document.fonts)document.fonts.ready.then(()=>{if(started)fitAll()});
+// marquee in the navbar (text repeated so it always fills the width)
+{const G='<div class="g">'+(('<span>'+MARQUEE.join('</span><span>')+'</span>').repeat(3))+'</div>';$('#mqt').innerHTML=G+G.replace('class="g"','class="g" aria-hidden="true"')}
+route(true,true);                       // no intro: the page renders straight away
+if(document.fonts)document.fonts.ready.then(fitAll);   // re-fit the wordmark once the web font arrives
 </script></body></html>
