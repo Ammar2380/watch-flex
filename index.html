@@ -266,6 +266,67 @@ main:focus{outline:none}
 .skip{position:absolute;left:8px;top:-60px;z-index:50;background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:99px;font-weight:600}
 .skip:focus{top:8px}
 @media(max-width:900px){.pd{display:block}.pd .gal{position:relative;top:0;max-width:620px}.pd .inf{margin-top:24px}}
+
+/* ---------- v6: empty bag, line endings, responsive polish ---------- */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+img,svg,video{max-width:100%}
+h1,h2,p,a,span{overflow-wrap:break-word}
+.rule{height:max(2px,.2vw);margin:clamp(8px,1vw,20px) var(--pad) 0;transform-origin:left center}
+.ln{height:2px;margin-bottom:clamp(8px,.8vw,16px)}
+.lines{padding:clamp(12px,2vw,40px) var(--pad) 0}
+.ln2:last-child{border-bottom:1px solid currentColor}
+.sumr{padding-top:clamp(18px,2vw,36px)}
+.ln2 a{overflow-wrap:anywhere;font-weight:600}
+.ln2 .lp{display:flex;align-items:center;gap:clamp(10px,1vw,20px);white-space:nowrap;font-weight:700}
+.q span{min-width:2ch;text-align:center;font-variant-numeric:tabular-nums}
+.rm{margin-left:0}
+@media(min-width:761px){.ln2{grid-template-columns:clamp(64px,8vw,140px) minmax(0,1fr) auto auto;gap:clamp(14px,2vw,40px);padding:clamp(10px,1vw,20px) 0}}
+.eb{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:clamp(24px,5vw,100px);align-items:center;padding:clamp(28px,4vw,80px) var(--pad) clamp(56px,9vw,150px)}
+.eb-t{display:flex;flex-direction:column;align-items:flex-start;gap:clamp(12px,1.4vw,24px);min-width:0}
+.eb h2{margin:0;font:700 clamp(34px,5.2vw,104px)/.96 "Inter Tight",Arial,sans-serif;letter-spacing:-.04em;text-wrap:balance}
+.eb h2 span{color:var(--sky)}
+.eb p{margin:0;max-width:44ch;font-size:clamp(15px,1.25vw,24px);line-height:1.4;opacity:.8}
+.eb .cobtns{margin-top:clamp(4px,.8vw,12px)}
+.eb-i{aspect-ratio:4/5;overflow:hidden;width:100%;max-width:clamp(260px,26vw,480px);justify-self:end;background:color-mix(in srgb,var(--fg) 9%,var(--bg))}
+.eb-i img{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:900px){.eb{grid-template-columns:1fr;gap:32px}.eb-i{justify-self:start;aspect-ratio:16/10;max-width:100%}}
+@media(max-width:760px){.eb{padding-top:28px;padding-bottom:64px}.eb h2{font-size:clamp(34px,11vw,56px)}.eb .cobtns{width:100%}}
+.pd h1{overflow-wrap:break-word;text-wrap:balance}
+footer{padding-bottom:calc(max(16px,2vw) + env(safe-area-inset-bottom,0px))}
+.fc a{padding:3px 0}
+.fh{gap:clamp(12px,2vw,40px)}.big{text-wrap:balance}
+@media(hover:none){.pc:hover .pimg img{transform:none}.btn:hover{background:none;color:inherit}.btn.solid:hover{background:var(--fg);color:var(--bg)}.chip:hover{background:none}.chip[aria-pressed=true]:hover{background:var(--fg)}}
+@media(max-width:380px){.pgrid{gap:28px 12px}.cta{font-size:12px;padding:10px 6px}.wab{width:40px}.eb .cobtns .btn{flex:1 1 100%}}
+@media(min-width:1800px){.pgrid{grid-template-columns:repeat(5,1fr)}}
+
+/* ---------- v7: consistent spacing around lines, cleaner text wrapping (whole site) ---------- */
+h1,h2,h3,.big,.pn,.em b{text-wrap:balance}
+p,li,dd,.fp,.hint,.rev p,.eb p{text-wrap:pretty}
+/* space between a line and the content under it is always generous and equal */
+.rule{margin-bottom:clamp(14px,1.8vw,32px)}
+.bw .rule{margin-bottom:0}
+.ln{margin-bottom:clamp(16px,1.8vw,32px)}
+.big{letter-spacing:-.035em;line-height:1;word-spacing:.05em;padding-top:.04em}
+.c26{line-height:.85;letter-spacing:-.045em}
+.fh{align-items:flex-start}
+.fp{margin:clamp(28px,4vw,72px) 0 clamp(14px,1.4vw,24px);max-width:min(100%,62ch)}
+.ln1{height:1px}
+.fc{padding-top:clamp(16px,1.6vw,28px);padding-bottom:clamp(8px,1vw,16px)}
+/* same bottom breathing room on every page, so gaps never look random */
+.eb{padding-bottom:clamp(36px,5vw,80px)}
+.pg{padding-bottom:clamp(36px,5vw,80px)}
+.pd{padding-bottom:clamp(40px,6vw,100px)}
+.co{padding-bottom:clamp(40px,6vw,100px)}
+.sumr{padding-bottom:clamp(36px,5vw,80px)}
+.sec{padding-bottom:clamp(40px,6vw,100px)}
+.why{margin-bottom:clamp(40px,6vw,100px)}
+.info{padding-bottom:clamp(24px,3.5vw,60px)}
+@media(max-width:760px){.sec,.pd,.co,.sumr,.pg,.eb{padding-bottom:clamp(40px,10vw,64px)}.why{margin-bottom:clamp(40px,10vw,64px)}.fp{margin-top:32px}.big{font-size:clamp(26px,8.5vw,40px)}.c26{font-size:clamp(56px,20vw,96px)}}
+
+/* bag rows: no double line under the title, columns line up row to row */
+.lines{padding-top:clamp(4px,.6vw,10px)}
+.lines .ln2:first-child{border-top:0}
+@media(min-width:761px){.ln2{grid-template-columns:clamp(64px,8vw,140px) minmax(0,1fr) 132px clamp(250px,24vw,340px)}.q{justify-content:center}.ln2 .lp{display:grid;grid-template-columns:1fr auto;justify-items:end;align-items:center}}
 </style></head>
 <body>
 <div id="tr" aria-hidden="true">WATCH FLEX PK®</div>
@@ -273,7 +334,7 @@ main:focus{outline:none}
 <div class="cur" id="cur"></div>
 <div class="vh" id="st" role="status" aria-live="polite"></div>
 <header>
-<div class="mq" role="region" aria-label="Store information"><span class="vh">Cash on delivery all over Pakistan. Delivery in 3–5 days. Order on WhatsApp.</span><div id="mqt" aria-hidden="true"></div></div>
+<div class="mq" role="region" aria-label="Store information"><span class="vh">Cash on delivery all over Pakistan. Delivery in 3–⁠5 days. Order on WhatsApp.</span><div id="mqt" aria-hidden="true"></div></div>
 <a class="mk" href="#shop" aria-label="Watch Flex home"><i></i><i></i></a>
 <div class="rt"><nav><a href="#shop" data-k="shop">Shop</a><a href="#bag" data-k="bag">Bag (<span id="cnt">0</span>)</a></nav>
 <div class="dots" role="group" aria-label="Theme">
@@ -308,7 +369,7 @@ const DECOR='https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=f
    2) Paste it between the quotes below. (This key is designed to be public; it can only send mail to your own address.)
    Until a key is added, "Place order" shows a message and customers can still use "Contact us on WhatsApp". */
 const ORDER_KEY='';
-const MARQUEE=['Cash on delivery all over Pakistan','Delivery in 3–5 days','Order on WhatsApp','Instagram @watchflex.pk'];
+const MARQUEE=['Cash on delivery all over Pakistan','Delivery in 3–⁠5 days','Order on WhatsApp','Instagram @watchflex.pk'];
 const WA='923123802930',IG='https://www.instagram.com/watchflex.pk/',STEP=16;
 const PHW='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect width="400" height="500" fill="#1a1d24"/><rect x="165" y="0" width="70" height="500" fill="#8f9ab3" opacity=".35"/><circle cx="200" cy="250" r="110" fill="#8f9ab3"/><circle cx="200" cy="250" r="96" fill="#0a1f44"/><path d="M200 250V192M200 250l36 20" stroke="#ebe5dd" stroke-width="5" stroke-linecap="round"/><circle cx="200" cy="250" r="6" fill="#ebe5dd"/></svg>');
 const WAI='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-1.5-.7-2.5-1.3-3.5-2.9-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.2.7 3 .6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>';
@@ -367,16 +428,17 @@ const catUI=()=>`<section class="sec" id="shopgrid"><div class="sh"><div><div cl
 <div class="tb"><label class="vh" for="q">Search watches</label><input id="q" type="search" placeholder="Search name, brand, model or spec" autocomplete="off"><label class="vh" for="so">Sort by</label><select id="so"><option value="featured">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option><option value="name">Name: A to Z</option></select><button class="chip tgl" id="ft" aria-expanded="false" aria-controls="fpnl">Filters</button></div>
 <div class="fpnl" id="fpnl"><div class="fg"><b>Brand</b><div class="chips bs" id="bc"></div></div><div class="fg"><b>Price (PKR)</b><div class="pr"><label class="vh" for="mn">Minimum price</label><input id="mn" type="number" min="0" step="500" inputmode="numeric" placeholder="Min"><span>–</span><label class="vh" for="mx">Maximum price</label><input id="mx" type="number" min="0" step="500" inputmode="numeric" placeholder="Max"></div><small id="pn"></small></div><div class="fg" id="bdg"><b>Shop by budget</b><div class="chips" id="bd"></div></div><button class="chip" id="cl" data-clear hidden>Clear filters</button></div>
 <div class="pgrid" id="pgrid"></div><div class="em" id="em" hidden></div><div class="more"><button class="btn" id="lm" hidden>Load more</button></div></section>`;
-const why=()=>`<section class="why"><div class="eyebrow">Why Watch Flex</div><h2>More Than Just a Watch</h2><div class="wg">${[[ico.q,'Premium Quality','Carefully selected watches'],[ico.c,'Cash on Delivery','All over Pakistan'],[ico.d,'Fast Delivery','3–5 days delivery time'],[ico.s,'Dedicated Support','We’re here to help on WhatsApp']].map(w=>`<div class="wi fx">${w[0]}<b>${w[1]}</b><span>${w[2]}</span></div>`).join('')}</div></section>`;
+const why=()=>`<section class="why"><div class="eyebrow">Why Watch Flex</div><h2>More Than Just a Watch</h2><div class="wg">${[[ico.q,'Premium Quality','Carefully selected watches'],[ico.c,'Cash on Delivery','All over Pakistan'],[ico.d,'Fast Delivery','3–⁠5 days delivery time'],[ico.s,'Dedicated Support','We’re here to help on WhatsApp']].map(w=>`<div class="wi fx">${w[0]}<b>${w[1]}</b><span>${w[2]}</span></div>`).join('')}</div></section>`;
 const revs=()=>REV.length?`<section class="sec"><div class="sh c"><div><div class="eyebrow">Customer reviews</div><h2>What Our Customers Say</h2></div></div><div class="revs">${REV.map(r=>`<div class="rev fx"><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><p>“${esc(r[2])}”</p><div class="who"><span class="av">${esc(r[0][0])}</span><span><b>${esc(r[0])}</b><br><em>${esc(r[1])}</em></span></div></div>`).join('')}</div></section>`:'';
 const shop=()=>wm('WATCH FLEX')+mark()+catUI()+why()+revs();
 const prod=p=>{const out=p.stock==='out',dl=[['Brand',p.brand],['Model',p.model],['Category',p.category]].filter(r=>r[1]);
   return `<section class="pd"><div class="gal">${imgBox(p)}${p.images.length>1?`<div class="th">${p.images.map((u,i)=>`<button data-img="${esc(u)}" aria-label="Show photo ${i+1}"><img src="${esc(u)}" alt=""></button>`).join('')}</div>`:''}</div><div class="inf"><a href="#shop">← Back to shop</a><h1>${esc(p.name)}</h1><div class="price">${pkr(p.price)}</div>${dl.length?`<dl>${dl.map(r=>`<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join('')}</dl>`:''}${p.specs.length?`<ul class="sp">${p.specs.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`:''}<div class="st">${out?'Out of stock':p.stock==='in'?'In stock':'Availability confirmed on WhatsApp'}</div>${out?'':`<button class="btn" data-a="add" data-id="${esc(p.id)}">Add to bag</button><a class="btn" href="${waLink([[p,1]])}" target="_blank" rel="noopener">Order on WhatsApp</a><a class="btn" id="goBag" href="#bag" hidden>Go to bag</a>`}</div></section>`};
+const emptyBag=()=>`<section class="eb"><div class="eb-t"><div class="eyebrow">Your bag is empty</div><h2>No watch yet?<br><span>Time is ticking.</span></h2><p>Browse the collection and add a watch you like. Cash on delivery all over Pakistan, delivered in 3–⁠5 days.</p><div class="cobtns"><a class="btn solid" href="#shop">Shop watches</a><a class="btn" href="https://wa.me/${WA}" target="_blank" rel="noopener">Ask on WhatsApp</a></div></div><div class="eb-i"><img src="${DECOR}" alt="" draggable="false" loading="lazy" onerror="this.parentElement.remove()"></div></section>`;
 const bag=()=>{const rows=rowsOf(),ok=okRows();
-  return `<div class="bw">${wm('YOUR BAG')}<div class="rule"></div>`+(rows.length?'':`<img class="pal" src="${DECOR}" alt="" draggable="false" onerror="this.remove()"><p class="sub"><span class="fit">No watch yet?<br>Time is ticking.</span></p>`)+`</div>`+(rows.length?`<div class="lines">${rows.map(([p,q])=>`<div class="ln2">${imgBox(p)}<div><a href="#p-${esc(p.id)}">${esc(p.name)}</a>${p.stock==='out'?'<br><small>Currently unavailable. Remove it to order.</small>':''}</div><div class="q"><button data-a="dec" data-id="${esc(p.id)}" aria-label="Fewer ${esc(p.name)}">−</button><span aria-label="Quantity">${q}</span><button data-a="inc" data-id="${esc(p.id)}" aria-label="More ${esc(p.name)}">+</button></div><div class="lp">${pkr(p.price*q)} <button class="rm btn" data-a="rm" data-id="${esc(p.id)}" aria-label="Remove ${esc(p.name)}">Remove</button></div></div>`).join('')}</div><div class="sumr"><span>Subtotal ${pkr(sum(ok))}<br><small>Delivery and availability are confirmed by us after you order.</small></span><span><a class="btn" href="#shop">Back to shop</a>${ok.length?' <a class="btn solid" href="#checkout">Checkout</a>':''}</span></div>`:`<div class="pg"><a class="btn" href="#shop">Back to shop</a></div>`)};
+  return `<div class="bw">${wm('YOUR BAG')}<div class="rule"></div>`+`</div>`+(rows.length?`<div class="lines">${rows.map(([p,q])=>`<div class="ln2">${imgBox(p)}<div><a href="#p-${esc(p.id)}">${esc(p.name)}</a>${p.stock==='out'?'<br><small>Currently unavailable. Remove it to order.</small>':''}</div><div class="q"><button data-a="dec" data-id="${esc(p.id)}" aria-label="Fewer ${esc(p.name)}">−</button><span aria-label="Quantity">${q}</span><button data-a="inc" data-id="${esc(p.id)}" aria-label="More ${esc(p.name)}">+</button></div><div class="lp">${pkr(p.price*q)} <button class="rm btn" data-a="rm" data-id="${esc(p.id)}" aria-label="Remove ${esc(p.name)}">Remove</button></div></div>`).join('')}</div><div class="sumr"><span>Subtotal ${pkr(sum(ok))}<br><small>Delivery and availability are confirmed by us after you order.</small></span><span><a class="btn" href="#shop">Back to shop</a>${ok.length?' <a class="btn solid" href="#checkout">Checkout</a>':''}</span></div>`:emptyBag())};
 const info=(t,body)=>`<section class="pg"><h1>${t}</h1>${body}<a class="btn" href="#shop">Back to shop</a></section>`;
-const SHIP='<p>Cash on delivery all over Pakistan. Delivery time: 3–5 days. Confirm availability and delivery details with us on WhatsApp before you order.</p>',PRIV='<p>This website keeps your bag on your own device only. When you order, the message you send on WhatsApp is how we receive your details.</p>';
-const foot=()=>`<footer><div class="ln"></div><div class="fh"><p class="big">Your Style. Your Time.<br><span>Your Flex.</span></p><div class="c26" aria-hidden="true">©26</div></div><p class="fp">Cash on delivery all over Pakistan. Delivery in 3–5 days.</p><div class="ln1"></div><div class="fc"><div><b>Watch Flex PK</b>Your Style. Your Time. Your Flex.<br>All rights reserved © 2026</div><div><b>Quick links</b><a href="#shop">Shop</a><a href="#bag">Bag</a></div><div><b>Customer care</b><a href="#shipping">Shipping &amp; returns</a><a href="#privacy">Privacy policy</a><a href="https://wa.me/${WA}" target="_blank" rel="noopener">Contact on WhatsApp</a></div><div><b>Follow us</b><a href="${IG}" target="_blank" rel="noopener">Instagram</a><a href="https://wa.me/${WA}" target="_blank" rel="noopener">WhatsApp</a></div></div></footer>`;
+const SHIP='<p>Cash on delivery all over Pakistan. Delivery time: 3–⁠5 days. Confirm availability and delivery details with us on WhatsApp before you order.</p>',PRIV='<p>This website keeps your bag on your own device only. When you order, the message you send on WhatsApp is how we receive your details.</p>';
+const foot=()=>`<footer><div class="ln"></div><div class="fh"><p class="big">Your Style. Your Time.<br><span>Your Flex.</span></p><div class="c26" aria-hidden="true">©26</div></div><p class="fp">Cash on delivery all over Pakistan. Delivery in 3–⁠5 days.</p><div class="ln1"></div><div class="fc"><div><b>Watch Flex PK</b>Your Style. Your Time. Your Flex.<br>All rights reserved © 2026</div><div><b>Quick links</b><a href="#shop">Shop</a><a href="#bag">Bag</a></div><div><b>Customer care</b><a href="#shipping">Shipping &amp; returns</a><a href="#privacy">Privacy policy</a><a href="https://wa.me/${WA}" target="_blank" rel="noopener">Contact on WhatsApp</a></div><div><b>Follow us</b><a href="${IG}" target="_blank" rel="noopener">Instagram</a><a href="https://wa.me/${WA}" target="_blank" rel="noopener">WhatsApp</a></div></div></footer>`;
 // fit a headline to its container; the ® badge scales with the text (.2em reserved)
 function fitAll(){$$a('.fit').forEach(el=>{const h=el.parentElement,r=h.querySelector('sup')?.2:0;h.style.fontSize='100px';const w=el.getBoundingClientRect().width,a=h.clientWidth;if(w&&a)h.style.fontSize=(a/(w/100+r))+'px'})}
 
@@ -453,12 +515,10 @@ function anim(first,still){
   if(!RM){
     $$a('.pd .im > img').forEach(img=>gsap.fromTo(img,{yPercent:-5},{yPercent:5,ease:'none',scrollTrigger:{trigger:img.parentElement,start:'top bottom',end:'bottom top',scrub:true}}));
     if(!still){
-      gsap.from('.rule',{scaleX:0,duration:.8,ease:'power3.inOut'});
-      gsap.from('.wm .ch',{yPercent:112,duration:.8,ease:'power4.out',delay:first?0:.05});
-      gsap.from('.sub .fit',{yPercent:30,opacity:0,duration:.9,ease:'power3.out',delay:.3})}
+      gsap.from('.rule',{scaleX:0,duration:.8,ease:'power3.inOut',clearProps:'transform'});
+      gsap.from('.wm .ch',{yPercent:112,duration:.8,ease:'power4.out',delay:first?0:.05,clearProps:'transform'});
+      if($('.eb-t'))gsap.from('.eb-t > *,.eb-i',{y:22,opacity:0,duration:.7,stagger:.08,ease:'power3.out',delay:.2,clearProps:'transform,opacity'})}
     const ft=$('footer');if(!still&&ft&&ft.getBoundingClientRect().top>innerHeight)gsap.from('.big,.c26',{yPercent:20,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'footer',start:'top 90%',once:true}});
-    const pe=$('.pal');if(pe){const W=Math.max(0,pe.parentElement.clientWidth-pe.offsetWidth),tl=gsap.timeline({repeat:-1,yoyo:true});
-      tl.fromTo(pe,{x:W*.04,y:0,rotate:-6},{x:W*.48,y:W*.1,rotate:6,duration:7,ease:'sine.inOut'}).to(pe,{x:W*.96,y:W*.02,rotate:-4,duration:7,ease:'sine.inOut'});pal=tl}
   }
   ScrollTrigger.refresh()}
 let shopY=0,prevH='shop';
