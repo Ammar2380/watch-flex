@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>WATCH FLEX PK</title>
 <meta name="theme-color" content="#000000">
-<meta name="description" content="Watch Flex PK. Watches with cash on delivery all over Pakistan. Order on WhatsApp.">
+<meta name="description" content="Watch Flex PK. Watches with cash on delivery all over Pakistan.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&display=swap">
 <style>
@@ -334,7 +334,7 @@ p,li,dd,.fp,.hint,.rev p,.eb p{text-wrap:pretty}
 <div class="cur" id="cur"></div>
 <div class="vh" id="st" role="status" aria-live="polite"></div>
 <header>
-<div class="mq" role="region" aria-label="Store information"><span class="vh">Cash on delivery all over Pakistan. Delivery in 3–⁠5 days. Order on WhatsApp.</span><div id="mqt" aria-hidden="true"></div></div>
+<div class="mq" role="region" aria-label="Store information"><span class="vh">Cash on delivery all over Pakistan. Delivery in 3–⁠5 days.</span><div id="mqt" aria-hidden="true"></div></div>
 <a class="mk" href="#shop" aria-label="Watch Flex home"><i></i><i></i></a>
 <div class="rt"><nav><a href="#shop" data-k="shop">Shop</a><a href="#bag" data-k="bag">Bag (<span id="cnt">0</span>)</a></nav>
 <div class="dots" role="group" aria-label="Theme">
@@ -367,9 +367,9 @@ const DECOR='https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=f
 /* ORDER FORM SETUP (one-time, 2 minutes): "Place order" sends the order to your email through Web3Forms (free).
    1) Go to https://web3forms.com, enter YOUR email, and copy the Access Key they send you.
    2) Paste it between the quotes below. (This key is designed to be public; it can only send mail to your own address.)
-   Until a key is added, "Place order" shows a message and customers can still use "Contact us on WhatsApp". */
+   Until a key is added, "Place order" shows a message and customers see that online ordering is not switched on yet. */
 const ORDER_KEY='';
-const MARQUEE=['Cash on delivery all over Pakistan','Delivery in 3–⁠5 days','Order on WhatsApp','Instagram @watchflex.pk'];
+const MARQUEE=['Cash on delivery all over Pakistan','Delivery in 3–⁠5 days','Instagram @watchflex.pk'];
 const WA='923123802930',IG='https://www.instagram.com/watchflex.pk/',STEP=16;
 const PHW='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect width="400" height="500" fill="#1a1d24"/><rect x="165" y="0" width="70" height="500" fill="#8f9ab3" opacity=".35"/><circle cx="200" cy="250" r="110" fill="#8f9ab3"/><circle cx="200" cy="250" r="96" fill="#0a1f44"/><path d="M200 250V192M200 250l36 20" stroke="#ebe5dd" stroke-width="5" stroke-linecap="round"/><circle cx="200" cy="250" r="6" fill="#ebe5dd"/></svg>');
 const WAI='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-1.5-.7-2.5-1.3-3.5-2.9-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.2.7 3 .6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>';
@@ -432,12 +432,12 @@ const why=()=>`<section class="why"><div class="eyebrow">Why Watch Flex</div><h2
 const revs=()=>REV.length?`<section class="sec"><div class="sh c"><div><div class="eyebrow">Customer reviews</div><h2>What Our Customers Say</h2></div></div><div class="revs">${REV.map(r=>`<div class="rev fx"><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><p>“${esc(r[2])}”</p><div class="who"><span class="av">${esc(r[0][0])}</span><span><b>${esc(r[0])}</b><br><em>${esc(r[1])}</em></span></div></div>`).join('')}</div></section>`:'';
 const shop=()=>wm('WATCH FLEX')+mark()+catUI()+why()+revs();
 const prod=p=>{const out=p.stock==='out',dl=[['Brand',p.brand],['Model',p.model],['Category',p.category]].filter(r=>r[1]);
-  return `<section class="pd"><div class="gal">${imgBox(p)}${p.images.length>1?`<div class="th">${p.images.map((u,i)=>`<button data-img="${esc(u)}" aria-label="Show photo ${i+1}"><img src="${esc(u)}" alt=""></button>`).join('')}</div>`:''}</div><div class="inf"><a href="#shop">← Back to shop</a><h1>${esc(p.name)}</h1><div class="price">${pkr(p.price)}</div>${dl.length?`<dl>${dl.map(r=>`<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join('')}</dl>`:''}${p.specs.length?`<ul class="sp">${p.specs.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`:''}<div class="st">${out?'Out of stock':p.stock==='in'?'In stock':'Availability confirmed on WhatsApp'}</div>${out?'':`<button class="btn" data-a="add" data-id="${esc(p.id)}">Add to bag</button><a class="btn" href="${waLink([[p,1]])}" target="_blank" rel="noopener">Order on WhatsApp</a><a class="btn" id="goBag" href="#bag" hidden>Go to bag</a>`}</div></section>`};
-const emptyBag=()=>`<section class="eb"><div class="eb-t"><div class="eyebrow">Your bag is empty</div><h2>No watch yet?<br><span>Time is ticking.</span></h2><p>Browse the collection and add a watch you like. Cash on delivery all over Pakistan, delivered in 3–⁠5 days.</p><div class="cobtns"><a class="btn solid" href="#shop">Shop watches</a><a class="btn" href="https://wa.me/${WA}" target="_blank" rel="noopener">Ask on WhatsApp</a></div></div><div class="eb-i"><img src="${DECOR}" alt="" draggable="false" loading="lazy" onerror="this.parentElement.remove()"></div></section>`;
+  return `<section class="pd"><div class="gal">${imgBox(p)}${p.images.length>1?`<div class="th">${p.images.map((u,i)=>`<button data-img="${esc(u)}" aria-label="Show photo ${i+1}"><img src="${esc(u)}" alt=""></button>`).join('')}</div>`:''}</div><div class="inf"><a href="#shop">← Back to shop</a><h1>${esc(p.name)}</h1><div class="price">${pkr(p.price)}</div>${dl.length?`<dl>${dl.map(r=>`<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join('')}</dl>`:''}${p.specs.length?`<ul class="sp">${p.specs.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`:''}<div class="st">${out?'Out of stock':p.stock==='in'?'In stock':'Availability confirmed after you order'}</div>${out?'':`<button class="btn" data-a="add" data-id="${esc(p.id)}">Add to bag</button><a class="btn" id="goBag" href="#bag" hidden>Go to bag</a>`}</div></section>`};
+const emptyBag=()=>`<section class="eb"><div class="eb-t"><div class="eyebrow">Your bag is empty</div><h2>No watch yet?<br><span>Time is ticking.</span></h2><p>Browse the collection and add a watch you like. Cash on delivery all over Pakistan, delivered in 3–⁠5 days.</p><div class="cobtns"><a class="btn solid" href="#shop">Shop watches</a></div></div><div class="eb-i"><img src="${DECOR}" alt="" draggable="false" loading="lazy" onerror="this.parentElement.remove()"></div></section>`;
 const bag=()=>{const rows=rowsOf(),ok=okRows();
   return `<div class="bw">${wm('YOUR BAG')}<div class="rule"></div>`+`</div>`+(rows.length?`<div class="lines">${rows.map(([p,q])=>`<div class="ln2">${imgBox(p)}<div><a href="#p-${esc(p.id)}">${esc(p.name)}</a>${p.stock==='out'?'<br><small>Currently unavailable. Remove it to order.</small>':''}</div><div class="q"><button data-a="dec" data-id="${esc(p.id)}" aria-label="Fewer ${esc(p.name)}">−</button><span aria-label="Quantity">${q}</span><button data-a="inc" data-id="${esc(p.id)}" aria-label="More ${esc(p.name)}">+</button></div><div class="lp">${pkr(p.price*q)} <button class="rm btn" data-a="rm" data-id="${esc(p.id)}" aria-label="Remove ${esc(p.name)}">Remove</button></div></div>`).join('')}</div><div class="sumr"><span>Subtotal ${pkr(sum(ok))}<br><small>Delivery and availability are confirmed by us after you order.</small></span><span><a class="btn" href="#shop">Back to shop</a>${ok.length?' <a class="btn solid" href="#checkout">Checkout</a>':''}</span></div>`:emptyBag())};
 const info=(t,body)=>`<section class="pg"><h1>${t}</h1>${body}<a class="btn" href="#shop">Back to shop</a></section>`;
-const SHIP='<p>Cash on delivery all over Pakistan. Delivery time: 3–⁠5 days. Confirm availability and delivery details with us on WhatsApp before you order.</p>',PRIV='<p>This website keeps your bag on your own device only. When you order, the message you send on WhatsApp is how we receive your details.</p>';
+const SHIP='<p>Cash on delivery all over Pakistan. Delivery time: 3–⁠5 days. We confirm availability and delivery details with you after you place your order.</p>',PRIV='<p>This website keeps your bag on your own device only. When you place an order, the details you enter are sent to us only to process and deliver it.</p>';
 const foot=()=>`<footer><div class="ln"></div><div class="fh"><p class="big">Your Style. Your Time.<br><span>Your Flex.</span></p><div class="c26" aria-hidden="true">©26</div></div><p class="fp">Cash on delivery all over Pakistan. Delivery in 3–⁠5 days.</p><div class="ln1"></div><div class="fc"><div><b>Watch Flex PK</b>Your Style. Your Time. Your Flex.<br>All rights reserved © 2026</div><div><b>Quick links</b><a href="#shop">Shop</a><a href="#bag">Bag</a></div><div><b>Customer care</b><a href="#shipping">Shipping &amp; returns</a><a href="#privacy">Privacy policy</a><a href="https://wa.me/${WA}" target="_blank" rel="noopener">Contact on WhatsApp</a></div><div><b>Follow us</b><a href="${IG}" target="_blank" rel="noopener">Instagram</a><a href="https://wa.me/${WA}" target="_blank" rel="noopener">WhatsApp</a></div></div></footer>`;
 // fit a headline to its container; the ® badge scales with the text (.2em reserved)
 function fitAll(){$$a('.fit').forEach(el=>{const h=el.parentElement,r=h.querySelector('sup')?.2:0;h.style.fontSize='100px';const w=el.getBoundingClientRect().width,a=h.clientWidth;if(w&&a)h.style.fontSize=(a/(w/100+r))+'px'})}
@@ -454,7 +454,7 @@ function cat(more){const g=$('#pgrid');if(!g)return;const r=view(),n=Math.min(S.
   const lm=$('#lm');lm.hidden=n>=r.length;lm.textContent=`Load more (${r.length-n} remaining)`;
   const em=$('#em');em.hidden=!!r.length;
   if(!r.length){const f=[S.q.trim()&&`“${esc(S.q.trim())}”`,S.brands.size&&[...S.brands].map(esc).join(', '),(S.min!==''||S.max!=='')&&`${S.min!==''?pkr(+S.min):'any price'} to ${S.max!==''?pkr(+S.max):'any price'}`].filter(Boolean).join(' · ');
-    em.innerHTML=ITEMS.length?`<b>No watches found</b><p>Nothing matches ${f||'these filters'}. Try fewer words, another brand or a wider price range.</p><button class="btn" data-clear>Clear filters</button> <a class="btn" href="https://wa.me/${WA}" target="_blank" rel="noopener">Ask us on WhatsApp</a>`:`<b>New watches are on the way</b><p>Message us on WhatsApp for what is available now.</p><a class="btn" href="https://wa.me/${WA}" target="_blank" rel="noopener">Message on WhatsApp</a>`}
+    em.innerHTML=ITEMS.length?`<b>No watches found</b><p>Nothing matches ${f||'these filters'}. Try fewer words, another brand or a wider price range.</p><button class="btn" data-clear>Clear filters</button>`:`<b>New watches are on the way</b><p>Please check back soon.</p>`}
   $('#cl').hidden=!(act||S.sort!=='featured');
   const nf=S.brands.size+(S.min!==''||S.max!==''?1:0),ft=$('#ft');if(ft)ft.textContent=nf?`Filters (${nf})`:'Filters';
   const bad=S.min!==''&&S.max!==''&&+S.min>+S.max;$('#pn').textContent=bad?`Minimum is higher than maximum, so showing ${pkr(+S.max)} to ${pkr(+S.min)}.`:'';
@@ -471,11 +471,11 @@ const FIELDS=[['name','Full name','text','autocomplete="name"'],['phone','Phone 
 const ff=f=>`<div class="ff"><label for="${f[0]}">${f[1]}</label><input id="${f[0]}" name="${f[0]}" type="${f[2]}" ${f[3]} aria-describedby="e-${f[0]}" required><small class="er" id="e-${f[0]}"></small></div>`;
 const summary=(rows)=>`<aside class="os"><h2>Your order</h2>${rows.map(([p,q])=>`<div class="ol"><span>${esc(p.name)} × ${q}</span><span>${pkr(p.price*q)}</span></div>`).join('')}<div class="ol tot"><span>Total</span><span>${pkr(sum(rows))}</span></div><small>Payment: cash on delivery. Delivery charges, if any, are confirmed by us.</small></aside>`;
 const checkout=()=>{
-  if(lastOrder){const o=lastOrder;return `<div class="bw">${wm('THANK YOU')}<div class="rule"></div></div><section class="co done"><div><h2>Order ${o.ref} received</h2><p>Thank you, ${esc(o.d.name)}. We will confirm availability and delivery details with you on ${esc(o.d.phone)}. Payment is cash on delivery.</p><div class="cobtns"><a class="btn solid" href="#shop">Back to shop</a><a class="btn" href="${waOrder(o.rows,o.d).replace('Hello%20Watch%20Flex!','Hello%20Watch%20Flex!%20(order%20'+o.ref+')')}" target="_blank" rel="noopener">Message us on WhatsApp</a></div></div>${summary(o.rows)}</section>`}
+  if(lastOrder){const o=lastOrder;return `<div class="bw">${wm('THANK YOU')}<div class="rule"></div></div><section class="co done"><div><h2>Order ${o.ref} received</h2><p>Thank you, ${esc(o.d.name)}. We will confirm availability and delivery details with you on ${esc(o.d.phone)}. Payment is cash on delivery.</p><div class="cobtns"><a class="btn solid" href="#shop">Back to shop</a></div></div>${summary(o.rows)}</section>`}
   const rows=okRows();
   if(!rows.length)return `<div class="bw">${wm('CHECKOUT')}<div class="rule"></div></div><div class="pg"><p>Your bag is empty.</p><a class="btn" href="#shop">Back to shop</a></div>`;
   return `<div class="bw">${wm('CHECKOUT')}<div class="rule"></div></div><section class="co"><form id="of" novalidate><h2>Your details</h2><div class="fgrid">${FIELDS.map(ff).join('')}<div class="ff full"><label for="address">Full delivery address</label><textarea id="address" name="address" rows="2" autocomplete="street-address" aria-describedby="e-address" required></textarea><small class="er" id="e-address"></small></div><div class="ff full"><label for="notes">Order notes (optional)</label><textarea id="notes" name="notes" rows="2"></textarea></div></div><input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true"><div class="ferr" id="ferr" role="alert"></div>
-<div class="cobtns"><button type="submit" class="btn solid" id="po">Place order</button><a class="btn" id="wc" href="${waOrder(rows)}" target="_blank" rel="noopener">Contact us on WhatsApp</a></div><small class="hint"><b>Place order</b> sends your order to us directly and you stay on this page. <b>Contact us</b> opens WhatsApp with your order ready to send.</small></form>${summary(rows)}</section>`};
+<div class="cobtns"><button type="submit" class="btn solid" id="po">Place order</button></div><small class="hint"><b>Place order</b> sends your order to us directly and you stay on this page.</small></form>${summary(rows)}</section>`};
 const formData=()=>{const f=$('#of'),g=n=>(f.elements[n].value||'').trim();return{name:g('name'),phone:g('phone'),email:g('email'),city:g('city'),postal:g('postal'),address:g('address'),notes:g('notes')}};
 const refreshWA=()=>{const a=$('#wc');if(a&&$('#of'))a.href=waOrder(okRows(),formData())};
 function validate(d){const e={},ph=d.phone.replace(/[\s\-()]/g,'');
@@ -490,7 +490,7 @@ function showErrs(e){['name','phone','email','city','postal','address'].forEach(
   const k=Object.keys(e)[0];if(k)$('#'+k).focus()}
 async function submitOrder(){
   const d=formData(),e=validate(d),fe=$('#ferr');fe.textContent='';showErrs(e);if(Object.keys(e).length)return;
-  if(!ORDER_KEY){fe.textContent='Online ordering is not switched on yet. Please tap “Contact us on WhatsApp” to send your order.';return}
+  if(!ORDER_KEY){fe.textContent='Online ordering is not switched on yet.';return}
   const rows=okRows();if(!rows.length)return;const btn=$('#po');btn.disabled=true;btn.textContent='Sending…';
   const ref='WF-'+Date.now().toString(36).toUpperCase().slice(-6)+Math.random().toString(36).slice(2,4).toUpperCase(),total=sum(rows);
   const body={access_key:ORDER_KEY,subject:`New order ${ref} – ${d.name} – ${pkr(total)}`,from_name:'Watch Flex website',botcheck:$('#of [name=botcheck]').checked,order_ref:ref,name:d.name,email:d.email,phone:d.phone,city:d.city,postal_code:d.postal,address:d.address,notes:d.notes||'-',payment:'Cash on delivery',order_items:lines(rows),order_total:pkr(total)};
@@ -498,7 +498,7 @@ async function submitOrder(){
   try{const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(body),signal:ctl.signal}),j=await r.json().catch(()=>({}));
     if(!r.ok||!j.success)throw new Error(j.message||'HTTP '+r.status);
     lastOrder={ref,d,rows:rows.map(([p,q])=>[p,q])};rows.forEach(([p])=>delete cart[p.id]);save();route(false,false,true)}
-  catch(err){btn.disabled=false;btn.textContent='Place order';fe.textContent='We could not send your order. Please check your connection and try again, or tap “Contact us on WhatsApp”. Your details are still saved on this page.'}
+  catch(err){btn.disabled=false;btn.textContent='Place order';fe.textContent='We could not send your order. Please check your connection and try again. Your details are still saved on this page.'}
   finally{clearTimeout(to)}}
 addEventListener('submit',e=>{if(e.target.id==='of'){e.preventDefault();submitOrder()}});
 
