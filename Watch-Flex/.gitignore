@@ -1,0 +1,30 @@
+
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+.vercel/
+
+# Environment variables - NEVER upload secrets
+.env
+.env.*
+!.env.example
+
+# Local database and backups
+data.json
+data.json.backup-*
+outbox.log
+
+# Testing
+coverage/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
