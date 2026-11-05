@@ -17,6 +17,12 @@ export const metadata = {
   description:
     "Shop stylish men's watches at Watch Flex PK. Explore quality designs at affordable prices with cash on delivery across Pakistan.",
 
+  // Website favicon
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+  },
+
   alternates: {
     canonical: '/',
   },
@@ -44,7 +50,6 @@ export const viewport = {
   themeColor: '#000000',
 };
 
-// Sets the saved theme before the first paint (no flash).
 const THEME_JS = `try{var t=localStorage.getItem('of-theme');if(t==='red')t='navy';if(!/^(black|cream|navy)$/.test(t))t='black';document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='black'}`;
 
 export default async function ShopLayout({ children }) {
