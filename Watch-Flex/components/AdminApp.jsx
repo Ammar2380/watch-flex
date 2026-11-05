@@ -7,10 +7,9 @@ import './admin.css';
 const STATUSES = ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'];
 const FLOW = ['pending', 'confirmed', 'shipped', 'delivered'];
 const TRANSITIONS = { pending: ['pending', 'confirmed', 'cancelled'], confirmed: ['confirmed', 'shipped', 'cancelled'], shipped: ['shipped', 'delivered'], delivered: ['delivered'], cancelled: ['cancelled'] };
-const NEXT = { pending: ['confirmed', 'Confirm order'], confirmed: ['shipped', 'Mark shipped'], shipped: ['delivered', 'Mark delivered'] };
-const TABS = [['dash', 'Dashboard', 'Home'], ['orders', 'Orders', 'Orders'], ['products', 'Products', 'Watches'], ['promos', 'Promo codes', 'Promos'], ['cust', 'Customers', 'People'], ['settings', 'Store settings', 'Settings']];
-const ICON_KEY = { dash: 'dash', orders: 'orders', products: 'watch', promos: 'tag', cust: 'users', settings: 'sliders' };
-const PAGE = 25;
+const NEXT = { pending: ['confirmed', 'Confirm'], confirmed: ['shipped', 'Mark shipped'], shipped: ['delivered', 'Mark delivered'] };
+const TABS = [['dash', 'Dashboard', 'Home'], ['orders', 'Orders', 'Orders'], ['products', 'Products', 'Products'], ['promos', 'Promo codes', 'Promos'], ['cust', 'Customers', 'Customers'], ['settings', 'Settings', 'Settings']];
+const SIZES = [10, 25, 50];
 const MAX_IMAGE = 4 * 1024 * 1024;
 
 const when = (d) => { const x = new Date(d); return Number.isFinite(x.getTime()) ? x.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' }) : '—'; };
@@ -18,46 +17,18 @@ const day = (d) => { const x = new Date(d); return Number.isFinite(x.getTime()) 
 const isPaid = (o) => o.payment_status === 'paid' || o.paymentStatus === 'paid';
 const qtyOf = (p) => (p.stockQuantity === null || p.stockQuantity === undefined || p.stockQuantity === '' ? null : Number(p.stockQuantity));
 const isLow = (p) => p.stock === 'out' || (qtyOf(p) !== null && qtyOf(p) <= 5);
-const initials = (n) => String(n || '?').trim().split(/\s+/).slice(0, 2).map((s) => s[0]?.toUpperCase()).join('') || '?';
-const stockLabel = (p) => (p.stock === 'out' ? 'Out of stock' : qtyOf(p) !== null && qtyOf(p) <= 5 ? `Only ${qtyOf(p)} left` : p.stock === 'in' ? 'In stock' : 'Confirm on order');
-const stockTone = (p) => (p.stock === 'out' ? 'bad' : qtyOf(p) !== null && qtyOf(p) <= 5 ? 'warn' : p.stock === 'in' ? 'ok' : 'mute');
-
-const ICONS = {
-  dash: <><rect x="3" y="3" width="7" height="9" rx="1.5" /><rect x="14" y="3" width="7" height="5" rx="1.5" /><rect x="14" y="12" width="7" height="9" rx="1.5" /><rect x="3" y="16" width="7" height="5" rx="1.5" /></>,
-  orders: <><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z" /><path d="M9 8h6M9 12h6" /></>,
-  watch: <><circle cx="12" cy="12" r="5.5" /><path d="M9 6.5L10 3h4l1 3.5M9 17.5L10 21h4l1-3.5M12 9.5V12l1.8 1.2" /></>,
-  tag: <><path d="M3 12l9-9h8v8l-9 9z" /><circle cx="16" cy="8" r="1.2" /></>,
-  users: <><circle cx="9" cy="8" r="3.5" /><path d="M3 20c0-3.5 3-6 6-6s6 2.5 6 6M16 5a3 3 0 010 6M18 14c2 .8 3 3 3 6" /></>,
-  sliders: <><path d="M4 7h8M18 7h2M4 17h2M12 17h8" /><circle cx="15" cy="7" r="2.2" /><circle cx="9" cy="17" r="2.2" /></>,
-  out: <path d="M10 4H5v16h5M15 8l4 4-4 4M19 12H9" />,
-  search: <><circle cx="11" cy="11" r="6" /><path d="M20 20l-4.2-4.2" /></>,
-  plus: <path d="M12 5v14M5 12h14" />,
-  close: <path d="M6 6l12 12M18 6L6 18" />,
-  refresh: <path d="M20 11a8 8 0 10-2.3 5.7M20 4v7h-7" />,
-  download: <path d="M12 4v11M7 11l5 5 5-5M5 20h14" />,
-  check: <path d="M5 12.5l4.5 4.5L19 7.5" />,
-  alert: <><path d="M12 3l10 18H2z" /><path d="M12 10v5M12 18v.01" /></>,
-  phone: <path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z" />,
-  mail: <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></>,
-  star: <path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z" />,
-  eye: <><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z" /><circle cx="12" cy="12" r="3" /></>,
+const stockLabel = (p) => (p.stock === 'out' ? 'Out of stock' : qtyOf(p) !== null && qtyOf(p) <= 5 ? 'Low stock' : p.stock === 'in' ? 'In stock' : 'Confirm on order');
+const stockTone = (p) => (p.stock === 'out' ? 'bad' : qtyOf(p) !== null && qtyOf(p) <= 5 ? 'warn' : p.stock === 'in' ? 'info' : 'mute');
+const delta = (cur, prev) => (prev > 0 ? Math.round(((cur - prev) / prev) * 100) : null);
+const pageNums = (pg, pages) => {
+  const a = [...new Set([1, pages, pg - 1, pg, pg + 1])].filter((n) => n >= 1 && n <= pages).sort((x, y) => x - y);
+  const out = [];
+  a.forEach((n, i) => { if (i && n - a[i - 1] > 1) out.push('…' + n); out.push(n); });
+  return out;
 };
-function Icon({ n, size = 20 }) {
-  return <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">{ICONS[n]}</svg>;
-}
-function Brand({ small }) {
-  return (
-    <div className={'wf-brand' + (small ? ' sm' : '')}>
-      <svg viewBox="0 0 40 40" width={small ? 28 : 36} height={small ? 28 : 36} aria-hidden="true">
-        <circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" strokeWidth="2" />
-        {Array.from({ length: 12 }, (_, i) => <line key={i} x1="20" y1="5" x2="20" y2={i % 3 === 0 ? 9 : 7.5} stroke="currentColor" strokeWidth="1.5" transform={`rotate(${i * 30} 20 20)`} />)}
-        <path d="M20 20V11M20 20l6 3" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" fill="none" />
-      </svg>
-      <span><b>Watch Flex PK</b><small>Store admin</small></span>
-    </div>
-  );
-}
-const Badge = ({ s }) => <span className={'wf-badge s-' + s}>{s}</span>;
+
+const Badge = ({ s }) => <span className={'wf-pill s-' + s}>{s}</span>;
+const Pill = ({ tone, children }) => <span className={'wf-pill ' + tone}>{children}</span>;
 
 /* ───────────── root ───────────── */
 export default function AdminApp() {
@@ -69,7 +40,9 @@ export default function AdminApp() {
   const [ask, setAsk] = useState(null);
   const [q, setQ] = useState('');
   const [sf, setSf] = useState('');
-  const [limit, setLimit] = useState(PAGE);
+  const [page, setPage] = useState(1);
+  const [size, setSize] = useState(10);
+  const [sel, setSel] = useState(() => new Set());
   const [toastMsg, setToastMsg] = useState(null);
   const [health, setHealth] = useState(null);
   const [busy, setBusy] = useState(false);
@@ -92,7 +65,7 @@ export default function AdminApp() {
   }, []);
   useEffect(() => () => clearTimeout(timer.current), []);
 
-  const logout = useCallback(() => { try { sessionStorage.removeItem('adm'); } catch {} setT(''); setD(null); setDrawer(null); setAsk(null); setHealth(null); }, []);
+  const logout = useCallback(() => { try { sessionStorage.removeItem('adm'); } catch {} setT(''); setD(null); setDrawer(null); setAsk(null); setHealth(null); setSel(new Set()); }, []);
   const api = useCallback(async (u, m = 'GET', b, token = T) => {
     const r = await fetch(u, { method: m, headers: { 'Content-Type': 'application/json', 'x-admin-token': token || '' }, body: b ? JSON.stringify(b) : undefined });
     const j = await r.json().catch(() => ({}));
@@ -121,13 +94,13 @@ export default function AdminApp() {
     try {
       const result = await f();
       notify(typeof ok === 'function' ? ok(result) : ok);
-      try { await load(); } catch { notify('Saved, but the list could not refresh. Use the refresh button.', 'error'); }
+      try { await load(); } catch { notify('Saved, but the list could not refresh. Use Refresh.', 'error'); }
       return true;
     } catch (x) { notify(x.message, 'error'); return false; } finally { setBusy(false); }
   };
 
   const go = (k) => {
-    setTab(k); setQ(''); setSf(''); setLimit(PAGE); setDrawer(null);
+    setTab(k); setQ(''); setSf(''); setPage(1); setSel(new Set()); setDrawer(null);
     try { window.history.replaceState(null, '', '#' + k); } catch {}
     window.scrollTo(0, 0);
   };
@@ -157,6 +130,19 @@ export default function AdminApp() {
       setAsk({ title: `Cancel order ${o.ref}?`, body: 'The customer will be emailed that the order is cancelled. This cannot be undone.', confirm: 'Cancel order', cancel: 'Keep order', danger: true, action: () => putOrder(o.ref, { status }, statusOk) });
     } else putOrder(o.ref, { status }, statusOk);
   };
+  const deleteProducts = (items) => setAsk({
+    title: items.length === 1 ? `Delete “${items[0].name}”?` : `Delete ${items.length} products?`,
+    body: 'They will disappear from your store. Past orders keep their details.', confirm: 'Delete', danger: true,
+    action: async () => {
+      await run(async () => {
+        let done = 0;
+        try { for (const p of items) { await api('/api/admin/products/' + encodeURIComponent(p.id), 'DELETE'); done++; } }
+        catch (e) { await load().catch(() => {}); throw new Error(`Deleted ${done} of ${items.length}. ${e.message}`); }
+        return done;
+      }, (n) => (n === 1 ? 'Product deleted' : `${n} products deleted`));
+      setSel(new Set());
+    },
+  });
 
   /* derived data (hooks must run before any early return) */
   const orders = useMemo(() => [...(D?.orders || [])].sort((a, b) => new Date(b.date) - new Date(a.date)), [D]);
@@ -183,7 +169,7 @@ export default function AdminApp() {
     const months = [];
     for (let i = 5; i >= 0; i--) {
       const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-      months.push({ key: `${d.getFullYear()}-${d.getMonth()}`, label: d.toLocaleDateString('en-GB', { month: 'short' }), orders: 0, sales: 0, collected: 0 });
+      months.push({ key: `${d.getFullYear()}-${d.getMonth()}`, label: d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }), orders: 0, sales: 0, collected: 0 });
     }
     const byMonth = new Map(months.map((m) => [m.key, m]));
     const best = new Map();
@@ -198,8 +184,7 @@ export default function AdminApp() {
       }
     }
     return {
-      live, collected, outstanding, value: collected + outstanding,
-      rate: collected + outstanding > 0 ? collected / (collected + outstanding) : 0,
+      collected, outstanding, value: collected + outstanding,
       pending: orders.filter((o) => o.status === 'pending').length,
       low: products.filter(isLow), out: products.filter((p) => p.stock === 'out').length,
       months, top: [...best.values()].sort((a, b) => b.units - a.units).slice(0, 5),
@@ -207,104 +192,127 @@ export default function AdminApp() {
   }, [D, orders]);
 
   /* ───── guards ───── */
-  if (T === null) return <div className="wf wf-center" aria-live="polite"><div className="wf-spin" /><p>Loading admin…</p></div>;
+  if (T === null) return <div className="wf wf-center" aria-live="polite"><p>Loading admin…</p></div>;
   if (!T) return <Login onLogin={(t) => { try { sessionStorage.setItem('adm', t); } catch {} setT(t); }} notify={notify} toast={toastMsg} />;
   if (!D) return (
     <div className="wf wf-center" aria-busy={!loadError}>
-      <Brand />
+      <h1 className="wf-ctitle">Watch Flex PK</h1>
       {loadError ? (
         <>
           <p className="wf-err" role="alert">Couldn’t load your store data: {loadError}</p>
           <div className="wf-actions">
-            <button className="wf-btn pri" type="button" onClick={() => { setLoadError(''); load().catch((x) => { setLoadError(x.message); notify(x.message, 'error'); }); }}>Try again</button>
+            <button className="wf-btn dark" type="button" onClick={() => { setLoadError(''); load().catch((x) => { setLoadError(x.message); notify(x.message, 'error'); }); }}>Try again</button>
             <button className="wf-btn" type="button" onClick={logout}>Log out</button>
           </div>
         </>
-      ) : (<><div className="wf-spin" /><p role="status">Loading your store data…</p></>)}
+      ) : <p role="status">Loading your store data…</p>}
       <Toast t={toastMsg} />
     </div>
   );
 
-  /* ───── views ───── */
-  const pendingBadge = stats.pending;
+  /* ───── shared pieces ───── */
   const openOrder = drawer?.type === 'order' ? orders.find((o) => o.ref === drawer.ref) : null;
+  const current = TABS.find((t) => t[0] === tab) || TABS[0];
 
-  const orderList = (list, more) => !list.length ? <Empty icon="orders" title="No orders here" body="When customers place orders they will show up in this list." /> : (
-    <>
-      <div className="wf-list" role="list">
-        {list.map((o) => <OrderRow key={o.ref} o={o} busy={busy} onOpen={(ref) => openDrawer({ type: 'order', ref })} onAdvance={changeStatus} />)}
+  const paged = (list) => {
+    const pages = Math.max(1, Math.ceil(list.length / size));
+    const pg = Math.min(page, pages);
+    return { rows: list.slice((pg - 1) * size, pg * size), pg, pages, total: list.length };
+  };
+  const pager = (p) => !p.total ? null : (
+    <div className="wf-pager">
+      <label>Rows per page
+        <select value={size} onChange={(e) => { setSize(Number(e.target.value)); setPage(1); }}>{SIZES.map((n) => <option key={n} value={n}>{n}</option>)}</select>
+      </label>
+      <span className="wf-range">{(p.pg - 1) * size + 1}–{Math.min(p.pg * size, p.total)} of {p.total}</span>
+      <div className="wf-pages" role="navigation" aria-label="Pagination">
+        <button type="button" disabled={p.pg <= 1} onClick={() => setPage(p.pg - 1)} aria-label="Previous page">‹</button>
+        {pageNums(p.pg, p.pages).map((n) => (typeof n === 'string' ? <span key={n}>…</span> : <button key={n} type="button" className={n === p.pg ? 'on' : ''} aria-current={n === p.pg ? 'page' : undefined} onClick={() => setPage(n)}>{n}</button>))}
+        <button type="button" disabled={p.pg >= p.pages} onClick={() => setPage(p.pg + 1)} aria-label="Next page">›</button>
       </div>
-      {more}
-    </>
+    </div>
   );
 
+  const ordersTable = (list, compact) => !list.length ? <Empty title="No orders here" body="When customers place orders they will show up in this table." /> : (
+    <div className="wf-tablewrap">
+      <table className="wf-tbl">
+        <thead><tr><th>Order</th>{compact ? null : <th>Date</th>}<th>Customer</th><th>Total</th>{compact ? null : <th>Payment</th>}<th>Status</th>{compact ? null : <th><span className="wf-sr">Next step</span></th>}</tr></thead>
+        <tbody>{list.map((o) => {
+          const c = o.customer || {};
+          const next = NEXT[o.status];
+          return (
+            <tr key={o.ref} className="click" onClick={() => openDrawer({ type: 'order', ref: o.ref })}>
+              <td data-label="Order"><button type="button" className="wf-ref" onClick={(e) => { e.stopPropagation(); openDrawer({ type: 'order', ref: o.ref }); }}>{o.ref}</button></td>
+              {compact ? null : <td data-label="Date">{day(o.date)}</td>}
+              <td data-label="Customer"><b>{c.name || 'Unknown customer'}</b><small>{c.city || '—'}</small></td>
+              <td data-label="Total">{pkr(o.total)}</td>
+              {compact ? null : <td data-label="Payment"><span className={isPaid(o) ? 'wf-ok' : 'wf-due'}>{isPaid(o) ? 'Collected' : 'Due on delivery'}</span></td>}
+              <td data-label="Status"><Badge s={o.status} /></td>
+              {compact ? null : <td className="act">{next ? <button type="button" className="wf-btn sm" disabled={busy} onClick={(e) => { e.stopPropagation(); changeStatus(o, next[0]); }}>{next[1]}</button> : null}</td>}
+            </tr>
+          );
+        })}</tbody>
+      </table>
+    </div>
+  );
+
+  const stat = (label, value, sub, tone) => <div className="wf-stat"><span>{label}</span><b>{value}</b>{sub ? <small className={tone || ''}>{sub}</small> : null}</div>;
+  const dl = (cur, prev) => { const d = delta(cur, prev); return d === null ? 'No data last month' : `${d >= 0 ? '▲' : '▼'} ${Math.abs(d)}% vs last month`; };
+
+  /* ───── views ───── */
   const dash = () => {
-    const maxSales = Math.max(1, ...stats.months.map((m) => m.sales));
-    const maxUnits = Math.max(1, ...stats.top.map((p) => p.units));
+    const cur = stats.months[5], prev = stats.months[4];
     return (
       <>
         {stats.pending > 0 && (
-          <div className="wf-alert" role="status">
-            <Icon n="alert" />
+          <div className="wf-banner" role="status">
             <span><b>{stats.pending} {stats.pending === 1 ? 'order is' : 'orders are'} waiting for confirmation.</b> Customers hear from you once you confirm.</span>
-            <button type="button" className="wf-btn sm" onClick={() => { go('orders'); setSf('pending'); }}>Review</button>
+            <button type="button" className="wf-btn sm" onClick={() => { go('orders'); setSf('pending'); }}>Review orders</button>
           </div>
         )}
-        <div className="wf-dash">
-          <section className="wf-card wf-dialcard" aria-label="Cash on delivery collection">
-            <h2>Cash collected</h2>
-            <Dial rate={stats.rate} />
-            <dl className="wf-dl">
-              <div><dt><i className="dot gold" />Collected</dt><dd>{pkr(stats.collected)}</dd></div>
-              <div><dt><i className="dot" />Still due on delivery</dt><dd>{pkr(stats.outstanding)}</dd></div>
-            </dl>
-          </section>
-          <div className="wf-kpis">
-            <Kpi label="Total orders" value={orders.length} />
-            <Kpi label="Pending orders" value={stats.pending} tone={stats.pending ? 'warn' : ''} />
-            <Kpi label="Order value (not cancelled)" value={pkr(stats.value)} />
-            <Kpi label="Customers" value={customers.length} />
-            <Kpi label={`Products (${stats.out} out of stock)`} value={D.products.length} />
-            <Kpi label="Active promo codes" value={(D.promos || []).filter((p) => p.active).length} />
-          </div>
+        <div className="wf-stats">
+          {stat('Total orders', orders.length, `${cur.orders} this month`)}
+          {stat('Order value', pkr(stats.value), dl(cur.sales, prev.sales), delta(cur.sales, prev.sales) === null ? '' : delta(cur.sales, prev.sales) >= 0 ? 'up' : 'down')}
+          {stat('Cash collected', pkr(stats.collected), 'Cash on delivery')}
+          {stat('Still due on delivery', pkr(stats.outstanding), 'Not yet collected')}
         </div>
-
+        <div className="wf-stats">
+          {stat('Pending orders', stats.pending, 'Need confirming')}
+          {stat('Customers', customers.length, 'With an email address')}
+          {stat('Products', D.products.length, `${stats.out} out of stock`)}
+          {stat('Active promo codes', (D.promos || []).filter((p) => p.active).length, `${(D.promos || []).length} in total`)}
+        </div>
         <div className="wf-two">
           <section className="wf-card">
-            <h2>Last 6 months</h2>
-            <div className="wf-bars" role="list">
-              {stats.months.map((m) => (
-                <div key={m.key} className="wf-bar" role="listitem" aria-label={`${m.label}: ${m.orders} orders, ${pkr(m.sales)} order value, ${pkr(m.collected)} collected`} title={`${m.orders} orders · ${pkr(m.sales)}`}>
-                  <span className="wf-bar-n">{m.orders}</span>
-                  <div className="wf-bar-track"><div className="wf-bar-fill" style={{ height: `${(m.sales / maxSales) * 100}%` }}><div className="wf-bar-got" style={{ height: m.sales ? `${(m.collected / m.sales) * 100}%` : 0 }} /></div></div>
-                  <span className="wf-bar-l">{m.label}</span>
-                </div>
-              ))}
-            </div>
-            <p className="wf-legend"><i className="dot gold" />Collected <i className="dot" />Order value · number on top is orders</p>
+            <h2>Sales by month</h2>
+            <div className="wf-tablewrap"><table className="wf-tbl plain">
+              <thead><tr><th>Month</th><th>Orders</th><th>Order value</th><th>Collected</th></tr></thead>
+              <tbody>{[...stats.months].reverse().map((m) => <tr key={m.key}><td data-label="Month">{m.label}</td><td data-label="Orders">{m.orders}</td><td data-label="Order value">{pkr(m.sales)}</td><td data-label="Collected">{pkr(m.collected)}</td></tr>)}</tbody>
+            </table></div>
           </section>
           <section className="wf-card">
             <h2>Best sellers</h2>
             {!stats.top.length ? <p className="wf-muted">No sales yet.</p> : (
-              <ol className="wf-top">{stats.top.map((p) => (
-                <li key={p.id}><div><b>{p.name}</b><small>{p.units} sold</small></div><div className="wf-meter"><i style={{ width: `${(p.units / maxUnits) * 100}%` }} /></div><span>{pkr(p.sales)}</span></li>
-              ))}</ol>
+              <div className="wf-tablewrap"><table className="wf-tbl plain">
+                <thead><tr><th>Product</th><th>Units</th><th>Sales</th></tr></thead>
+                <tbody>{stats.top.map((p) => <tr key={p.id}><td data-label="Product">{p.name}</td><td data-label="Units">{p.units}</td><td data-label="Sales">{pkr(p.sales)}</td></tr>)}</tbody>
+              </table></div>
             )}
           </section>
         </div>
-
         <div className="wf-two">
           <section className="wf-card">
             <h2>Stock to watch</h2>
             {!stats.low.length ? <p className="wf-muted">Everything is stocked.</p> : (
-              <ul className="wf-plain">{stats.low.slice(0, 8).map((p) => (
-                <li key={p.id}><span>{p.name}</span><span className={'wf-pill ' + stockTone(p)}>{stockLabel(p)}</span></li>
-              ))}</ul>
+              <div className="wf-tablewrap"><table className="wf-tbl plain">
+                <thead><tr><th>Product</th><th>Status</th><th>Units left</th></tr></thead>
+                <tbody>{stats.low.slice(0, 8).map((p) => <tr key={p.id}><td data-label="Product">{p.name}</td><td data-label="Status"><Pill tone={stockTone(p)}>{stockLabel(p)}</Pill></td><td data-label="Units left">{qtyOf(p) ?? '—'}</td></tr>)}</tbody>
+              </table></div>
             )}
           </section>
           <section className="wf-card">
-            <div className="wf-cardhead"><h2>Latest orders</h2><button type="button" className="wf-link" onClick={() => go('orders')}>See all orders</button></div>
-            {orderList(orders.slice(0, 5))}
+            <div className="wf-cardhead"><h2>Latest orders</h2><button type="button" className="wf-linkbtn" onClick={() => go('orders')}>View all</button></div>
+            {ordersTable(orders.slice(0, 5), true)}
           </section>
         </div>
       </>
@@ -332,101 +340,122 @@ export default function AdminApp() {
       return [o.ref, c.name, c.phone, c.email, c.city].some((v) => String(v || '').toLowerCase().includes(term));
     });
     const counts = Object.fromEntries(STATUSES.map((s) => [s, orders.filter((o) => o.status === s).length]));
+    const p = paged(l);
     return (
       <>
+        <div className="wf-tabs" role="group" aria-label="Filter orders by status">
+          <button type="button" className={!sf ? 'on' : ''} aria-pressed={!sf} onClick={() => { setSf(''); setPage(1); }}>All <i>{orders.length}</i></button>
+          {STATUSES.map((s) => <button key={s} type="button" className={sf === s ? 'on' : ''} aria-pressed={sf === s} onClick={() => { setSf(s); setPage(1); }}>{s} <i>{counts[s]}</i></button>)}
+        </div>
         <div className="wf-toolbar">
-          <Search value={q} onChange={(v) => { setQ(v); setLimit(PAGE); }} label="Search orders by number, name, phone, email or city" placeholder="Search order, name, phone, email" />
-          <button type="button" className="wf-btn" onClick={exportCsv} disabled={!orders.length}><Icon n="download" size={18} />Export CSV</button>
+          <Search value={q} onChange={(v) => { setQ(v); setPage(1); }} label="Search orders by number, name, phone, email or city" placeholder="Search order, name, phone, email" />
+          <span className="wf-hint">Changing a status emails the customer.</span>
         </div>
-        <div className="wf-chips" role="group" aria-label="Filter orders by status">
-          <button type="button" className={'wf-chip' + (!sf ? ' on' : '')} aria-pressed={!sf} onClick={() => { setSf(''); setLimit(PAGE); }}>All <b>{orders.length}</b></button>
-          {STATUSES.map((s) => <button key={s} type="button" className={'wf-chip' + (sf === s ? ' on' : '')} aria-pressed={sf === s} onClick={() => { setSf(s); setLimit(PAGE); }}>{s} <b>{counts[s]}</b></button>)}
-        </div>
-        <p className="wf-hint">Changing an order’s status emails the customer automatically.</p>
-        {orderList(l.slice(0, limit), l.length > limit ? <button type="button" className="wf-btn wf-more" onClick={() => setLimit((n) => n + PAGE)}>Show {Math.min(PAGE, l.length - limit)} more ({l.length - limit} left)</button> : null)}
+        {ordersTable(p.rows)}
+        {pager(p)}
       </>
     );
   };
 
   const productsView = () => {
     const term = q.trim().toLowerCase();
-    const l = D.products.filter((p) => !term || [p.name, p.brand, p.model, p.category].some((v) => String(v || '').toLowerCase().includes(term)));
+    const l = D.products.filter((x) => !term || [x.name, x.brand, x.model, x.category].some((v) => String(v || '').toLowerCase().includes(term)));
+    const p = paged(l);
+    const selected = D.products.filter((x) => sel.has(x.id));
+    const allOn = p.rows.length > 0 && p.rows.every((x) => sel.has(x.id));
+    const toggle = (id) => setSel((s) => { const n = new Set(s); n.has(id) ? n.delete(id) : n.add(id); return n; });
     return (
       <>
         <div className="wf-toolbar">
-          <Search value={q} onChange={setQ} label="Search products" placeholder="Search products" />
-          <button type="button" className="wf-btn pri" onClick={() => openDrawer({ type: 'product', item: null })}><Icon n="plus" size={18} />Add product</button>
+          <Search value={q} onChange={(v) => { setQ(v); setPage(1); }} label="Search products" placeholder="Search products" />
         </div>
-        {!l.length ? <Empty icon="watch" title={D.products.length ? 'No products match your search' : 'No products yet'} body={D.products.length ? 'Try a different name, brand or model.' : 'Add your first watch to start selling.'} action={!D.products.length && <button type="button" className="wf-btn pri" onClick={() => openDrawer({ type: 'product', item: null })}>Add product</button>} /> : (
-          <div className="wf-grid">{l.map((p) => (
-            <article key={p.id} className="wf-pcard">
-              <div className="wf-pimg">
-                {p.images?.[0] ? <img src={p.images[0]} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }} /> : <Icon n="watch" size={40} />}
-                <div className="wf-ptags">{p.featured ? <span className="wf-pill gold">Featured</span> : null}{p.isNew ? <span className="wf-pill info">New</span> : null}</div>
-              </div>
-              <div className="wf-pbody">
-                <div><b>{p.name}</b><small>{[p.brand, p.model].filter(Boolean).join(' ') || p.category}</small></div>
-                <div className="wf-prow"><span className="wf-price">{pkr(p.price)}</span><span className={'wf-pill ' + stockTone(p)}>{stockLabel(p)}</span></div>
-                <div className="wf-prow">
-                  <button type="button" className="wf-btn sm" aria-label={`Edit ${p.name}`} onClick={() => openDrawer({ type: 'product', item: p })}>Edit</button>
-                  <button type="button" className="wf-btn sm danger" aria-label={`Delete ${p.name}`} onClick={() => setAsk({ title: `Delete “${p.name}”?`, body: 'It will disappear from your store. Past orders keep their details.', confirm: 'Delete product', danger: true, action: () => run(() => api('/api/admin/products/' + encodeURIComponent(p.id), 'DELETE'), 'Product deleted') })}>Delete</button>
-                </div>
-              </div>
-            </article>
-          ))}</div>
+        {!l.length ? <Empty title={D.products.length ? 'No products match your search' : 'No products yet'} body={D.products.length ? 'Try a different name, brand or model.' : 'Add your first watch to start selling.'} action={!D.products.length && <button type="button" className="wf-btn dark" onClick={() => openDrawer({ type: 'product', item: null })}>Add product</button>} /> : (
+          <div className="wf-tablewrap">
+            <table className="wf-tbl">
+              <thead><tr>
+                <th className="chk"><input type="checkbox" checked={allOn} onChange={() => setSel((s) => { const n = new Set(s); p.rows.forEach((x) => (allOn ? n.delete(x.id) : n.add(x.id))); return n; })} aria-label="Select all products on this page" /></th>
+                <th>Product</th><th>Price</th><th>Units</th><th>Status</th><th>Labels</th><th><span className="wf-sr">Actions</span></th>
+              </tr></thead>
+              <tbody>{p.rows.map((x) => (
+                <tr key={x.id} className={'click' + (sel.has(x.id) ? ' picked' : '')} onClick={() => openDrawer({ type: 'product', item: x })}>
+                  <td className="chk" onClick={(e) => e.stopPropagation()}><input type="checkbox" checked={sel.has(x.id)} onChange={() => toggle(x.id)} aria-label={`Select ${x.name}`} /></td>
+                  <td data-label="Product"><div className="wf-pname">{x.images?.[0] ? <img src={x.images[0]} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }} /> : <span className="wf-noimg" />}<span><b>{x.name}</b><small>{[x.brand, x.model].filter(Boolean).join(' ') || x.category}</small></span></div></td>
+                  <td data-label="Price">{pkr(x.price)}</td>
+                  <td data-label="Units">{qtyOf(x) ?? '—'}</td>
+                  <td data-label="Status"><Pill tone={stockTone(x)}>{stockLabel(x)}</Pill></td>
+                  <td data-label="Labels">{[x.featured ? 'Featured' : '', x.isNew ? 'New' : ''].filter(Boolean).join(', ') || '—'}</td>
+                  <td className="act"><button type="button" className="wf-btn sm" aria-label={`Edit ${x.name}`} onClick={(e) => { e.stopPropagation(); openDrawer({ type: 'product', item: x }); }}>Edit</button></td>
+                </tr>
+              ))}</tbody>
+            </table>
+          </div>
         )}
+        {pager(p)}
+        {selected.length ? (
+          <div className="wf-bulk" role="region" aria-label="Bulk actions">
+            <span>{selected.length} selected</span>
+            <button type="button" className="wf-btn sm danger" onClick={() => deleteProducts(selected)}>Delete</button>
+            <button type="button" className="wf-btn sm" onClick={() => setSel(new Set())} aria-label="Clear selection">Clear</button>
+          </div>
+        ) : null}
       </>
     );
   };
 
-  const promosView = () => (
-    <>
-      <div className="wf-toolbar">
-        <p className="wf-muted wf-grow">Discount codes customers can enter at checkout.</p>
-        <button type="button" className="wf-btn pri" onClick={() => openDrawer({ type: 'promo', item: null })}><Icon n="plus" size={18} />New promo code</button>
-      </div>
-      {!(D.promos || []).length ? <Empty icon="tag" title="No promo codes yet" body="Create a code to run a sale or reward repeat customers." action={<button type="button" className="wf-btn pri" onClick={() => openDrawer({ type: 'promo', item: null })}>Create promo code</button>} /> : (
-        <div className="wf-grid sm">{D.promos.map((x) => {
-          const used = Number(x.used || 0), max = Number(x.max || 0);
-          return (
-            <article key={x.code} className={'wf-promo' + (x.active ? '' : ' off')}>
-              <div className="wf-prow"><b className="wf-code">{x.code}</b><span className={'wf-pill ' + (x.active ? 'ok' : 'mute')}>{x.active ? 'Active' : 'Off'}</span></div>
-              <p className="wf-off">{x.type === 'percent' ? `${x.value}% off` : `${pkr(x.value)} off`}</p>
-              <small>{Number(x.min) ? `On orders over ${pkr(x.min)}` : 'No minimum order'}</small>
-              <div className="wf-meter" aria-hidden="true"><i style={{ width: max ? `${Math.min(100, (used / max) * 100)}%` : '0%' }} /></div>
-              <small>{max ? `${used} of ${max} uses` : `${used} uses, unlimited`}</small>
-              <div className="wf-prow">
-                <button type="button" className="wf-btn sm" aria-label={`Edit promo ${x.code}`} onClick={() => openDrawer({ type: 'promo', item: x })}>Edit</button>
-                <button type="button" className="wf-btn sm danger" aria-label={`Delete promo ${x.code}`} onClick={() => setAsk({ title: `Delete code ${x.code}?`, body: 'Customers will no longer be able to use it.', confirm: 'Delete code', danger: true, action: () => run(() => api('/api/admin/promos/' + encodeURIComponent(x.code), 'DELETE'), 'Promo code deleted') })}>Delete</button>
-              </div>
-            </article>
-          );
-        })}</div>
-      )}
-    </>
-  );
+  const promosView = () => {
+    const p = paged(D.promos || []);
+    return (
+      <>
+        {!p.total ? <Empty title="No promo codes yet" body="Create a code to run a sale or reward repeat customers." action={<button type="button" className="wf-btn dark" onClick={() => openDrawer({ type: 'promo', item: null })}>New promo code</button>} /> : (
+          <div className="wf-tablewrap">
+            <table className="wf-tbl">
+              <thead><tr><th>Code</th><th>Discount</th><th>Minimum order</th><th>Used</th><th>Status</th><th><span className="wf-sr">Actions</span></th></tr></thead>
+              <tbody>{p.rows.map((x) => (
+                <tr key={x.code} className="click" onClick={() => openDrawer({ type: 'promo', item: x })}>
+                  <td data-label="Code"><b className="wf-code">{x.code}</b></td>
+                  <td data-label="Discount">{x.type === 'percent' ? `${x.value}% off` : `${pkr(x.value)} off`}</td>
+                  <td data-label="Minimum order">{Number(x.min) ? pkr(x.min) : 'None'}</td>
+                  <td data-label="Used">{Number(x.used || 0)}{Number(x.max) ? ` of ${x.max}` : ' (no limit)'}</td>
+                  <td data-label="Status"><Pill tone={x.active ? 'ok' : 'mute'}>{x.active ? 'Active' : 'Off'}</Pill></td>
+                  <td className="act">
+                    <button type="button" className="wf-btn sm" aria-label={`Edit promo ${x.code}`} onClick={(e) => { e.stopPropagation(); openDrawer({ type: 'promo', item: x }); }}>Edit</button>
+                    <button type="button" className="wf-btn sm danger" aria-label={`Delete promo ${x.code}`} onClick={(e) => { e.stopPropagation(); setAsk({ title: `Delete code ${x.code}?`, body: 'Customers will no longer be able to use it.', confirm: 'Delete code', danger: true, action: () => run(() => api('/api/admin/promos/' + encodeURIComponent(x.code), 'DELETE'), 'Promo code deleted') }); }}>Delete</button>
+                  </td>
+                </tr>
+              ))}</tbody>
+            </table>
+          </div>
+        )}
+        {pager(p)}
+      </>
+    );
+  };
 
   const custView = () => {
     const term = q.trim().toLowerCase();
     const l = customers.filter((c) => !term || [c.name, c.email, c.phone, c.city].some((v) => String(v || '').toLowerCase().includes(term)));
+    const p = paged(l);
     return (
       <>
-        <div className="wf-toolbar"><Search value={q} onChange={(v) => { setQ(v); setLimit(PAGE); }} label="Search customers" placeholder="Search name, email, phone, city" /></div>
-        {!l.length ? <Empty icon="users" title={customers.length ? 'No customers match your search' : 'No customers yet'} body={customers.length ? 'Try a different name or email.' : 'Customers appear here after their first order.'} /> : (
-          <>
-            <div className="wf-list">
-              {l.slice(0, limit).map((c) => (
-                <article key={c.email} className="wf-row wf-crow">
-                  <span className="wf-avatar" aria-hidden="true">{initials(c.name)}</span>
-                  <span className="wf-who"><b>{c.name || 'Unnamed customer'}</b><small>{c.city || '—'}</small></span>
-                  <span className="wf-contact"><a href={`mailto:${c.email}`}>{c.email}</a>{c.phone ? <a href={`tel:${String(c.phone).replace(/[^\d+]/g, '')}`}>{c.phone}</a> : null}</span>
-                  <span className="wf-amt">{pkr(c.spent)}<small>{c.n} {c.n === 1 ? 'order' : 'orders'}, last {day(c.last)}</small></span>
-                </article>
-              ))}
-            </div>
-            {l.length > limit ? <button type="button" className="wf-btn wf-more" onClick={() => setLimit((n) => n + PAGE)}>Show more</button> : null}
-          </>
+        <div className="wf-toolbar"><Search value={q} onChange={(v) => { setQ(v); setPage(1); }} label="Search customers" placeholder="Search name, email, phone, city" /></div>
+        {!l.length ? <Empty title={customers.length ? 'No customers match your search' : 'No customers yet'} body={customers.length ? 'Try a different name or email.' : 'Customers appear here after their first order.'} /> : (
+          <div className="wf-tablewrap">
+            <table className="wf-tbl">
+              <thead><tr><th>Customer</th><th>Contact</th><th>City</th><th>Orders</th><th>Spent</th><th>Last order</th></tr></thead>
+              <tbody>{p.rows.map((c) => (
+                <tr key={c.email}>
+                  <td data-label="Customer"><b>{c.name || 'Unnamed customer'}</b></td>
+                  <td data-label="Contact"><a href={`mailto:${c.email}`}>{c.email}</a>{c.phone ? <small><a href={`tel:${String(c.phone).replace(/[^\d+]/g, '')}`}>{c.phone}</a></small> : null}</td>
+                  <td data-label="City">{c.city || '—'}</td>
+                  <td data-label="Orders">{c.n}</td>
+                  <td data-label="Spent">{pkr(c.spent)}</td>
+                  <td data-label="Last order">{day(c.last)}</td>
+                </tr>
+              ))}</tbody>
+            </table>
+          </div>
         )}
+        {pager(p)}
       </>
     );
   };
@@ -440,51 +469,53 @@ export default function AdminApp() {
       <section className="wf-card">
         <h2>Service connections</h2>
         <p className="wf-muted">Checks the services set up on your server. Secret values are never shown.</p>
-        <button type="button" className="wf-btn" onClick={checkHealth} disabled={health === 'loading'}>{health === 'loading' ? 'Testing…' : 'Test connections'}</button>
+        <div className="wf-gap"><button type="button" className="wf-btn" onClick={checkHealth} disabled={health === 'loading'}>{health === 'loading' ? 'Testing…' : 'Test connections'}</button></div>
         {health && health !== 'loading' ? (
-          <ul className="wf-plain wf-health">{Object.entries(health).map(([k, v]) => {
+          <div className="wf-tablewrap"><table className="wf-tbl plain"><tbody>{Object.entries(health).map(([k, v]) => {
             const s = typeof v === 'object' ? JSON.stringify(v) : String(v);
             const good = /^(ok|connected|configured|true|ready|healthy)/i.test(s);
-            return <li key={k}><span>{k.replaceAll('_', ' ')}</span><span className={'wf-pill ' + (good ? 'ok' : /^(false|missing|error|fail)/i.test(s) ? 'bad' : 'mute')}>{s}</span></li>;
-          })}</ul>
+            return <tr key={k}><td data-label="Service" className="cap">{k.replaceAll('_', ' ')}</td><td data-label="Result"><Pill tone={good ? 'ok' : /^(false|missing|error|fail)/i.test(s) ? 'bad' : 'mute'}>{s}</Pill></td></tr>;
+          })}</tbody></table></div>
         ) : null}
       </section>
     </div>
   );
 
   const views = { dash, orders: ordersView, products: productsView, promos: promosView, cust: custView, settings: settingsView };
-  const current = TABS.find((t) => t[0] === tab) || TABS[0];
+  const headAction = tab === 'orders' ? <button type="button" className="wf-btn" onClick={exportCsv} disabled={!orders.length}>Export CSV</button>
+    : tab === 'products' ? <button type="button" className="wf-btn dark" onClick={() => openDrawer({ type: 'product', item: null })}>+ Add product</button>
+    : tab === 'promos' ? <button type="button" className="wf-btn dark" onClick={() => openDrawer({ type: 'promo', item: null })}>+ New promo code</button> : null;
 
   return (
     <div className="wf">
       <div className="wf-shell">
         <aside className="wf-side">
-          <Brand />
+          <div className="wf-brand"><span className="wf-logo" aria-hidden="true">WF</span><span><b>Watch Flex PK</b><small>Store admin</small></span></div>
           <nav aria-label="Admin sections" className="wf-nav">
+            <p className="wf-navlabel">Menu</p>
             {TABS.map((t) => (
               <button key={t[0]} type="button" className={tab === t[0] ? 'on' : ''} aria-current={tab === t[0] ? 'page' : undefined} onClick={() => go(t[0])}>
-                <span className="wf-ico"><Icon n={ICON_KEY[t[0]]} />{t[0] === 'orders' && pendingBadge ? <i className="wf-dot" aria-hidden="true" /> : null}</span>
-                <span className="wf-lab"><span className="full">{t[1]}</span><span className="short">{t[2]}</span></span>
-                {t[0] === 'orders' && pendingBadge ? <em className="wf-count" aria-label={`${pendingBadge} pending`}>{pendingBadge}</em> : null}
+                <span className="full">{t[1]}</span><span className="short">{t[2]}</span>
+                {t[0] === 'orders' && stats.pending ? <em aria-label={`${stats.pending} pending`}>{stats.pending}</em> : null}
               </button>
             ))}
           </nav>
-          <button type="button" className="wf-logout" onClick={logout}><Icon n="out" />Log out</button>
+          <button type="button" className="wf-logout" onClick={logout}>Log out</button>
         </aside>
-        <div className="wf-content">
+        <div className="wf-panel">
+          <div className="wf-mtop"><b>Watch Flex PK</b><button type="button" className="wf-btn sm" onClick={logout}>Log out</button></div>
           <header className="wf-head">
-            <div className="wf-mbrand"><Brand small /></div>
             <h1>{current[1]}</h1>
             <div className="wf-actions">
-              <button type="button" className={'wf-iconbtn' + (refreshing ? ' spin' : '')} onClick={refresh} disabled={refreshing} aria-label="Refresh store data" title="Refresh"><Icon n="refresh" /></button>
-              <button type="button" className="wf-iconbtn wf-mlogout" onClick={logout} aria-label="Log out" title="Log out"><Icon n="out" /></button>
+              <button type="button" className="wf-btn" onClick={refresh} disabled={refreshing}>{refreshing ? 'Refreshing…' : 'Refresh'}</button>
+              {headAction}
             </div>
           </header>
           <main className="wf-main" key={tab}>{views[tab]()}</main>
         </div>
       </div>
 
-      {openOrder || (drawer?.type === 'order') ? (
+      {drawer?.type === 'order' ? (
         <Drawer title={openOrder ? `Order ${openOrder.ref}` : 'Order not found'} sub={openOrder ? when(openOrder.date) : ''} onClose={closeDrawer}>
           {openOrder ? <OrderDetail key={openOrder.ref} o={openOrder} busy={busy} onStatus={changeStatus} onSave={(body) => putOrder(openOrder.ref, body, (r) => (r?.notification === 'failed' ? 'Saved, but the customer email failed' : r?.notification === 'sent' ? 'Saved and customer emailed' : 'Delivery details saved'))} /> : <p className="wf-muted">This order is no longer in your list. Refresh and try again.</p>}
         </Drawer>
@@ -492,6 +523,7 @@ export default function AdminApp() {
       {drawer?.type === 'product' ? (
         <Drawer title={drawer.item ? 'Edit product' : 'Add product'} sub={drawer.item?.name} onClose={closeDrawer}>
           <ProductForm key={drawer.item?.id || 'new'} p={drawer.item || {}} busy={busy} onDirty={(v) => { dirtyRef.current = v; }} onUpload={uploadFile} onCancel={closeDrawer}
+            onDelete={drawer.item ? () => deleteProducts([drawer.item]) : null}
             onSave={async (payload) => { if (await run(() => api('/api/admin/products', 'POST', { ...payload, id: drawer.item?.id }), 'Product saved')) { dirtyRef.current = false; setDrawer(null); } }} onError={(m) => notify(m, 'error')} />
         </Drawer>
       ) : null}
@@ -511,35 +543,19 @@ export default function AdminApp() {
 function Toast({ t }) {
   return (
     <div className="wf-toasts" aria-live="polite" role="status">
-      {t ? <div key={t.id} className={'wf-toast ' + t.kind} role={t.kind === 'error' ? 'alert' : undefined}><Icon n={t.kind === 'error' ? 'alert' : 'check'} size={18} />{t.text}</div> : null}
+      {t ? <div key={t.id} className={'wf-toast ' + t.kind} role={t.kind === 'error' ? 'alert' : undefined}>{t.text}</div> : null}
     </div>
   );
 }
-function Kpi({ label, value, tone }) {
-  return <div className={'wf-kpi ' + (tone || '')}><b>{value}</b><span>{label}</span></div>;
-}
 function Search({ value, onChange, label, placeholder }) {
   return (
-    <label className="wf-search"><Icon n="search" size={18} /><span className="wf-sr">{label}</span>
+    <label className="wf-search"><span className="wf-sr">{label}</span>
       <input type="search" value={value} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} />
     </label>
   );
 }
-function Empty({ icon, title, body, action }) {
-  return <div className="wf-empty"><Icon n={icon} size={34} /><h3>{title}</h3><p>{body}</p>{action || null}</div>;
-}
-function Dial({ rate }) {
-  const filled = Math.round(rate * 60);
-  const pct = Math.round(rate * 100);
-  return (
-    <figure className="wf-dial" aria-label={`${pct}% of order value collected`}>
-      <svg viewBox="0 0 120 120" aria-hidden="true">
-        <circle cx="60" cy="60" r="57" className="bezel" />
-        {Array.from({ length: 60 }, (_, i) => <line key={i} x1="60" y1="7" x2="60" y2={i % 5 === 0 ? 19 : 14} transform={`rotate(${i * 6} 60 60)`} className={i < filled ? 'tick on' : 'tick'} />)}
-      </svg>
-      <figcaption><b>{pct}%</b><span>collected</span></figcaption>
-    </figure>
-  );
+function Empty({ title, body, action }) {
+  return <div className="wf-empty"><h3>{title}</h3><p>{body}</p>{action || null}</div>;
 }
 function Drawer({ title, sub, onClose, children }) {
   const panel = useRef(null);
@@ -557,7 +573,7 @@ function Drawer({ title, sub, onClose, children }) {
   return (
     <div className="wf-overlay" onMouseDown={(e) => { if (e.target === e.currentTarget) closeRef.current(); }}>
       <div className="wf-drawer" role="dialog" aria-modal="true" aria-label={title} ref={panel} tabIndex={-1}>
-        <div className="wf-dhead"><div><h2>{title}</h2>{sub ? <small>{sub}</small> : null}</div><button type="button" className="wf-iconbtn" onClick={() => closeRef.current()} aria-label="Close"><Icon n="close" /></button></div>
+        <div className="wf-dhead"><div><h2>{title}</h2>{sub ? <small>{sub}</small> : null}</div><button type="button" className="wf-x" onClick={() => closeRef.current()} aria-label="Close">×</button></div>
         <div className="wf-dbody">{children}</div>
       </div>
     </div>
@@ -579,28 +595,10 @@ function Confirm({ title, body, confirm = 'Confirm', cancel = 'Cancel', danger, 
         <h2>{title}</h2><p>{body}</p>
         <div className="wf-actions end">
           <button type="button" className="wf-btn" ref={ref} onClick={onClose}>{cancel}</button>
-          <button type="button" className={'wf-btn ' + (danger ? 'solid-danger' : 'pri')} onClick={onConfirm}>{confirm}</button>
+          <button type="button" className={'wf-btn ' + (danger ? 'solid-danger' : 'dark')} onClick={onConfirm}>{confirm}</button>
         </div>
       </div>
     </div>
-  );
-}
-
-function OrderRow({ o, busy, onOpen, onAdvance }) {
-  const next = NEXT[o.status];
-  const paid = isPaid(o);
-  const c = o.customer || {};
-  return (
-    <article className="wf-row wf-orow" role="listitem">
-      <button type="button" className="wf-rowmain" onClick={() => onOpen(o.ref)} aria-label={`Open order ${o.ref} for ${c.name || 'customer'}`}>
-        <span className="wf-ref">{o.ref}</span>
-        <span className="wf-who"><b>{c.name || 'Unknown customer'}</b><small>{c.city || '—'}</small></span>
-        <span className="wf-date">{day(o.date)}</span>
-        <span className="wf-amt">{pkr(o.total)}<small className={paid ? 'ok' : 'due'}>{paid ? 'Collected' : 'Due on delivery'}</small></span>
-        <Badge s={o.status} />
-      </button>
-      {next ? <button type="button" className="wf-btn sm" disabled={busy} onClick={() => onAdvance(o, next[0])}>{next[1]}</button> : <span className="wf-nospace" />}
-    </article>
   );
 }
 
@@ -614,8 +612,8 @@ function OrderDetail({ o, busy, onStatus, onSave }) {
   const changed = carrier !== (o.shipping?.carrier || '') || trackingNumber !== (o.shipping?.trackingNumber || '') || paymentStatus !== (isPaid(o) ? 'paid' : 'pending');
   return (
     <div className="wf-stack">
-      {o.status === 'cancelled' ? <div className="wf-alert bad"><Icon n="alert" /><span><b>This order was cancelled.</b></span></div> : (
-        <ol className="wf-steps" aria-label="Order progress">{FLOW.map((s, i) => <li key={s} className={i < idx ? 'done' : i === idx ? 'now' : ''} aria-current={i === idx ? 'step' : undefined}><i>{i < idx ? <Icon n="check" size={14} /> : null}</i><span>{s}</span></li>)}</ol>
+      {o.status === 'cancelled' ? <div className="wf-banner bad"><span><b>This order was cancelled.</b></span></div> : (
+        <ol className="wf-steps" aria-label="Order progress">{FLOW.map((s, i) => <li key={s} className={i < idx ? 'done' : i === idx ? 'now' : ''} aria-current={i === idx ? 'step' : undefined}><i>{i < idx ? '✓' : ''}</i><span>{s}</span></li>)}</ol>
       )}
       <label className="wf-field">Order status
         <select value={o.status} disabled={busy} onChange={(e) => onStatus(o, e.target.value)}>{(TRANSITIONS[o.status] || [o.status]).map((s) => <option key={s} value={s}>{s}</option>)}</select>
@@ -626,9 +624,10 @@ function OrderDetail({ o, busy, onStatus, onSave }) {
         <p><b>{c.name || '—'}</b></p>
         <p className="wf-addr">{[c.address, [c.city, c.postal].filter(Boolean).join(' ')].filter(Boolean).join('\n') || 'No address'}</p>
         <div className="wf-actions">
-          {c.phone ? <a className="wf-btn sm" href={`tel:${String(c.phone).replace(/[^\d+]/g, '')}`}><Icon n="phone" size={16} />{c.phone}</a> : null}
-          {c.email ? <a className="wf-btn sm" href={`mailto:${c.email}`}><Icon n="mail" size={16} />{c.email}</a> : null}
+          {c.phone ? <a className="wf-btn sm" href={`tel:${String(c.phone).replace(/[^\d+]/g, '')}`}>Call {c.phone}</a> : null}
+          {c.email ? <a className="wf-btn sm" href={`mailto:${c.email}`}>Email</a> : null}
         </div>
+        {c.email ? <small>{c.email}</small> : null}
         {c.notes ? <p className="wf-note"><b>Customer note:</b> {c.notes}</p> : null}
       </section>
 
@@ -647,13 +646,13 @@ function OrderDetail({ o, busy, onStatus, onSave }) {
         <label className="wf-field">Cash on delivery
           <select value={paymentStatus} onChange={(e) => setPaymentStatus(e.target.value)}><option value="pending">Due on delivery</option><option value="paid">Collected</option></select>
         </label>
-        <button type="button" className="wf-btn pri" disabled={busy || !changed} onClick={() => onSave({ carrier: carrier.trim(), trackingNumber: trackingNumber.trim(), paymentStatus })}>{busy ? 'Saving…' : 'Save delivery details'}</button>
+        <button type="button" className="wf-btn dark" disabled={busy || !changed} onClick={() => onSave({ carrier: carrier.trim(), trackingNumber: trackingNumber.trim(), paymentStatus })}>{busy ? 'Saving…' : 'Save delivery details'}</button>
       </section>
     </div>
   );
 }
 
-function ProductForm({ p, busy, onDirty, onUpload, onSave, onCancel, onError }) {
+function ProductForm({ p, busy, onDirty, onUpload, onSave, onCancel, onDelete, onError }) {
   const start = () => ({ name: p.name || '', brand: p.brand || '', model: p.model || '', price: p.price ?? '', category: p.category || 'Watches', stock: p.stock || 'unknown', stockQuantity: p.stockQuantity ?? '', images: [...(p.images || [])], specs: (p.specs || []).join(', '), featured: !!p.featured, isNew: !!p.isNew });
   const [f, setF] = useState(start);
   const base = useRef(JSON.stringify(f));
@@ -683,7 +682,7 @@ function ProductForm({ p, busy, onDirty, onUpload, onSave, onCancel, onError }) 
     const price = Number(f.price);
     if (!f.name.trim()) return setErr('Enter a product name.');
     if (!Number.isFinite(price) || price < 1) return setErr('Enter a price of at least 1 PKR.');
-    if (f.stockQuantity !== '' && (!Number.isFinite(Number(f.stockQuantity)) || Number(f.stockQuantity) < 0)) return setErr('Stock quantity must be 0 or more, or left blank.');
+    if (f.stockQuantity !== '' && (!Number.isFinite(Number(f.stockQuantity)) || Number(f.stockQuantity) < 0)) return setErr('Units in stock must be 0 or more, or left blank.');
     setErr('');
     onSave({ name: f.name.trim(), brand: f.brand.trim(), model: f.model.trim(), price: String(f.price), category: f.category.trim() || 'Watches', stock: f.stock, stockQuantity: String(f.stockQuantity), images: f.images, specs: f.specs.split(',').map((s) => s.trim()).filter(Boolean), featured: f.featured, isNew: f.isNew });
   };
@@ -710,14 +709,14 @@ function ProductForm({ p, busy, onDirty, onUpload, onSave, onCancel, onError }) 
           <ul className="wf-thumbs">{f.images.map((u, i) => (
             <li key={u + i}>
               <img src={u} alt={`Product photo ${i + 1}`} onError={(e) => { e.currentTarget.style.opacity = '.25'; }} />
-              {i === 0 ? <span className="wf-pill gold">Cover</span> : <button type="button" className="wf-mini" onClick={() => setF((s) => ({ ...s, images: [u, ...s.images.filter((_, k) => k !== i)] }))}>Make cover</button>}
-              <button type="button" className="wf-x" aria-label={`Remove photo ${i + 1}`} onClick={() => setF((s) => ({ ...s, images: s.images.filter((_, k) => k !== i) }))}><Icon n="close" size={14} /></button>
+              {i === 0 ? <Pill tone="info">Cover</Pill> : <button type="button" className="wf-mini" onClick={() => setF((s) => ({ ...s, images: [u, ...s.images.filter((_, k) => k !== i)] }))}>Make cover</button>}
+              <button type="button" className="wf-thumbx" aria-label={`Remove photo ${i + 1}`} onClick={() => setF((s) => ({ ...s, images: s.images.filter((_, k) => k !== i) }))}>×</button>
             </li>
           ))}</ul>
         ) : <p className="wf-muted">No photos yet. The first photo is the cover.</p>}
         <label className="wf-drop">
           <input type="file" multiple accept="image/jpeg,image/png,image/webp,image/avif" disabled={upBusy} onChange={(e) => { const files = [...e.target.files]; e.target.value = ''; if (files.length) upload(files); }} />
-          <Icon n="plus" size={18} />{upBusy ? 'Uploading…' : 'Upload photos'}<small>JPG, PNG, WebP or AVIF, up to 4 MB each</small>
+          <b>{upBusy ? 'Uploading…' : 'Upload photos'}</b><small>JPG, PNG, WebP or AVIF, up to 4 MB each</small>
         </label>
         <div className="wf-inline"><input value={url} onChange={(e) => setUrl(e.target.value)} placeholder="Or paste an image link" aria-label="Image link" onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addUrl(); } }} /><button type="button" className="wf-btn" onClick={addUrl}>Add</button></div>
       </fieldset>
@@ -729,8 +728,9 @@ function ProductForm({ p, busy, onDirty, onUpload, onSave, onCancel, onError }) 
       </div>
       {err ? <p className="wf-err" role="alert">{err}</p> : null}
       <div className="wf-stickybar">
+        {onDelete ? <button type="button" className="wf-btn danger wf-left" onClick={onDelete} disabled={busy}>Delete</button> : null}
         <button type="button" className="wf-btn" onClick={onCancel}>Cancel</button>
-        <button type="submit" className="wf-btn pri" disabled={busy || upBusy}>{busy ? 'Saving…' : p.id ? 'Save changes' : 'Add product'}</button>
+        <button type="submit" className="wf-btn dark" disabled={busy || upBusy}>{busy ? 'Saving…' : p.id ? 'Save changes' : 'Add product'}</button>
       </div>
     </form>
   );
@@ -769,7 +769,7 @@ function PromoForm({ p, busy, onDirty, onSave, onCancel }) {
       {err ? <p className="wf-err" role="alert">{err}</p> : null}
       <div className="wf-stickybar">
         <button type="button" className="wf-btn" onClick={onCancel}>Cancel</button>
-        <button type="submit" className="wf-btn pri" disabled={busy}>{busy ? 'Saving…' : editing ? 'Save changes' : 'Create code'}</button>
+        <button type="submit" className="wf-btn dark" disabled={busy}>{busy ? 'Saving…' : editing ? 'Save changes' : 'Create code'}</button>
       </div>
     </form>
   );
@@ -781,7 +781,7 @@ function SettingsForm({ initial, busy, onSave }) {
   return (
     <form className="wf-form" onSubmit={(e) => { e.preventDefault(); if (fee === '' || Number(fee) < 0) return; onSave(fee); }}>
       <label className="wf-field">Delivery charge (PKR)<input type="number" inputMode="numeric" min="0" step="1" value={fee} onChange={(e) => setFee(e.target.value)} required /><small>Enter 0 for free delivery.</small></label>
-      <button className="wf-btn pri" disabled={busy || String(initial) === fee}>{busy ? 'Saving…' : 'Save settings'}</button>
+      <div><button className="wf-btn dark" disabled={busy || String(initial) === fee}>{busy ? 'Saving…' : 'Save settings'}</button></div>
     </form>
   );
 }
@@ -803,10 +803,10 @@ function Login({ onLogin, notify, toast }) {
     } catch (x) { setErr(x.message); notify(x.message, 'error'); setBusy(false); }
   };
   return (
-    <div className="wf wf-center wf-loginbg">
+    <div className="wf wf-center">
       <form className="wf-login" onSubmit={submit}>
-        <Brand />
-        <h1>Welcome back</h1>
+        <h1>Watch Flex PK</h1>
+        <p className="wf-muted">Log in to manage your store.</p>
         <label className="wf-field" htmlFor="admin-password">Admin password
           <span className="wf-pw">
             <input id="admin-password" type={show ? 'text' : 'password'} autoComplete="current-password" required autoFocus value={pw} onChange={(e) => setPw(e.target.value)} aria-invalid={!!err} />
@@ -814,7 +814,7 @@ function Login({ onLogin, notify, toast }) {
           </span>
         </label>
         {err ? <p className="wf-err" role="alert">{err}</p> : null}
-        <button className="wf-btn pri wide" disabled={busy || !pw}>{busy ? 'Logging in…' : 'Log in'}</button>
+        <button className="wf-btn dark wide" disabled={busy || !pw}>{busy ? 'Logging in…' : 'Log in'}</button>
       </form>
       <Toast t={toast} />
     </div>
