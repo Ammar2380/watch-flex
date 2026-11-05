@@ -122,24 +122,42 @@ export async function getProducts() {
 }
 
 /** Reads private business data for the authenticated admin API only. */
+
+/** Reads private business data for the authenticated admin API only. */
 export async function getDb() {
   assertBackend();
+
   if (!hasSupabase) return readLocal();
+
   const [products, orders, promos, settings] = await Promise.all([
     readProductRows(),
-sbAll('orders?select=*&order=created_at.desc'),  
-  sbAll('promos?select=*&order=code.asc'),
+    sbAll('orders?select=*&order=created_at.desc'),
+    sbAll('promos?select=*&order=code.asc'),
     sb('site_settings?select=key,value'),
   ]);
+
   return {
     products: products.map(productFromRow),
-   orders: orders.map((o) => ({
-  ...o,
-  date: o.created_at,
-  shipping: o.shipping || {},
-})),
-    promos: promos.map((p) => ({ code: p.code, type: p.type, value: p.value, min: p.min_amount, max: p.max_uses, used: p.used_count, active: p.active })),
-    settings: Object.fromEntries(settings.map((x) => [x.key, x.value])),
+
+    orders: orders.map((o) => ({
+      ...o,
+      date: o.created_at,
+      shipping: o.shipping || {},
+    })),
+
+    promos: promos.map((p) => ({
+      code: p.code,
+      type: p.type,
+      value: p.value,
+      min: p.min_amount,
+      max: p.max_uses,
+      used: p.used_count,
+      active: p.active,
+    })),
+
+    settings: Object.fromEntries(
+      settings.map((x) => [x.key, x.value])
+    ),
   };
 }
 
