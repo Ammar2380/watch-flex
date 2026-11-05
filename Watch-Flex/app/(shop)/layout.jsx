@@ -18,11 +18,13 @@ export const metadata = {
     "Shop stylish men's watches at Watch Flex PK. Explore quality designs at affordable prices with cash on delivery across Pakistan.",
 
   // Website favicon
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-  },
 
+  icons: {
+  icon: [
+    { url: '/favicon.ico?v=2', type: 'image/x-icon' },
+  ],
+  shortcut: '/favicon.ico?v=2',
+},
   alternates: {
     canonical: '/',
   },
