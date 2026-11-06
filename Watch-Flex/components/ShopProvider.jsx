@@ -18,6 +18,46 @@ export default function ShopProvider({ products, children }) {
   const pathname = usePathname();
   const items = useMemo(() => normalize(products), [products]);
   const map = useMemo(() => new Map(items.map((p) => [p.id, p])), [items]);
+  // Public marquee settings
+const [marquee, setMarquee] = useState({
+  enabled: true,
+  items: [],
+  speed: 'normal',
+});
+
+useEffect(() => {
+  let cancelled = false;
+
+  fetch('/api/store-config', { cache: 'no-store' })
+    .then((res) => {
+      if (!res.ok) throw new Error('Could not load store settings');
+      return res.json();
+    })
+    .then((data) => {
+      if (cancelled || !data) return;
+
+      setMarquee({
+        enabled: data.marquee_enabled !== false,
+        items: Array.isArray(data.marquee_items)
+          ? data.marquee_items
+              .filter((x) => typeof x === 'string')
+              .map((x) => x.trim().slice(0, 120))
+              .filter(Boolean)
+              .slice(0, 12)
+          : [],
+        speed: ['slow', 'normal', 'fast'].includes(data.marquee_speed)
+          ? data.marquee_speed
+          : 'normal',
+      });
+    })
+    .catch((err) => {
+      console.warn('Could not load marquee settings:', err);
+    });
+
+  return () => {
+    cancelled = true;
+  };
+}, []);
 
   /* ---------- cart (kept on the visitor's own device) ---------- */
   const [cart, setCartState] = useState({});
@@ -216,8 +256,9 @@ export default function ShopProvider({ products, children }) {
     else if (h.startsWith('p-')) router.replace('/p/' + encodeURIComponent(h.slice(2)));
   }, [router]);
 
-  const value = {
+const value = {
     items, map, cart, cnt, rowsOf, okRows, addToCart, changeQty, removeFromCart, removeMany,
+    marquee,
     theme, setTheme, say, status, filters, setFilters, go, scrollTop, fx, motionReady, RM, stillRef, pathname,
   };
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

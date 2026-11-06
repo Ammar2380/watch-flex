@@ -217,8 +217,7 @@ input::placeholder{color:inherit;opacity:.55}
 header{flex-wrap:wrap}
 .mk,.rt{min-height:56px}
 .mq{order:-1;flex:0 0 calc(100% + var(--pad)*2);margin:0 calc(var(--pad)*-1);overflow:hidden;background:var(--fg);color:var(--bg);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;height:32px;display:flex;align-items:center;transition:background .45s,color .45s}
-#mqt{display:flex;flex:none;white-space:nowrap;animation:mq 40s linear infinite;will-change:transform}
-.mq:hover #mqt{animation-play-state:paused}
+#mqt{display:flex;flex:none;white-space:nowrap;animation:mq var(--mq-duration,40s) linear infinite;will-change:transform}.mq:hover #mqt{animation-play-state:paused}
 .mq .g{display:flex;flex:none}.mq span{padding:0 1.4em;position:relative}.mq span::after{content:"•";position:absolute;right:-.25em}
 @keyframes mq{to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.mq{height:auto;padding:6px var(--pad);justify-content:center}#mqt{animation:none;white-space:normal;text-align:center}.mq .g:nth-child(2){display:none}.mq .g{flex-wrap:wrap;justify-content:center}.mq .g span:nth-child(n+5){display:none}}

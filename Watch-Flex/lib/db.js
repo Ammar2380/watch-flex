@@ -225,29 +225,110 @@ export async function deletePromo(code) {
   await sb(`promos?code=eq.${encodeURIComponent(code)}`, { method: 'DELETE' });
 }
 
+const cleanMarqueeItems = (value) => {
+  let items = value;
+
+  if (typeof items === 'string') {
+    try {
+      items = JSON.parse(items);
+    } catch {
+      items = [];
+    }
+  }
+
+  if (!Array.isArray(items)) return [];
+
+  return items
+    .filter((item) => typeof item === 'string')
+    .map((item) => item.trim().slice(0, 120))
+    .filter(Boolean)
+    .slice(0, 12);
+};
+
+const settingEnabled = (value) =>
+  value === true || value === 'true' || value === '1' || value === 1;
+
+const cleanMarqueeSpeed = (value) =>
+  ['slow', 'normal', 'fast'].includes(value) ? value : 'normal';
+
 export async function getStoreSettings() {
   assertBackend();
-  if (!hasSupabase) return { delivery_fee: Number(readLocal().settings?.delivery_fee || 0) };
-  const rows = await sb('site_settings?key=eq.delivery_fee&select=value');
-  return { delivery_fee: Math.max(0, Number(rows[0]?.value ?? 0) || 0) };
+
+  let saved = {};
+
+  if (!hasSupabase) {
+    saved = readLocal().settings || {};
+  } else {
+    const rows = await sb('site_settings?select=key,value');
+    saved = Object.fromEntries(
+      rows.map((row) => [row.key, row.value])
+    );
+  }
+
+  return {
+    delivery_fee: Math.max(0, Number(saved.delivery_fee) || 0),
+
+    marquee_enabled:
+      saved.marquee_enabled == null
+        ? true
+        : settingEnabled(saved.marquee_enabled),
+
+    marquee_items: cleanMarqueeItems(saved.marquee_items),
+
+    marquee_speed: cleanMarqueeSpeed(saved.marquee_speed),
+  };
 }
 
-export async function saveStoreSettings(settings) {
+export async function saveStoreSettings(settings = {}) {
   assertBackend();
-  const cleanSettings = { delivery_fee: Math.max(0, Math.round(Number(settings.delivery_fee) || 0)) };
+
+  const cleanSettings = {};
+
+  if (Object.prototype.hasOwnProperty.call(settings, 'delivery_fee')) {
+    cleanSettings.delivery_fee = Math.max(
+      0,
+      Math.round(Number(settings.delivery_fee) || 0)
+    );
+  }
+
+  if (Object.prototype.hasOwnProperty.call(settings, 'marquee_enabled')) {
+    cleanSettings.marquee_enabled = settingEnabled(settings.marquee_enabled);
+  }
+
+  if (Object.prototype.hasOwnProperty.call(settings, 'marquee_items')) {
+    cleanSettings.marquee_items = cleanMarqueeItems(settings.marquee_items);
+  }
+
+  if (Object.prototype.hasOwnProperty.call(settings, 'marquee_speed')) {
+    cleanSettings.marquee_speed = cleanMarqueeSpeed(settings.marquee_speed);
+  }
+
+  if (Object.keys(cleanSettings).length === 0) {
+    return getStoreSettings();
+  }
+
   if (!hasSupabase) {
     const db = readLocal();
     db.settings = { ...db.settings, ...cleanSettings };
     saveDb();
-    return db.settings;
+    return getStoreSettings();
   }
-  await sb('site_settings?on_conflict=key', {
-    method: 'POST', headers: { Prefer: 'resolution=merge-duplicates,return=minimal' },
-    body: JSON.stringify([{ key: 'delivery_fee', value: cleanSettings.delivery_fee }]),
-  });
-  return cleanSettings;
-}
 
+  await sb('site_settings?on_conflict=key', {
+    method: 'POST',
+    headers: {
+      Prefer: 'resolution=merge-duplicates,return=minimal',
+    },
+    body: JSON.stringify(
+      Object.entries(cleanSettings).map(([key, value]) => ({
+        key,
+        value,
+      }))
+    ),
+  });
+
+  return getStoreSettings();
+}
 export async function createOrder({ items, customer, promo, idempotencyKey }) {
   assertBackend();
   if (hasSupabase) {
